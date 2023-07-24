@@ -1,0 +1,44 @@
+specVersion: 0.0.2
+description: PaySwap wills
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: wills
+    network: fantom-testnet
+    source:
+      address: '0x86EB24C62635573f0dbc52B1b07660f6B3FA8fdA'
+      abi: wills
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - WILL
+      abis:
+        - name: wills
+          file: ./abis/willNote.json
+      eventHandlers:
+        - event: UpdateProtocol(address,address,uint256,string,string,address[],uint256[])
+          handler: handleUpdateProtocol
+        - event: DeleteProtocol(indexed uint256,address)
+          handler: handleDeleteProtocol
+        - event: StartWillWithdrawalCountDown(address,uint256)
+          handler: handleStartWillWithdrawalCountDown
+        - event: AddBalance(address,address,uint256,uint8)
+          handler: handleAddBalance
+        - event: RemoveBalance(address,address,uint256,uint8)
+          handler: handleRemoveBalance
+        - event: CreateWILL(address)
+          handler: handleCreateWILL
+        - event: DeleteWILL(address)
+          handler: handleDeleteWILL
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string[])
+          handler: handleUpdateMiscellaneous
+        - event: UpdateParameters(address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleUpdateParameters
+        - event: TransferDueToNote(address,uint256,uint256,uint256,bool)
+          handler: handleTransferDueToNote

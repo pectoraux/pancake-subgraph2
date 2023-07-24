@@ -1,0 +1,42 @@
+specVersion: 0.0.2
+description: PaySwap GameFactory
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: GameFactory
+    network: fantom-testnet
+    source:
+      address: '0xE3ce3775A4316e8321130C6a60fE9bB02c34c93D'
+      abi: gameFactory
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - Game
+      abis:
+        - name: gameFactory
+          file: ./abis/gameFactory.json
+        - name: gameHelper
+          file: ./abis/gameHelper.json
+      eventHandlers:
+        - event: AddProtocol(indexed address,address,address,uint256,uint256,uint256,uint256,uint256,bool)
+          handler: handleAddProtocol
+        - event: BuyGameTicket(indexed address,uint256,uint256,uint256)
+          handler: handleBuyGameTicket
+        - event: DeleteGame(uint256)
+          handler: handleDeleteGame
+        - event: MintObject(uint256,string,uint256[])
+          handler: handleMintObject
+        - event: UpdateOwner(uint256,address)
+          handler: handleUpdateOwner
+        - event: UpdateProtocol(address,address,uint256,uint256,uint256,uint256,uint256,bool)
+          handler: handleUpdateProtocol
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string)
+          handler: handleUpdateMiscellaneous
+        - event: UpdateTokenId(uint256,uint256)
+          handler: handleUpdateTokenId

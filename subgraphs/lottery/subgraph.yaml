@@ -1,0 +1,38 @@
+specVersion: 0.0.2
+description: PaySwap lottery
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: lottery
+    network: fantom-testnet
+    source:
+      address: '0x0e00e32B2645DBa98B6Cf283B90e7816e1fAF68C'
+      abi: lottery
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - Lottery
+      abis:
+        - name: lottery
+          file: ./abis/lottery.json
+      eventHandlers:
+        - event: LotteryClose(indexed uint256,uint256[6])
+          handler: handleLotteryClose
+        - event: LotteryInjection(indexed uint256,uint256,address)
+          handler: handleLotteryInjection
+        - event: LotteryNumberDrawn(indexed uint256,uint256,uint256)
+          handler: handleLotteryNumberDrawn
+        - event: LotteryOpen(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleLotteryOpen
+        - event: TicketsClaim(indexed address,address,uint256,indexed uint256,uint256)
+          handler: handleTicketsClaim
+        - event: TicketsPurchase(indexed address,indexed uint256,uint256,uint256)
+          handler: handleTicketsPurchase
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string[])
+          handler: handleUpdateMiscellaneous

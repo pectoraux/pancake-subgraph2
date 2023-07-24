@@ -1,0 +1,99 @@
+
+"""
+PaySwap ValuepoolVoter
+"""
+enum VoteOption {
+  Percentile,
+  VotingPower,
+  Unique
+}
+
+type Vote @entity {
+  "ID"
+  id: ID!
+
+  ve: String
+
+  tokenId: BigInt
+  
+  profileId: BigInt
+  
+  identityTokenId: BigInt
+  
+  votingPower: BigInt
+
+  proposal: Proposal
+
+  like: Boolean
+
+  "Creation Time"
+  created: BigInt
+  
+  updated: BigInt
+}
+
+type Proposal @entity {
+  "ID"
+  id: ID!
+  
+  active: Boolean
+  
+  owner: String
+  
+  title: String
+  
+  description: String
+  
+  countries: String
+  
+  cities: String
+  
+  products: String
+
+  upVotes: BigInt
+  
+  downVotes: BigInt
+
+  amount: BigInt
+
+  endTime: BigInt
+
+  "Creation Time"
+  created: BigInt
+
+  "Update Time"
+  updated: BigInt
+
+  valuepool: Valuepool
+
+  votes: [Vote!] @derivedFrom(field: "proposal")
+
+}
+
+type Valuepool @entity {
+  "ID"
+  id: ID!
+
+  period: BigInt
+
+  minPeriod: BigInt
+
+  minDifference: BigInt
+
+  collectionId: BigInt
+
+  minBountyRequired: BigInt
+
+  minimumLockValue: BigInt
+
+  voteOption: VoteOption
+
+  "Creation Time"
+  created: BigInt
+
+  "Update Time"
+  updated: BigInt
+
+  proposals: [Proposal!] @derivedFrom(field: "valuepool")
+  
+}

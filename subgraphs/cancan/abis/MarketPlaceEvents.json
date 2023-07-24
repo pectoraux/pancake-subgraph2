@@ -1,0 +1,3310 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "_referrerCollectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_bountyId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_identityProofId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_sender",
+        "type": "address"
+      }
+    ],
+    "name": "AddReferral",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collection",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "AskCancel",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "prices",
+        "type": "uint256[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "start",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "period",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "isPaywall",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isTradeable",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "images",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "countries",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "cities",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "products",
+        "type": "string"
+      }
+    ],
+    "name": "AskInfo",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_askPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_bidDuration",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "int256",
+        "name": "_minBidIncrementPercentage",
+        "type": "int256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_transferrable",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_rsrcTokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_maxSupply",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_dropinTimer",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_tFIAT",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_ve",
+        "type": "address"
+      }
+    ],
+    "name": "AskNew",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_seller",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_newPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_bidDuration",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "int256",
+        "name": "_minBidIncrementPercentage",
+        "type": "int256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_transferrable",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_rsrcTokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_maxSupply",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_dropinTimer",
+        "type": "uint256"
+      }
+    ],
+    "name": "AskUpdate",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum Status",
+        "name": "_cashbackStatus",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_cashbackStart",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_cashNotCredit",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_checkItemOnly",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[6]",
+        "name": "_cashbackNumbers",
+        "type": "uint256[6]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[6]",
+        "name": "_cashbackCost",
+        "type": "uint256[6]"
+      }
+    ],
+    "name": "AskUpdateCashback",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum Status",
+        "name": "_discountStatus",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_discountStart",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_cashNotCredit",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_checkItemOnly",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_checkIdentityCode",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[6]",
+        "name": "_discountNumbers",
+        "type": "uint256[6]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[6]",
+        "name": "_discountCost",
+        "type": "uint256[6]"
+      }
+    ],
+    "name": "AskUpdateDiscount",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_requiredIndentity",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_valueName",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_onlyTrustWorthyAuditors",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_dataKeeperOnly",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_maxUse",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum COLOR",
+        "name": "_minIDBadgeColor",
+        "type": "uint8"
+      }
+    ],
+    "name": "AskUpdateIdentity",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "_referrerCollectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_deactivate",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_sender",
+        "type": "address"
+      }
+    ],
+    "name": "CloseReferral",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collection",
+        "type": "uint256"
+      }
+    ],
+    "name": "CollectionClose",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "collection",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "baseToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "referrerFee",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "badgeId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "tradingFee",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "recurringBounty",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "minBounty",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "userMinBounty",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "requestUserRegistration",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "requestPartnerRegistration",
+        "type": "bool"
+      }
+    ],
+    "name": "CollectionNew",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "collection",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "referrerFee",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "badgeId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "tradingFee",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "recurringBounty",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "minBounty",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "userMinBounty",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "requestUserRegistration",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "requestPartnerRegistration",
+        "type": "bool"
+      }
+    ],
+    "name": "CollectionUpdate",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "requiredIndentity",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "valueName",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "onlyTrustWorthyAuditors",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "maxUse",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isUserIdentity",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "dataKeeperOnly",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum COLOR",
+        "name": "minIDBadgeColor",
+        "type": "uint8"
+      }
+    ],
+    "name": "CollectionUpdateIdentity",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "subscriptionARP",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      }
+    ],
+    "name": "CreatePaywallARP",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "userTokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "votingPower",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "reviewTime",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "good",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "isPaywall",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "review",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "reviewer",
+        "type": "address"
+      }
+    ],
+    "name": "CreateReview",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      }
+    ],
+    "name": "DeletePaywallARP",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "protocolId",
+        "type": "uint256"
+      }
+    ],
+    "name": "DeleteProtocol",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "partnerCollectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "identityProofId",
+        "type": "uint256"
+      }
+    ],
+    "name": "PartnerRegistrationRequest",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collection",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "PaywallAskCancel",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_askPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_bidDuration",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "int256",
+        "name": "_minBidIncrementPercentage",
+        "type": "int256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_transferrable",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_rsrcTokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_maxSupply",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_dropinTimer",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_tFIAT",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_ve",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_sender",
+        "type": "address"
+      }
+    ],
+    "name": "PaywallAskNew",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_seller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_sender",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_newPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_bidDuration",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "int256",
+        "name": "_minBidIncrementPercentage",
+        "type": "int256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_transferrable",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_rsrcTokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_maxSupply",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_dropinTimer",
+        "type": "uint256"
+      }
+    ],
+    "name": "PaywallAskUpdate",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum Status",
+        "name": "_cashbackStatus",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_cashbackStart",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_cashNotCredit",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_checkItemOnly",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_sender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[6]",
+        "name": "_cashbackNumbers",
+        "type": "uint256[6]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[6]",
+        "name": "_cashbackCost",
+        "type": "uint256[6]"
+      }
+    ],
+    "name": "PaywallAskUpdateCashback",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum Status",
+        "name": "_discountStatus",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_discountStart",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_cashNotCredit",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_checkItemOnly",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_checkIdentityCode",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_sender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[6]",
+        "name": "_discountNumbers",
+        "type": "uint256[6]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[6]",
+        "name": "_discountCost",
+        "type": "uint256[6]"
+      }
+    ],
+    "name": "PaywallAskUpdateDiscount",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_requiredIndentity",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_valueName",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_sender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_onlyTrustWorthyAuditors",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_dataKeeperOnly",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_maxUse",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum COLOR",
+        "name": "_minIDBadgeColor",
+        "type": "uint8"
+      }
+    ],
+    "name": "PaywallAskUpdateIdentity",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "buyer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eventType",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "askPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "netPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "nfTicketId",
+        "type": "uint256"
+      }
+    ],
+    "name": "PaywallTrade",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_min",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_max",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_unitPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_category",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_element",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_traitType",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_currency",
+        "type": "string"
+      }
+    ],
+    "name": "PaywallUpdateOptions",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "profileId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "likes",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "disLikes",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "like",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "PaywallVoted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "claimer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "RevenueClaim",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "buyer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "askPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "netPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "nfTicketId",
+        "type": "uint256"
+      }
+    ],
+    "name": "Trade",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "position",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "active",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "anouncementTitle",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "anouncementContent",
+        "type": "string"
+      }
+    ],
+    "name": "UpdateAnnouncement",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "protocolId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "autocharge",
+        "type": "bool"
+      }
+    ],
+    "name": "UpdateAutoCharge",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "desc",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "large",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "small",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "avatar",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "contactChannels",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "contacts",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "workspaces",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "countries",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "cities",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "products",
+        "type": "string"
+      }
+    ],
+    "name": "UpdateCollection",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "idx",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "paramName",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "paramValue",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "paramValue2",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "paramValue3",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "paramValue4",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "paramValue5",
+        "type": "string"
+      }
+    ],
+    "name": "UpdateMiscellaneous",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_sender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_min",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_max",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_unitPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_category",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_element",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_traitType",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_value",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_currency",
+        "type": "string"
+      }
+    ],
+    "name": "UpdateOptions",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_paywallId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_add",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "_isNFT",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_images",
+        "type": "string"
+      }
+    ],
+    "name": "UpdatePaywall",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "nfticketId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "referrerCollectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "protocolId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "optionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amountReceivable",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "periodReceivable",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "startReceivable",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "paywallId",
+        "type": "string"
+      }
+    ],
+    "name": "UpdateProtocol",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "optionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "freeTrialPeriod",
+        "type": "uint256"
+      }
+    ],
+    "name": "UpdateSubscriptionInfo",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "eventType",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isSurvey",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "required",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "active",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "linkToTask",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "codes",
+        "type": "string"
+      }
+    ],
+    "name": "UpdateTaskEvent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "valuepool",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "add",
+        "type": "bool"
+      }
+    ],
+    "name": "UpdateValuepools",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "userCollectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "active",
+        "type": "bool"
+      }
+    ],
+    "name": "UserRegistration",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "profileId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "tokenId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "likes",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "disLikes",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "like",
+        "type": "bool"
+      }
+    ],
+    "name": "Voted",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_referrerCollectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_bountyId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_identityProofId",
+        "type": "uint256"
+      }
+    ],
+    "name": "emitAddReferral",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "collection",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "emitAskCancel",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "tokenId",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "prices",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "start",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "period",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "isPaywall",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isTradeable",
+        "type": "bool"
+      },
+      {
+        "internalType": "string",
+        "name": "images",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "countries",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "cities",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "products",
+        "type": "string"
+      }
+    ],
+    "name": "emitAskInfo",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "collection",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "tokenId",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "askPrice",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_bidDuration",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_minBidIncrementPercentage",
+        "type": "int256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_transferrable",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_rsrcTokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_maxSupply",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_dropinTimer",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_tFIAT",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_ve",
+        "type": "address"
+      }
+    ],
+    "name": "emitAskNew",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "_seller",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_newPrice",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_bidDuration",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_minBidIncrementPercentage",
+        "type": "int256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_transferrable",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_rsrcTokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_maxSupply",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_dropinTimer",
+        "type": "uint256"
+      }
+    ],
+    "name": "emitAskUpdate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "internalType": "enum Status",
+        "name": "_cashbackStatus",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_cashbackStart",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_cashNotCredit",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "_checkItemOnly",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256[6]",
+        "name": "_cashbackNumbers",
+        "type": "uint256[6]"
+      },
+      {
+        "internalType": "uint256[6]",
+        "name": "_cashbackCost",
+        "type": "uint256[6]"
+      }
+    ],
+    "name": "emitAskUpdateCashback",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "internalType": "enum Status",
+        "name": "_discountStatus",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_discountStart",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_cashNotCredit",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "_checkItemOnly",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "_checkIdentityCode",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256[6]",
+        "name": "_discountNumbers",
+        "type": "uint256[6]"
+      },
+      {
+        "internalType": "uint256[6]",
+        "name": "_discountCost",
+        "type": "uint256[6]"
+      }
+    ],
+    "name": "emitAskUpdateDiscount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_requiredIndentity",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_valueName",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "_onlyTrustWorthyAuditors",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "_dataKeeperOnly",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_maxUse",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum COLOR",
+        "name": "_minIDBadgeColor",
+        "type": "uint8"
+      }
+    ],
+    "name": "emitAskUpdateIdentity",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_referrerCollectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_bountyId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "deactivate",
+        "type": "bool"
+      }
+    ],
+    "name": "emitCloseReferral",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      }
+    ],
+    "name": "emitCollectionClose",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_collection",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_baseToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_referrerFee",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_badgeId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tradingFee",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_recurringBounty",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_minBounty",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_userMinBounty",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_requestUserRegistration",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "_requestPartnerRegistration",
+        "type": "bool"
+      }
+    ],
+    "name": "emitCollectionNew",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_collection",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_referrerFee",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_badgeId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tradingFee",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_recurringBounty",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_minBounty",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_userMinBounty",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_requestUserRegistration",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "_requestPartnerRegistration",
+        "type": "bool"
+      }
+    ],
+    "name": "emitCollectionUpdate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_requiredIndentity",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_valueName",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "_onlyTrustWorthyAuditors",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_maxUse",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_isUserIdentity",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "_dataKeeperOnly",
+        "type": "bool"
+      },
+      {
+        "internalType": "enum COLOR",
+        "name": "_minIDBadgeColor",
+        "type": "uint8"
+      }
+    ],
+    "name": "emitCollectionUpdateIdentity",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_subscriptionARP",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      }
+    ],
+    "name": "emitCreatePaywallARP",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      }
+    ],
+    "name": "emitDeletePaywallARP",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "protocolId",
+        "type": "uint256"
+      }
+    ],
+    "name": "emitDeleteProtocol",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_identityProofId",
+        "type": "uint256"
+      }
+    ],
+    "name": "emitPartnerRegistrationRequest",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_min",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_max",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_unitPrice",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_category",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_element",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_traitType",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_currency",
+        "type": "string"
+      }
+    ],
+    "name": "emitPaywallUpdateOptions",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "revenueToClaim",
+        "type": "uint256"
+      }
+    ],
+    "name": "emitRevenueClaim",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "tokenId",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "userTokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "votingPower",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "good",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "isPaywall",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "review",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "reviewer",
+        "type": "address"
+      }
+    ],
+    "name": "emitReview",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "_seller",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_price",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_netPrice",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_nfTicketId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_eventType",
+        "type": "uint256"
+      }
+    ],
+    "name": "emitTrade",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "position",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "active",
+        "type": "bool"
+      },
+      {
+        "internalType": "string",
+        "name": "anouncementTitle",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "anouncementContent",
+        "type": "string"
+      }
+    ],
+    "name": "emitUpdateAnnouncement",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "protocolId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "autoCharge",
+        "type": "bool"
+      }
+    ],
+    "name": "emitUpdateAutoCharge",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "large",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "small",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "avatar",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contactChannels",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contacts",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "workspaces",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "countries",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "cities",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "products",
+        "type": "string"
+      }
+    ],
+    "name": "emitUpdateCollection",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_idx",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "paramName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "paramValue",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "paramValue2",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "paramValue3",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "paramValue4",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "paramValue5",
+        "type": "string"
+      }
+    ],
+    "name": "emitUpdateMiscellaneous",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_min",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_max",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_unitPrice",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_category",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_element",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_traitType",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_value",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_currency",
+        "type": "string"
+      }
+    ],
+    "name": "emitUpdateOptions",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nfticketId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "referrerCollectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "protocolId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "optionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountReceivable",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "periodReceivable",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startReceivable",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "productId",
+        "type": "string"
+      }
+    ],
+    "name": "emitUpdateProtocol",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_optionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_freeTrialPeriod",
+        "type": "uint256"
+      }
+    ],
+    "name": "emitUpdateSubscriptionInfo",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "isSurvey",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "required",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "active",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "eventType",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "linkToTask",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "codes",
+        "type": "string"
+      }
+    ],
+    "name": "emitUpdateTaskEvent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_valuepool",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "_add",
+        "type": "bool"
+      }
+    ],
+    "name": "emitUpdateValuepools",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_userCollectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "active",
+        "type": "bool"
+      }
+    ],
+    "name": "emitUserRegistration",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "collectionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_profileId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "likes",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "dislikes",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "like",
+        "type": "bool"
+      }
+    ],
+    "name": "emitVoted",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_contractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setContractAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_productId",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_paywallId",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "_add",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "_isNFT",
+        "type": "bool"
+      },
+      {
+        "internalType": "string",
+        "name": "images",
+        "type": "string"
+      }
+    ],
+    "name": "updatePaywall",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

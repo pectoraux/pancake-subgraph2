@@ -1,0 +1,44 @@
+specVersion: 0.0.2
+description: PaySwap bills
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: bills
+    network: fantom-testnet
+    source:
+      address: '0xA322F9253FF045db7DF5cA058A7e544f7Ad514df'
+      abi: billMinter
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - BILL
+      abis:
+        - name: billMinter
+          file: ./abis/billMinter.json
+        - name: billNote
+          file: ./abis/billNote.json
+      eventHandlers:
+        - event: UpdateProtocol(address,uint256,uint256,address,address,string,string)
+          handler: handleUpdateProtocol
+        - event: Voted(indexed address,uint256,uint256,uint256,bool)
+          handler: handleVoted
+        - event: AutoCharge(indexed uint256,address,address,uint256)
+          handler: handleAutoCharge
+        - event: DeleteProtocol(indexed uint256,address)
+          handler: handleDeleteProtocol
+        - event: CreateBILL(address,address,uint256)
+          handler: handleCreateBILL
+        - event: DeleteBILL(address)
+          handler: handleDeleteBILL
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string)
+          handler: handleUpdateMiscellaneous
+        - event: UpdateAutoCharge(indexed uint256,address,bool)
+          handler: handleUpdateAutoCharge
+        - event: TransferDueToNote(address,uint256,uint256,uint256,bool)
+          handler: handleTransferDueToNote

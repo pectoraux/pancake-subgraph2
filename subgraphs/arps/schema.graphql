@@ -1,0 +1,84 @@
+
+"""
+PaySwap ARPs
+"""
+
+type Protocol @entity {
+  "ID"
+  id: ID!
+  
+  active: Boolean
+  
+  autoCharge: Boolean
+
+  owner: String
+  
+  token: String
+  
+  arp: ARP
+  
+  media: String
+  
+  description: String
+  
+  metadataUrl: String
+  
+  optionId: BigInt
+  
+  notes: [Note!] @derivedFrom(field: "protocol")
+
+}
+
+type ARP @entity {
+  "ID"
+  id: ID!
+
+  likes: BigInt
+
+  dislikes: BigInt
+  
+  profileId: BigInt
+
+  active: Boolean
+
+  owner: String
+
+  applicationLink: String
+
+  tags: String
+
+  protocols: [Protocol!] @derivedFrom(field: "arp")
+  
+  votes: [Vote!] @derivedFrom(field: "arp")
+  
+  notes: [Note!] @derivedFrom(field: "arp")
+  
+}
+
+type Note @entity {
+  id: ID!
+
+  metadataUrl: String
+
+  createdAt: BigInt
+
+  updatedAt: BigInt
+  
+  protocol: Protocol
+
+  arp: ARP
+}
+
+type Vote @entity {
+  id: ID!
+
+  createdAt: BigInt!
+  
+  updatedAt: BigInt!
+  
+  profileId: BigInt!
+
+  liked: Boolean!
+  
+  arp: ARP
+}

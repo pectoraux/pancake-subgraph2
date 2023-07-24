@@ -1,0 +1,46 @@
+specVersion: 0.0.2
+description: PaySwap worlds
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: worlds
+    network: fantom-testnet
+    source:
+      address: '0xfC28F508032e3D18e3130791F0b376Bd99aB1374'
+      abi: worlds
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - World
+      abis:
+        - name: worlds
+          file: ./abis/worldNote.json
+        - name: worldHelper2
+          file: ./abis/worldHelper2.json
+        - name: worldHelper3
+          file: ./abis/worldHelper3.json
+      eventHandlers:
+        - event: UpdateProtocol(indexed uint256,uint256,address,address,address,string,string)
+          handler: handleUpdateProtocol
+        - event: Voted(indexed address,uint256,uint256,uint256,bool)
+          handler: handleVoted
+        - event: AutoCharge(indexed uint256,address,address,uint256)
+          handler: handleAutoCharge
+        - event: DeleteProtocol(indexed uint256,address)
+          handler: handleDeleteProtocol
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string)
+          handler: handleUpdateMiscellaneous
+        - event: CreateWorld(indexed address,address,uint256)
+          handler: handleCreateWorld
+        - event: DeleteWorld(address)
+          handler: handleDeleteWorld
+        - event: UpdateAutoCharge(indexed uint256,address,bool)
+          handler: handleUpdateAutoCharge
+        - event: Mint(indexed uint256,address,address,uint256,uint256,string,string,string)
+          handler: handleMint

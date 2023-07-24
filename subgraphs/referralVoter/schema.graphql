@@ -1,0 +1,44 @@
+
+"""
+PaySwap Lottery
+"""
+type Vote @entity {
+  "ID"
+  id: ID!
+
+  ve: String
+  
+  voter: String
+
+  tokenId: BigInt
+  
+  votingPower: BigInt
+
+  collection: Collection
+
+  "Creation Time"
+  created: BigInt
+}
+
+type Collection @entity {
+  "ID"
+  id: ID!
+  
+  active: Boolean
+  
+  owner: String
+  
+  ve: String
+  
+  gauge: String
+  
+  bribe: String
+  
+  upVotes: BigInt
+  
+  "Creation Time"
+  creationTime: BigInt
+
+  votes: [Vote!] @derivedFrom(field: "collection")
+
+}

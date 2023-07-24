@@ -1,0 +1,40 @@
+specVersion: 0.0.2
+description: PaySwap auditors
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: auditors
+    network: fantom-testnet
+    source:
+      address: '0x51ccF98593809607bdB08509e8b8d670658f86C0'
+      abi: auditors
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - Auditor
+      abis:
+        - name: auditors
+          file: ./abis/auditorNote.json
+        - name: auditorHelper
+          file: ./abis/auditorHelper.json
+      eventHandlers:
+        - event: UpdateProtocol(indexed uint256,uint256[],uint256,address,address,string,string)
+          handler: handleUpdateProtocol
+        - event: Voted(indexed address,uint256,uint256,uint256,bool)
+          handler: handleVoted
+        - event: AutoCharge(indexed uint256,address,address,uint256)
+          handler: handleAutoCharge
+        - event: DeleteProtocol(indexed uint256,address)
+          handler: handleDeleteProtocol
+        - event: CreateAuditor(indexed address,address,uint256)
+          handler: handleCreateAuditor
+        - event: DeleteAuditor(indexed address)
+          handler: handleDeleteAuditor
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string)
+          handler: handleUpdateMiscellaneous

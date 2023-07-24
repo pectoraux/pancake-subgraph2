@@ -1,0 +1,31 @@
+specVersion: 0.0.2
+description: PaySwap BusinessVoter
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: BusinessVoter
+    network: fantom-testnet
+    source:
+      address: '0x3Fd9F56dE77002e267104d106A92967cd000EEC9'
+      abi: BusinessVoter
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - Collection
+        - Vote
+      abis:
+        - name: BusinessVoter
+          file: ./abis/BusinessVoter.json
+      eventHandlers:
+        - event: GaugeCreated(indexed uint256,address,address,address,address)
+          handler: handleGaugeCreated
+        - event: Voted(indexed uint256,uint256,uint256,address,address)
+          handler: handleVoted
+        - event: DeactivateGauge(indexed uint256)
+          handler: handleDeactivateGauge

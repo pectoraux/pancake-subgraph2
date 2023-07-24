@@ -1,0 +1,48 @@
+specVersion: 0.0.2
+description: PaySwap arps
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: arps
+    network: fantom-testnet
+    source:
+      address: '0x854059066aD7BDF6d18E069bdC6b2DE477Ba8949'
+      abi: arpHelper
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - ARP
+      abis:
+        - name: arpHelper
+          file: ./abis/arpHelper.json
+        - name: arpNote
+          file: ./abis/arpNote.json
+      eventHandlers:
+        - event: UpdateProtocol(address,uint256,uint256,address,address,string,string)
+          handler: handleUpdateProtocol
+        - event: Voted(indexed address,uint256,uint256,uint256,bool)
+          handler: handleVoted
+        - event: AutoCharge(indexed uint256,address,address,uint256)
+          handler: handleAutoCharge
+        - event: DeleteProtocol(indexed uint256,address)
+          handler: handleDeleteProtocol
+        - event: CreateARP(address,address,uint256)
+          handler: handleCreateARP
+        - event: DeleteARP(address)
+          handler: handleDeleteARP
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string[])
+          handler: handleUpdateMiscellaneous
+        - event: PayInvoicePayable(address,uint256,uint256)
+          handler: handlePayInvoicePayable
+        - event: Withdraw(indexed address,address,uint256)
+          handler: handleWithdraw
+        - event: UpdateAutoCharge(indexed uint256,address,bool)
+          handler: handleUpdateAutoCharge
+        - event: TransferDueToNote(address,uint256,uint256,uint256,bool)
+          handler: handleTransferDueToNote

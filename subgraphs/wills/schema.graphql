@@ -1,0 +1,80 @@
+
+"""
+PaySwap WILLs
+"""
+type Protocol @entity {
+  "ID"
+  id: ID!
+  
+  active: Boolean
+
+  owner: String
+  
+  token: String
+  
+  will: WILL
+  
+  media: String
+  
+  description: String
+  
+  profileId: BigInt
+  
+  createdAt: BigInt
+  
+  updatedAt: BigInt
+  
+  tokens: [Bytes!]
+  
+  percentages: [BigInt!]
+  
+}
+
+type WILL @entity {
+  "ID"
+  id: ID!
+
+  profileId: BigInt
+
+  updatePeriod: BigInt
+
+  minWithdrawableNow: BigInt
+
+  minNFTWithdrawableNow: BigInt
+
+  active: Boolean
+
+  owner: String
+
+  protocols: [Protocol!] @derivedFrom(field: "will")
+  
+  tokens: [Token!] @derivedFrom(field: "will")
+  
+  notes: [Note!] @derivedFrom(field: "will")
+}
+
+type Note @entity {
+  id: ID!
+
+  createdAt: BigInt
+
+  metadataUrl: String
+
+  will: WILL
+}
+
+type Token @entity {
+  "ID"
+  id: ID!
+
+  tokenAddress: String
+
+  tokenType: BigInt
+
+  value: BigInt
+
+  active: Boolean
+
+  will: WILL
+
+}

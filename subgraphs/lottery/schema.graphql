@@ -1,0 +1,81 @@
+
+"""
+PaySwap Lottery
+"""
+type History @entity {
+  "ID"
+  id: ID!
+
+  createdAt: BigInt
+  
+  updatedAt: BigInt
+
+  countWinnersPerBracket: [BigInt!]
+
+  finalNumber: BigInt
+
+  numberOfWinningTickets: BigInt
+
+  lottery: Lottery
+}
+
+type Lottery @entity {
+  "ID"
+  id: ID!
+  
+  active: Boolean
+  
+  treasuryFee: BigInt
+  
+  referrerFee: BigInt
+  
+  priceTicket: BigInt
+  
+  firstTicketId: BigInt
+  
+  discountDivisor: BigInt
+  
+  startTime: BigInt
+  
+  endTime: BigInt
+
+  collectionId: BigInt
+
+  tokens: [Token!] @derivedFrom(field: "lottery")
+  
+  users: [User!] @derivedFrom(field: "lottery")
+  
+  history: [History!] @derivedFrom(field: "lottery")
+  
+}
+
+type Token @entity {
+  "ID"
+  id: ID!
+
+  tokenAddress: String
+
+  value: BigInt
+
+  active: Boolean
+
+  lottery: Lottery
+
+  user: User
+
+}
+
+type User @entity {
+  "ID"
+  id: ID!
+
+  ticketNumber: BigInt
+  
+  claimed: Boolean
+
+  account: String
+  
+  lottery: Lottery
+  
+  tokens: [Token!] @derivedFrom(field: "user")
+}

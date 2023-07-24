@@ -1,0 +1,30 @@
+
+"""
+PaySwap Pools
+"""
+type Pair @entity {
+  "ID"
+  id: ID!
+  
+  timestamp: BigInt
+
+  accounts: [Account!] @derivedFrom(field: "pair")
+
+}
+
+type Account @entity {
+  "ID"
+  id: ID!
+  
+  pair: Pair
+
+  ve: String
+  
+  owner: String
+
+  tokenId: BigInt
+
+  amount: BigDecimal
+  
+  timestamp: BigInt
+}

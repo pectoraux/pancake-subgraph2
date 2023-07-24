@@ -1,0 +1,226 @@
+"""
+PaySwap Valuepool
+"""
+enum TxType {
+  New
+  VaDeposit
+  VaWithdrawal
+  VavaWithdrawal
+  VavaLoan
+  SponsorPayment
+  VavaReimbursement
+  Purchase
+}
+
+enum LoanType {
+  CBC
+  BNPL
+}
+
+type Valuepool @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean!
+  
+  riskpool: Boolean!
+
+  initialized: Boolean
+  
+  bnpl: Boolean
+
+  onePersonOneVote: Boolean!
+
+  name: String
+  
+  description: String
+
+  ve: String
+  
+  devaddr_: String
+  
+  tokenAddress: String
+
+  veName: String
+  
+  veSymbol: String
+  
+  veDecimals: BigInt
+  
+  maxSupply: BigInt
+  
+  minTicketPrice: BigInt
+  
+  minToSwitch: BigInt
+
+  countries: [String!]
+
+  cities: [String!]
+  
+  products: [String!]
+  
+  "Block timestamp"
+  timestamp: BigInt!
+  
+  queueDuration: BigInt
+  
+  maxDueReceivable: BigInt
+  
+  minReceivable: BigInt
+
+  treasuryShare: BigInt
+  
+  maxWithdrawable: BigInt
+  
+  lenderFactor: BigInt
+  
+  minimumSponsorPercentile: BigInt
+
+  veBalance: BigDecimal
+  
+  transactionHistory: [Transaction!]! @derivedFrom(field: "valuepool")
+  
+  sponsorAddresses: [Sponsor!] @derivedFrom(field: "valuepool")
+  
+  loans: [Loan!] @derivedFrom(field: "valuepool")
+  
+  tokens: [Token!] @derivedFrom(field: "valuepool")
+  
+  purchaseHistory: [Purchase!] @derivedFrom(field: "valuepool")
+}
+
+type Purchase @entity {
+  id: ID!
+
+  timestamp: BigInt
+  
+  updatedAt: BigInt
+
+  valuepool: Valuepool
+
+  active: Boolean
+
+  collection: String
+
+  from: String
+
+  referrer: String
+
+  productId: String
+
+  options: [BigInt!]
+
+  userTokenId: BigInt  
+  
+  identityTokenId: BigInt  
+  
+  tokenId: BigInt  
+
+  rank: BigInt  
+
+  epoch: BigInt
+  
+  price: BigDecimal
+
+}
+
+type Token @entity {
+  id: ID!
+
+  vePercentile: BigInt
+  
+  vavaPercentile: BigInt
+
+  tokenId: BigInt
+
+  valuepool: Valuepool
+
+  owner: String
+  
+  metadataUrl: String
+
+  lockAmount: BigDecimal
+  
+  lockValue: BigDecimal
+
+  lockTime: BigInt
+  
+  createAt: BigInt
+  
+  updatedAt: BigInt
+
+}
+
+type Loan @entity {
+  id: ID!
+
+  valuepool: Valuepool
+
+  createAt: BigInt
+  
+  updatedAt: BigInt
+  
+  tokenId: BigInt
+
+  amount: BigDecimal
+
+  active: Boolean
+
+  borrower: String
+
+  token: String
+  
+  loanType: LoanType!
+}
+
+type Sponsor @entity {
+  id: ID!
+
+  card: String
+
+  geoTag: BigInt
+
+  active: Boolean
+
+  timestamp: BigInt
+  
+  updatedAt: BigInt
+
+  percentile: BigInt
+  
+  amount: BigDecimal
+
+  valuepool: Valuepool
+
+}
+
+type Transaction @entity {
+  id: ID!
+
+  block: BigInt!
+
+  "Timestamp"
+  timestamp: BigInt!
+  
+  tokenId: BigInt
+
+  "Stake"
+  valuepool: Valuepool
+
+  veAddress: String
+
+  user: String
+
+  "Net price"
+  netPrice: BigDecimal
+
+  depositType: Int
+
+  rank: BigInt
+
+  locktime: BigInt
+
+  "Order type"
+  txType: TxType!
+
+}

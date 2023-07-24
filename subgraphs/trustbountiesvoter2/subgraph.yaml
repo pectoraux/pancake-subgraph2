@@ -1,0 +1,34 @@
+specVersion: 0.0.2
+description: NFT market for ERC721 tokens on Binance Smart Chain
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: TrustBountiesVoter
+    network: chapel
+    source:
+      address: "0xD7A39382Fdce1A63Ac4f85d06919C1A0CdBDF59f"
+      abi: TrustBountiesVoter
+      startBlock: 24801409
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - Litigation
+      abis:
+        - name: TrustBountiesVoter
+          file: ./abis/TrustBountiesVoter.json
+      eventHandlers:
+        - event: GaugeCreated(indexed uint256,address,address,address,uint256,uint256,uint256,uint256,uint256,uint256,string,string)
+          handler: handleGaugeCreated
+        - event: UpdateAttackerContent(indexed uint256,string)
+          handler: handleUpdateAttackerContent
+        - event: UpdateDefenderContent(indexed uint256,string)
+          handler: handleUpdateDefenderContent
+        - event: Voted(indexed uint256,address,address,uint256,int256)
+          handler: handleVoted
+        - event: GaugeClosed(indexed uint256)
+          handler: handleGaugeClosed

@@ -1,0 +1,87 @@
+
+"""
+PaySwap Worlds
+"""
+
+type Protocol @entity {
+  "ID"
+  id: ID!
+  
+  active: Boolean
+
+  autoCharge: Boolean
+
+  rating: BigInt
+
+  owner: String
+  
+  token: String
+      
+  media: String
+  
+  description: String
+  
+  world: World
+  
+}
+
+type WorldNFT @entity {
+  id: ID!
+  
+  tokenId: BigInt
+
+  metadataUrl: String
+  
+  world: World
+
+}
+
+type Vote @entity {
+  id: ID!
+
+  createdAt: BigInt!
+  
+  updatedAt: BigInt!
+  
+  profileId: BigInt!
+
+  liked: Boolean!
+  
+  world: World
+}
+
+type World @entity {
+  "ID"
+  id: ID!
+
+  likes: BigInt
+
+  dislikes: BigInt
+
+  profileId: BigInt
+
+  active: Boolean
+
+  owner: String
+
+  applicationLink: String
+
+  protocols: [Protocol!] @derivedFrom(field: "world")
+
+  votes: [Vote!] @derivedFrom(field: "world")
+  
+  worldNFTs: [WorldNFT!] @derivedFrom(field: "world")
+  
+  notes: [Note!] @derivedFrom(field: "world")
+
+}
+
+type Note @entity {
+  id: ID!
+
+  createdAt: BigInt
+
+  metadataUrl: String
+
+  world: World
+}

@@ -1,0 +1,40 @@
+specVersion: 0.0.2
+description: PaySwap StakeMarket
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: StakeMarket
+    network: fantom-testnet
+    source:
+      address: '0xe11515741E0048914Fccb80a2C700d41b757F60A'
+      abi: StakeMarket
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - Stake
+      abis:
+        - name: StakeMarket
+          file: ./abis/StakeMarket.json
+        - name: StakeMarketHelper
+          file: ./abis/StakeMarketHelper.json
+      eventHandlers:
+        - event: StakeCreated(indexed uint256,address,uint256,string)
+          handler: handleStakeCreated
+        - event: UpdateRequirements(indexed uint256,string,string,string,string)
+          handler: handleUpdateRequirements
+        - event: ApplyToStake(indexed uint256,address,uint256,uint256)
+          handler: handleApplyToStake
+        - event: AddToStake(indexed uint256,address,uint256,uint256)
+          handler: handleAddToStake
+        - event: UnlockStake(indexed uint256,address,uint256,uint256)
+          handler: handleUnlockStake
+        - event: CancelStake(indexed uint256,address,uint256)
+          handler: handleCancelStake
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string)
+          handler: handleUpdateMiscellaneous

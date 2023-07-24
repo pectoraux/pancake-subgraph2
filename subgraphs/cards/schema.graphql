@@ -1,0 +1,35 @@
+
+"""
+PaySwap Cards
+"""
+
+type Card @entity {
+  "ID"
+  id: ID!
+
+  createdAt: BigInt!
+  
+  updatedAt: BigInt!
+
+  active: Boolean
+
+  owner: String
+  
+  password: String
+
+  balances: [TokenBalance!] @derivedFrom(field: "card")
+}
+
+type TokenBalance @entity {
+  id: ID!
+
+  createdAt: BigInt!
+  
+  updatedAt: BigInt!
+
+  balance: BigInt
+
+  tokenAddress: String
+
+  card: Card
+}

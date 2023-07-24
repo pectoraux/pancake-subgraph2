@@ -1,0 +1,106 @@
+specVersion: 0.0.2
+description: CanCan market place
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: MarketPlace
+    network: fantom-testnet
+    source:
+      address: "0x5DbA44D1074bff70A979D7954003ADC2462197b6"
+      abi: MarketPlaceEvents
+      startBlock: 15707023
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - Collection
+        - NFT
+        - User
+        - AskOrder
+        - Transaction
+      abis:
+        - name: MarketPlaceEvents
+          file: ./abis/MarketPlaceEvents.json
+        - name: NFTicketHelper2
+          file: ./abis/NFTicketHelper2.json
+      eventHandlers:
+        - event: CollectionNew(indexed uint256,address,address,uint256,uint256,uint256,uint256,uint256,uint256,bool,bool)
+          handler: handleCollectionNew
+        - event: CollectionUpdate(indexed uint256,indexed address,uint256,uint256,uint256,uint256,uint256,uint256,bool,bool)
+          handler: handleCollectionUpdate
+        - event: CollectionClose(indexed uint256)
+          handler: handleCollectionClose
+        - event: AskCancel(indexed uint256,indexed uint256)
+          handler: handleAskCancel
+        - event: AskNew(indexed uint256,string,uint256,uint256,int256,bool,uint256,uint256,uint256,address,address)
+          handler: handleAskNew
+        - event: AskUpdate(string,address,indexed uint256,uint256,uint256,int256,bool,uint256,uint256,uint256)
+          handler: handleAskUpdate
+        - event: AskUpdateCashback(uint256,string,uint8,uint256,bool,bool,uint256[6],uint256[6])
+          handler: handleAskUpdateCashback
+        - event: AskUpdateDiscount(uint256,string,uint8,uint256,bool,bool,bool,uint256[6],uint256[6])
+          handler: handleAskUpdateDiscount
+        - event: AskUpdateIdentity(uint256,string,string,string,bool,bool,uint256,uint8)
+          handler: handleAskUpdateIdentity
+        - event: CloseReferral(indexed uint256,uint256,string,bool,address)
+          handler: handleCloseReferral
+        - event: AddReferral(indexed uint256,uint256,string,uint256,uint256,address)
+          handler: handleAddReferral
+        - event: PaywallAskCancel(indexed uint256,indexed uint256,address)
+          handler: handlePaywallAskCancel
+        - event: PaywallAskUpdate(string,address,address,indexed uint256,uint256,uint256,int256,bool,uint256,uint256,uint256)
+          handler: handlePaywallAskUpdate
+        - event: PaywallAskUpdateCashback(uint256,string,uint8,uint256,bool,bool,address,uint256[6],uint256[6])
+          handler: handlePaywallAskUpdateCashback
+        - event: PaywallAskUpdateDiscount(uint256,string,uint8,uint256,bool,bool,bool,address,uint256[6],uint256[6])
+          handler: handlePaywallAskUpdateDiscount
+        - event: PaywallAskUpdateIdentity(uint256,string,string,string,address,bool,bool,uint256,uint8)
+          handler: handlePaywallAskUpdateIdentity
+        - event: Trade(indexed uint256,string,indexed address,address,uint256,uint256,uint256)
+          handler: handleTrade
+        - event: UpdateSubscriptionInfo(uint256,uint256,uint256)
+          handler: handleUpdateSubscriptionInfo
+        - event: PaywallTrade(indexed uint256,string,indexed address,address,uint256,uint256,uint256,uint256)
+          handler: handlePaywallTrade
+        - event: UpdateOptions(uint256,string,address,uint256,uint256,uint256,string,string,string,string,string)
+          handler: handleUpdateOptions
+        - event: PaywallUpdateOptions(uint256,string,uint256,uint256,uint256,uint256,string,string,string,string)
+          handler: handlePaywallUpdateOptions
+        - event: UpdateCollection(indexed uint256,string,string,string,string,string,string,string,string,string,string,string)
+          handler: handleUpdateCollection
+        - event: AskInfo(indexed uint256,string,string,uint256[],uint256,uint256,uint256,bool,string,string,string,string)
+          handler: handleAskInfo
+        - event: PaywallAskNew(indexed uint256,string,uint256,uint256,int256,bool,uint256,uint256,uint256,address,address,address)
+          handler: handlePaywallAskNew
+        - event: CreateReview(indexed uint256,string,uint256,uint256,uint256,bool,uint256,string,address)
+          handler: handleReview
+        - event: PartnerRegistrationRequest(indexed uint256,uint256,uint256)
+          handler: handlePartnerRegistrationRequest
+        - event: UserRegistration(indexed uint256,uint256,bool)
+          handler: handleUserRegistration
+        - event: UpdateAnnouncement(indexed uint256,uint256,bool,string,string)
+          handler: handleUpdateAnnouncement
+        - event: Voted(indexed uint256,uint256,string,uint256,uint256,bool)
+          handler: handleVoted
+        - event: UpdateValuepools(uint256,address,bool)
+          handler: handleUpdateValuepools
+        - event: UpdateTaskEvent(uint256,uint256,string,bool,bool,bool,string,string)
+          handler: handleUpdateTaskEvent
+        - event: UpdatePaywall(uint256,string,string,bool,bool,string)
+          handler: handleUpdatePaywall
+        - event: CreatePaywallARP(address,uint256)
+          handler: handleCreatePaywallARP
+        - event: DeletePaywallARP(uint256)
+          handler: handleDeletePaywallARP
+        - event: UpdateProtocol(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,string)
+          handler: handleUpdateProtocol
+        - event: DeleteProtocol(uint256,uint256)
+          handler: handleDeleteProtocol
+        - event: UpdateAutoCharge(uint256,uint256,bool)
+          handler: handleUpdateAutoCharge
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string)
+          handler: handleUpdateMiscellaneous

@@ -1,0 +1,70 @@
+"""
+PancakeSwap Stake Market
+"""
+enum TxType {
+  New
+  Application
+  AddToStake
+  UnlockFromStake
+  Cancel
+}
+
+type Stake @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  cities: String
+
+  stakeSource: String
+
+  countries: String
+  
+  products: String
+  
+  owner: String
+
+  terms: String
+  
+  appliedTo: Stake
+
+  tokenIds: [Token!] @derivedFrom(field: "stake")
+
+  appliedToPartnerStake: [Stake!] @derivedFrom(field: "appliedTo")
+
+  "Block timestamp"
+  timestamp: BigInt!
+
+  transactionHistory: [Transaction!]! @derivedFrom(field: "stake")
+}
+
+type Token @entity {
+  id: ID!
+
+  metadataUrl: String
+
+  stake: Stake!
+
+  "Block timestamp"
+  timestamp: BigInt!
+}
+
+type Transaction @entity {
+  id: ID!
+
+  block: BigInt!
+
+  "Timestamp"
+  timestamp: BigInt!
+
+  "Stake"
+  stake: Stake!
+
+  "Net price"
+  netPrice: BigDecimal
+
+  "Order type"
+  txType: TxType!
+
+}

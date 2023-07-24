@@ -1,0 +1,62 @@
+specVersion: 0.0.2
+description: PaySwap VavaHelper
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: VavaHelper
+    network: fantom-testnet
+    source:
+      address: '0xB006b694E29Ab31c8892774725d5e7fd0079328B'
+      abi: VavaHelper
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - Stake
+      abis:
+        - name: VavaHelper
+          file: ./abis/VavaHelper.json
+        - name: Va
+          file: ./abis/Va.json
+      eventHandlers:
+        - event: CreateVava(address,address,address,bool,bool)
+          handler: handleCreateVava
+        - event: Initialize(address,address)
+          handler: handleInitialize
+        - event: UpdateParameters(address,bool,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleUpdateParameters
+        - event: UpdateVava(address,string,string,address,string[],string[],string[])
+          handler: handleUpdateVava
+        - event: NotifyLoan(address,address,address,uint256)
+          handler: handleNotifyLoan
+        - event: NotifyPayment(address,address,uint256,uint256)
+          handler: handleNotifyPayment
+        - event: AddSponsor(address,address,uint256,uint256,uint256)
+          handler: handleAddSponsor
+        - event: RemoveSponsor(address,address)
+          handler: handleRemoveSponsor
+        - event: NotifyReimbursement(address,address,address,uint256,bool)
+          handler: handleNotifyReimbursement
+        - event: AddCredit(address,address,uint256,uint256)
+          handler: handleAddCredit
+        - event: ExecuteNextPurchase(address,address,uint256,uint256,uint256)
+          handler: handleExecuteNextPurchase
+        - event: Deposit(address,address,address,uint256,uint256,uint256,uint256,uint8,uint256)
+          handler: handleDeposit
+        - event: Withdraw(address,address,uint256,uint256,uint256,uint256)
+          handler: handleWithdrawFromVa
+        - event: WithdrawFromVava(indexed address,address,uint256)
+          handler: handleWithdrawFromVava
+        - event: Delete(address)
+          handler: handleDelete
+        - event: Supply(address,uint256,uint256)
+          handler: handleSupply
+        - event: CheckRank(address,address,address,address,string,uint256[],uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleCheckRank
+        - event: SetParams(address,string,string,uint8,uint256,uint256,uint256)
+          handler: handleSetParams

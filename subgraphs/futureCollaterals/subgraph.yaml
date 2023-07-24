@@ -1,0 +1,26 @@
+specVersion: 0.0.2
+description: PaySwap collaterals
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: collaterals
+    network: fantom-testnet
+    source:
+      address: '0xD2b2435aa749E42F3523033Fe167Ae543082375F'
+      abi: collaterals
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - Collateral
+      abis:
+        - name: collaterals
+          file: ./abis/collateral.json
+      eventHandlers:
+        - event: Mint(address,address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleMint

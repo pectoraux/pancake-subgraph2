@@ -1,0 +1,28 @@
+specVersion: 0.0.2
+description: PaySwap PoolGauge
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: PoolGauge
+    network: chapel
+    source:
+      address: '0x8974C04961068F97488E1f117529681FE710D807'
+      abi: PoolGauge
+      startBlock: 25901019
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - Gauge
+      abis:
+        - name: PoolGauge
+          file: ./abis/PoolGauge.json
+      eventHandlers:
+        - event: Deposit(indexed address,address,address,uint256,uint256)
+          handler: handleDeposit
+        - event: Withdraw(indexed address,address,address,uint256,uint256)
+          handler: handleWithdraw

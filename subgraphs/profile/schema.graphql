@@ -1,0 +1,76 @@
+type Profile @entity {
+    id: ID!
+
+    name: String!
+    active: Boolean!
+    metadataUrl: String
+    # Block number when the team was created.
+    timestamp: BigInt!
+
+    collectionId: BigInt
+    
+    tokens: [Token!] @derivedFrom(field: "profile")
+    # Users
+    accounts: [Account!] @derivedFrom(field: "profile")
+    following: [Registration!] @derivedFrom(field: "follower")
+    followers: [Registration!] @derivedFrom(field: "followee")
+    blacklist: [Blacklist!] @derivedFrom(field: "owner")
+
+}
+
+type Token @entity {
+    id: ID! # address
+
+    profile: Profile!
+
+    amount: BigDecimal
+
+    bountyId: BigInt
+
+    createdAt: BigInt!
+
+    updatedAt: BigInt
+
+    tokenAddress: String
+}
+
+type Account @entity {
+    id: ID! # address
+
+    profile: Profile!
+
+    active: Boolean
+
+    createdAt: BigInt!
+    
+    updatedAt: BigInt
+
+    ownerAddress: String
+}
+
+type Registration @entity {
+    id: ID! # address
+
+    active: Boolean!
+
+    createdAt: BigInt!
+    
+    updatedAt: BigInt
+
+    # Profile
+    follower: Profile
+    followee: Profile
+}
+
+type Blacklist @entity {
+    id: ID! # address
+
+    active: Boolean!
+
+    createdAt: BigInt!
+    updatedAt: BigInt
+
+    # Profile
+    owner: Profile
+    user: Profile
+}

@@ -1,0 +1,44 @@
+specVersion: 0.0.2
+description: PaySwap betting
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: betting
+    network: fantom-testnet
+    source:
+      address: '0xE973F5705566Dd65a3032c16E1DC3Cb52DC8d753'
+      abi: betting
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - Betting
+      abis:
+        - name: betting
+          file: ./abis/bettingHelper.json
+        - name: bettingMinter
+          file: ./abis/bettingMinter.json
+      eventHandlers:
+        - event: BettingResultsIn(address,uint256,uint256,address,uint256)
+          handler: handleBettingResultsIn
+        - event: CloseBetting(address,uint256,uint256)
+          handler: handleCloseBetting
+        - event: CreateBetting(address,address,uint256)
+          handler: handleCreateBetting
+        - event: DeleteBetting(address)
+          handler: handleDeleteBetting
+        - event: DeleteProtocol(indexed uint256,address)
+          handler: handleDeleteProtocol
+        - event: TicketsClaim(address,address,uint256,uint256,uint256)
+          handler: handleTicketsClaim
+        - event: TicketsPurchase(address,address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleTicketsPurchase
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string[])
+          handler: handleUpdateMiscellaneous
+        - event: UpdateProtocol(address,uint256,uint256,address,string,uint256,uint256,uint256,uint256,uint256,uint256[],string,string)
+          handler: handleUpdateProtocol

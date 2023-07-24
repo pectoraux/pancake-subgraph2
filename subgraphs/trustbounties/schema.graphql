@@ -1,0 +1,87 @@
+"""
+PaySwap Trust Bounty
+"""
+
+
+type Bounty @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  avatar: String
+  
+  collectionId: String
+  
+  owner: String
+  
+  token: String
+
+  terms: String
+
+  bountySource: String
+  
+  parentBounty: Bounty
+
+  "Block timestamp"
+  timestamp: BigInt!
+
+  claims: [Claim!] @derivedFrom(field: "bounty")
+  
+  sentApprovals: [Approval!] @derivedFrom(field: "bounty")
+  
+  receivedApprovals: [Approval!] @derivedFrom(field: "partnerBounty")
+
+}
+
+type Balance @entity {
+  "ID"
+  id: ID!
+
+  source: String
+
+  amount: BigDecimal
+
+  bounty: Bounty
+
+  timestamp: BigInt!
+
+}
+
+type Approval @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  bounty: Bounty
+  
+  partnerBounty: Bounty
+
+  amount: BigDecimal
+
+  endTime: BigInt
+
+  timestamp: BigInt!
+
+}
+
+type Claim @entity {
+  "ID"
+  id: ID!
+
+  bounty: Bounty
+
+  hunter: String
+
+  winner: String
+
+  friendly: Boolean
+
+  atPeace: Boolean
+
+  endTime: BigInt
+
+  amount: BigDecimal
+
+}

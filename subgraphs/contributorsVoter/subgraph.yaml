@@ -1,0 +1,34 @@
+specVersion: 0.0.2
+description: PaySwap ContributorsVoter
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: ContributorsVoter
+    network: fantom-testnet
+    source:
+      address: '0xBCb2E030953dC9f2E68C179C19C2C121aF348Abb'
+      abi: ContributorsVoter
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - Gauge
+      abis:
+        - name: ContributorsVoter
+          file: ./abis/ContributorsVoter.json
+      eventHandlers:
+        - event: GaugeCreated(indexed uint256,address,address,address,indexed address)
+          handler: handleGaugeCreated
+        - event: Voted(indexed uint256,uint256,int256,address,bool)
+          handler: handleVoted
+        - event: Abstained(indexed uint256,uint256,address,int256)
+          handler: handleAbstained
+        - event: UpdateContent(indexed uint256,uint256,string,string,string[5])
+          handler: handleUpdateContent
+        - event: DeactivatePitch(indexed uint256)
+          handler: handleDeactivatePitch

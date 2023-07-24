@@ -1,0 +1,85 @@
+
+"""
+PaySwap Sponsors
+"""
+
+type Protocol @entity {
+  "ID"
+  id: ID!
+  
+  active: Boolean
+
+  owner: String
+  
+  sponsor: Sponsor
+  
+  media: String
+  
+  description: String
+  
+  notes: [Note!] @derivedFrom(field: "protocol")
+
+}
+
+type Note @entity {
+  id: ID!
+
+  metadataUrl: String
+
+  createdAt: BigInt
+
+  updatedAt: BigInt
+  
+  protocol: Protocol
+
+  sponsor: Sponsor
+}
+
+type Sponsor @entity {
+  "ID"
+  id: ID!
+
+  profileId: BigInt
+
+  likes: BigInt
+
+  dislikes: BigInt
+
+  owner: String
+
+  active: Boolean
+  
+  applicationLink: String
+
+  protocols: [Protocol!] @derivedFrom(field: "sponsor")
+  
+  contents: [ContentType!] @derivedFrom(field: "sponsor")
+
+  votes: [Vote!] @derivedFrom(field: "sponsor")
+
+}
+
+type Vote @entity {
+  id: ID!
+
+  createdAt: BigInt!
+  
+  updatedAt: BigInt!
+  
+  profileId: BigInt!
+
+  liked: Boolean!
+  
+  sponsor: Sponsor
+}
+
+type ContentType @entity {
+  "ID"
+  id: ID!
+
+  sponsor: Sponsor!
+
+  name: String
+
+  active: Boolean
+}

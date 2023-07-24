@@ -1,0 +1,30 @@
+
+"""
+PaySwap Future Collaterals
+"""
+
+type Collateral @entity {
+  "ID"
+  id: ID!
+
+  createdAt: BigInt!
+  
+  updatedAt: BigInt!
+  
+  channel: BigInt
+  
+  stakeId: BigInt
+  
+  bountyId: BigInt
+  
+  auditorBountyId: BigInt
+
+  active: Boolean
+
+  owner: String
+  
+  auditor: String
+
+  metadataUrl: String
+
+}

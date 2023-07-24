@@ -1,0 +1,76 @@
+enum OrderType {
+  New
+  Modify
+  Cancel
+}
+enum Choice {
+  Attacker
+  Defender
+}
+
+type Vote @entity {
+  "ID"
+  id: ID!
+
+  voter: String
+
+  votingPower: BigInt
+
+  litigation: Litigation
+
+  choice: Choice
+
+  "Creation Time"
+  created: BigInt
+}
+
+type Litigation @entity {
+  "ID"
+  id: ID!
+
+  "Attacker ID"
+  attackerId: BigInt
+
+  "Defender ID"
+  defenderId: BigInt
+  
+  "Creation Time"
+  creationTime: BigInt
+
+  "End Time"
+  endTime: BigInt
+
+  percentile: BigInt
+
+  gas: BigDecimal!
+  
+  "Is active"
+  active: Boolean!
+
+  "Total of Up Votes"
+  upVotes: BigInt!
+
+  "Total of Down Votes"
+  downVotes: BigInt!
+
+  ve: String!
+
+  token: String!
+  
+  market: String!
+
+  title: String!
+
+  countries: String
+  
+  cities: String
+  
+  products: String
+  
+  attackerContent: String
+  
+  defenderContent: String
+
+  votes: [Vote!] @derivedFrom(field: "litigation")
+
+}

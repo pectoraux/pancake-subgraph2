@@ -1,0 +1,70 @@
+
+"""
+PaySwap GameFactory
+"""
+
+type Protocol @entity {
+  "ID"
+  id: ID!
+  
+  active: Boolean
+  
+  owner: String
+  
+  game: Game
+  
+  minutes: BigInt
+
+  metadataUrl: String
+  
+}
+
+type GameObject @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  name: String
+
+  createdAt: BigInt
+  
+  updatedAt: BigInt
+
+  game: Game
+    
+}
+
+type Game @entity {
+  "ID"
+  id: ID!
+
+  createdAt: BigInt
+  
+  updatedAt: BigInt
+
+  owner: String
+  
+  token: String
+  
+  gameContract: String
+
+  active: Boolean
+  
+  claimable: Boolean
+
+  tokenId: BigInt
+
+  pricePerMinutes: BigInt
+
+  creatorShare: BigInt
+  
+  referrerFee: BigInt
+
+  teamShare: BigInt
+  
+  protocols: [Protocol!] @derivedFrom(field: "game")
+  
+  objectNames: [GameObject!] @derivedFrom(field: "game")
+  
+}

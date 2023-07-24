@@ -1,0 +1,50 @@
+specVersion: 0.0.2
+description: PaySwap Profile
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Profile
+    network: fantom-testnet
+    source:
+      address: '0x810EBEa7d4330B6A6EFa2f73FF7E7773c57F98CD'
+      abi: Profile
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - Gauge
+      abis:
+        - name: Profile
+          file: ./abis/Profile.json
+        - name: ProfileHelper
+          file: ./abis/ProfileHelper.json
+      eventHandlers:
+        - event: CreateProfile(indexed uint256,string)
+          handler: handleCreateProfile
+        - event: AddAccount(uint256,address)
+          handler: handleAddAccount
+        - event: PayProfile(address,uint256,uint256)
+          handler: handlePayProfile
+        - event: ClaimRevenue(address,uint256,uint256)
+          handler: handleClaimRevenue
+        - event: Follow(uint256,uint256)
+          handler: handleFollow
+        - event: Unfollow(uint256,uint256)
+          handler: handleUnfollow
+        - event: UpdateBlackList(uint256,uint256,bool)
+          handler: handleUpdateBlackList
+        - event: RemoveAccount(uint256,address)
+          handler: handleRemoveAccount
+        - event: DeleteProfile(uint256)
+          handler: handleDeleteProfile
+        - event: UpdateCollectionId(uint256,uint256)
+          handler: handleUpdateCollectionId
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string[])
+          handler: handleUpdateMiscellaneous
+        - event: UpdateSSID(uint256)
+          handler: handleUpdateSSID

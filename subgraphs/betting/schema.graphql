@@ -1,0 +1,102 @@
+
+"""
+PaySwap Betting
+"""
+enum Status {
+  Pending
+  Open
+  Close
+  Claimable
+}
+
+type Betting @entity {
+  "ID"
+  id: ID!
+
+  profileId: BigInt
+
+  owner: String
+
+  active: Boolean
+  
+  bettingEvents: [BettingEvent!] @derivedFrom(field: "betting")
+  
+}
+
+type BettingEvent @entity {
+  "ID"
+  id: ID!
+  
+  active: Boolean
+
+  bettingId: BigInt
+  
+  token: String
+
+  action: String
+  
+  adminShare: BigInt
+
+  referrerShare: BigInt
+
+  bracketDuration: BigInt
+  
+  pricePerTicket: BigInt
+
+  discountDivisor: BigInt  
+
+  rewardsBreakdown: [BigInt!]
+
+  startTime: BigInt
+
+  media: String
+  
+  description: String
+  
+  betting: Betting
+
+  tickets: [Ticket!] @derivedFrom(field: "bettingEvent")
+
+  periods: [Period!] @derivedFrom(field: "bettingEvent")
+
+}
+
+type Ticket @entity {
+  "ID"
+  id: ID!
+
+  owner: String
+
+  metadataUrl: String
+
+  rewards: BigInt
+
+  ticketNumber: BigInt
+
+  claimed: Boolean
+
+  bettingEvent: BettingEvent
+
+}
+
+type Period @entity {
+  "ID"
+  id: ID!
+
+  auditor: String
+
+  status: Status
+
+  closedAt: BigInt
+
+  period: BigInt
+
+  finalNumber: BigInt
+
+  amountCollected: BigInt
+
+  countWinnersPerBracket: [BigInt!]
+
+  bettingEvent: BettingEvent
+
+}

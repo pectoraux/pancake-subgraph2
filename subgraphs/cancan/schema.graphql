@@ -1,0 +1,944 @@
+enum OrderType {
+  NewItem
+  NewPaywall
+  NewNFT
+  ModifyItem
+  ModifyPaywall
+  ModifyNFT
+  CancelItem
+  CancelPaywall
+  CancelNFT
+}
+
+enum TokenType {
+  Nft
+  Item
+  Paywall
+}
+
+type Collection @entity {
+  "ID (address)"
+  id: ID!
+
+  # "Name"
+  name: String
+
+  description: String
+
+  "Badge ID"
+  badgeId: BigInt
+
+  tradingFee: BigDecimal!
+
+  minBounty: BigInt
+  
+  userMinBounty: BigInt
+
+  recurringBounty: BigInt
+  
+  userRecurringBounty: BigInt
+  
+  requestUserRegistration: Boolean
+  
+  requestPartnerRegistration: Boolean
+
+  "Is active"
+  active: Boolean!
+
+  "Total of Trades"
+  totalTrades: BigInt!
+
+  "Total volume of collection traded (in BNB)"
+  totalVolumeBNB: BigDecimal!
+
+  "Number tokens listed"
+  numberTokensListed: BigInt
+  
+  numberPartnerTokensListed: BigInt
+  
+  numberPartnerNftsListed: BigInt
+  
+  numberPartnerPaywallsListed: BigInt
+
+  numberPaywallsListed: BigInt
+  
+  numberNftsListed: BigInt
+
+  numberPartnersListed: BigInt
+
+  "Creator fee"
+  referrerFee: BigDecimal!
+
+  owner: String!
+
+  baseToken: String
+  
+  large: String
+  
+  small: String
+  
+  avatar: String
+
+  contactChannels: String
+  
+  contacts: String
+  
+  workspaces: String
+  
+  countries: String
+  
+  cities: String
+  
+  products: String
+  
+  userIdentityProof: IdentityProof
+
+  partnerIdentityProof: IdentityProof
+
+  "List of Items"
+  items: [Item!]! @derivedFrom(field: "collection")
+  
+  "List of NFTs"
+  nfts: [NFT!]! @derivedFrom(field: "collection")
+
+  "List of Paywalls"
+  paywalls: [Paywall!]! @derivedFrom(field: "collection")
+
+  registrations: [Registration!] @derivedFrom(field: "collection")
+  
+  partnerRegistrations: [PartnerRegistration!] @derivedFrom(field: "collection")
+  
+  announcements: [Announcement!] @derivedFrom(field: "collection")
+  
+  valuepools: [Valuepool!] @derivedFrom(field: "collection")
+  
+  "Day history"
+  dayData: [CollectionDayData!]! @derivedFrom(field: "collection")
+  
+}
+
+type Item @entity {
+  "CollectionAddress + tokenId"
+  id: ID!
+
+  "tokenId"
+  tokenId: String!
+
+  "Current seller"
+  currentSeller: String!
+
+  "last bidder"
+  lastBidder: String
+
+  tFIAT: String
+  
+  ve: String
+
+  bountyId: BigInt
+  
+  badgeId: BigInt
+
+  behindPaywall: BigInt
+
+  active: Boolean
+
+  isTradable: Boolean
+
+  "Updated at"
+  updatedAt: BigInt!
+
+  maxSupply: BigInt!
+
+  "Number of unique trades"
+  totalTrades: BigInt!
+
+  dropinTimer: BigInt
+
+  bidDuration: BigInt
+
+  minBidIncrementPercentage: BigInt
+  
+  rsrcTokenId: BigInt
+
+  "Current ask price"
+  currentAskPrice: BigDecimal!
+
+  "Latest traded price in BNB"
+  latestTradedPriceInBNB: BigDecimal!
+
+  "Total volume traded (in BNB)"
+  tradeVolumeBNB: BigDecimal!
+
+  transferrable: Boolean!
+  
+  usetFIAT: Boolean
+  
+  likes: BigInt
+  
+  disLikes: BigInt
+
+  superLikes: BigInt
+  
+  superDisLikes: BigInt
+
+  start: BigInt
+  
+  period: BigInt
+
+  reviews: [String!]
+  
+  reviewers: [String!]
+  
+  reviewTimes: [BigInt!]
+
+  prices: [BigInt!]
+
+  description: String
+  
+  countries: String
+  
+  cities: String
+  
+  products: String
+
+  images: String
+
+  "Collection address"
+  collection: Collection!
+  
+  priceReductor: PriceReductor
+
+  identityProof: IdentityProof
+
+  superReviews: [Review!] @derivedFrom(field: "item")
+  
+  tasks: [Task!] @derivedFrom(field: "item")
+
+  votes: [Vote!] @derivedFrom(field: "item")
+
+  options: [Option!] @derivedFrom(field: "item")
+
+  "Transaction history"
+  transactionHistory: [Transaction!]! @derivedFrom(field: "item")
+
+  "Ask history"
+  askHistory: [AskOrder!]! @derivedFrom(field: "item")
+}
+
+type Option @entity {
+  id: ID!
+
+  min: String
+  
+  max: String
+  
+  unitPrice: String
+  
+  category: String
+  
+  element: String
+  
+  traitType: String
+  
+  value: String
+  
+  currency: String
+
+  item: Item
+
+  nft: NFT
+
+  paywall: Paywall
+}
+
+type NFT @entity {
+  "CollectionAddress + tokenId"
+  id: ID!
+
+  "tokenId"
+  tokenId: String!
+
+  "Current seller"
+  currentSeller: String!
+
+  "last bidder"
+  lastBidder: String
+
+  tFIAT: String
+  
+  ve: String
+  
+  minter: String
+
+  bountyId: BigInt
+  
+  badgeId: BigInt
+
+  behindPaywall: BigInt
+
+  active: Boolean
+
+  "isTradable"
+  isTradable: Boolean
+
+  "Updated at"
+  updatedAt: BigInt!
+
+  maxSupply: BigInt!
+
+  "Number of unique trades"
+  totalTrades: BigInt!
+
+  dropinTimer: BigInt
+
+  bidDuration: BigInt
+
+  minBidIncrementPercentage: BigInt
+  
+  rsrcTokenId: BigInt
+
+  "Current ask price"
+  currentAskPrice: BigDecimal!
+
+  "Latest traded price in BNB"
+  latestTradedPriceInBNB: BigDecimal!
+
+  "Total volume traded (in BNB)"
+  tradeVolumeBNB: BigDecimal!
+
+  transferrable: Boolean!
+  
+  usetFIAT: Boolean
+  
+  likes: BigInt
+  
+  disLikes: BigInt
+
+  superLikes: BigInt
+  
+  superDisLikes: BigInt
+
+  start: BigInt
+  
+  period: BigInt
+
+  reviews: [String!]
+  
+  reviewers: [String!]
+  
+  reviewTimes: [BigInt!]
+
+  prices: [BigInt!]
+
+  description: String
+  
+  countries: String
+  
+  cities: String
+  
+  products: String
+
+  images: String
+
+  "Collection address"
+  collection: Collection!
+  
+  priceReductor: PriceReductor
+
+  identityProof: IdentityProof
+
+  superReviews: [Review!] @derivedFrom(field: "nft")
+  
+  tasks: [Task!] @derivedFrom(field: "nft")
+
+  votes: [Vote!] @derivedFrom(field: "nft")
+
+  options: [Option!] @derivedFrom(field: "nft")
+
+  "Transaction history"
+  transactionHistory: [Transaction!]! @derivedFrom(field: "nft")
+
+  "Ask history"
+  askHistory: [AskOrder!]! @derivedFrom(field: "nft")
+}
+
+type Paywall @entity {
+  "CollectionAddress + tokenId"
+  id: ID!
+
+  "tokenId"
+  tokenId: String!
+
+  "Current seller"
+  currentSeller: String!
+
+  "last bidder"
+  lastBidder: String
+
+  tFIAT: String
+  
+  ve: String
+  
+  bountyId: BigInt
+  
+  badgeId: BigInt
+
+  active: Boolean
+
+  "isTradable"
+  isTradable: Boolean
+
+  canPublish: Boolean
+
+  "Updated at"
+  updatedAt: BigInt!
+
+  maxSupply: BigInt!
+
+  "Number of unique trades"
+  totalTrades: BigInt!
+
+  dropinTimer: BigInt
+
+  bidDuration: BigInt
+
+  minBidIncrementPercentage: BigInt
+  
+  rsrcTokenId: BigInt
+
+  "Current ask price"
+  currentAskPrice: BigDecimal!
+
+  "Latest traded price in BNB"
+  latestTradedPriceInBNB: BigDecimal!
+
+  "Total volume traded (in BNB)"
+  tradeVolumeBNB: BigDecimal!
+
+  transferrable: Boolean!
+    
+  usetFIAT: Boolean
+  
+  likes: BigInt
+  
+  disLikes: BigInt
+
+  superLikes: BigInt
+  
+  superDisLikes: BigInt
+
+  start: BigInt
+  
+  period: BigInt
+
+  reviews: [String!]
+  
+  reviewers: [String!]
+  
+  reviewTimes: [BigInt!]
+
+  prices: [BigInt!]
+
+  description: String
+  
+  countries: String
+  
+  cities: String
+  
+  products: String
+
+  images: String
+
+  "Collection address"
+  collection: Collection!
+  
+  priceReductor: PriceReductor
+
+  identityProof: IdentityProof
+
+  superReviews: [Review!] @derivedFrom(field: "paywall")
+  
+  tasks: [Task!] @derivedFrom(field: "paywall")
+
+  mirrors: [PaywallMirror!] @derivedFrom(field: "paywall")
+  
+  votes: [Vote!] @derivedFrom(field: "paywall")
+  
+  options: [Option!] @derivedFrom(field: "paywall")
+  
+  "Transaction history"
+  transactionHistory: [Transaction!]! @derivedFrom(field: "paywall")
+
+  "Ask history"
+  askHistory: [AskOrder!]! @derivedFrom(field: "paywall")
+}
+
+type Vote @entity {
+  id: ID!
+
+  createdAt: BigInt!
+  
+  updatedAt: BigInt!
+  
+  profileId: BigInt!
+
+  liked: Boolean!
+  
+  item: Item
+
+  nft: NFT
+  
+  paywall: Paywall
+}
+
+type Task @entity {
+  "CollectionAddress + tokenId"
+  id: ID!
+
+  isSurvey: Boolean!
+
+  required: Boolean!
+  
+  active: Boolean!
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt
+  
+  codes: String
+
+  linkToTask: String!
+
+  item: Item
+
+  nft: NFT
+  
+  paywall: Paywall
+
+}
+
+type PaywallMirror @entity {
+  "CollectionAddress + tokenId"
+  id: ID!
+
+  item: Item
+
+  nft: NFT
+
+  partnerPaywall: Paywall
+  
+  sharedPaywall: Paywall
+
+  partner: Boolean
+
+  active: Boolean
+
+  createdAt: BigInt
+
+  updatedAt: BigInt
+  
+  endTime: BigInt
+  
+  # used to save to  paywall 
+  paywall: Paywall
+  
+}
+
+type Mirror @entity {
+  "CollectionAddress + tokenId"
+  id: ID!
+
+  item: Item
+
+  nft: NFT
+  
+  paywall: Paywall
+
+  active: Boolean
+
+  createdAt: BigInt
+
+  updatedAt: BigInt
+  
+  # used to save to partner wall 
+  registration: PartnerRegistration
+  
+}
+
+type Review @entity {
+  id: ID!
+
+  body: String!
+
+  power: BigInt!
+
+  reviewer: String
+  
+  reviewTime: BigInt
+
+  good: Boolean
+
+  normalReview: Boolean
+
+  item: Item
+
+  nft: NFT
+
+  paywall: Paywall
+
+}
+
+type Valuepool @entity {
+  "CollectionId + ValuepoolAddress"
+  id: ID!
+
+  active: Boolean
+
+  collection: Collection
+
+  valuepool: String
+}
+
+type PriceReductor @entity {
+  id: ID!
+
+  paywall: Paywall
+
+  discountStatus: BigInt
+
+  cashbackStatus: BigInt
+  
+  discountStart: BigInt
+  
+  cashbackStart: BigInt
+  
+  cashNotCredit: Boolean
+  
+  checkIdentityCode: Boolean
+  
+  checkItemOnly: Boolean
+  
+  discountNumbers: [BigInt!]
+  
+  discountCost: [BigInt!]
+  
+  cashbackNumbers: [BigInt!]
+  
+  cashbackCost: [BigInt!]
+}
+
+type IdentityProof @entity {
+  id: ID!
+
+  paywall: Paywall
+
+  requiredIndentity: String
+
+  valueName: String
+
+  minIDBadgeColor: BigInt
+
+  maxUse: BigInt
+
+  dataKeeperOnly: Boolean
+
+  onlyTrustWorthyAuditors: Boolean
+}
+
+type User @entity {
+  "User address"
+  id: ID!
+  
+  "Number of tokens currently listed"
+  numberTokensListed: BigInt
+
+  numberPaywallsListed: BigInt
+
+  numberNftsListed: BigInt    
+
+  "Number of tokens purchased"
+  numberTokensPurchased: BigInt
+  
+  numberNftsPurchased: BigInt
+
+  numberPaywallsPurchased: BigInt
+
+  "Number of tokens sold"
+  numberTokensSold: BigInt
+  
+  numberNftsSold: BigInt
+
+  numberPaywallsSold: BigInt
+
+  "Volume of tokens purchased (in BNB)"
+  totalVolumeInBNBTokensPurchased: BigDecimal
+  
+  totalVolumeInBNBNftsPurchased: BigDecimal
+
+  totalVolumeInBNBPaywallsPurchased: BigDecimal
+
+  "Volume of tokens sold (in BNB)"
+  totalVolumeInBNBTokensSold: BigDecimal
+  
+  totalVolumeInBNBNftsSold: BigDecimal
+
+  totalVolumeInBNBPaywallsSold: BigDecimal
+
+  "Total fees collected (in BNB)" # For creator/treasury addresses
+  totalFeesCollectedInBNB: BigDecimal
+
+  "Transactions buy"
+  buyTradeHistory: [Transaction!]! @derivedFrom(field: "buyer")
+
+  "Transactions sold"
+  sellTradeHistory: [Transaction!]! @derivedFrom(field: "seller")
+
+  "Ask order history"
+  askOrderHistory: [AskOrder!]! @derivedFrom(field: "seller")
+
+  "Average price of tokens purchased (in BNB)"
+  averageTokenPriceInBNBPurchased: BigDecimal
+  
+  averagePaywallPriceInBNBPurchased: BigDecimal
+
+  averageNftPriceInBNBPurchased: BigDecimal
+
+  "Average price of tokens sold (in BNB)"
+  averageTokenPriceInBNBSold: BigDecimal
+  
+  averageNftPriceInBNBSold: BigDecimal
+  
+  averagePaywallPriceInBNBSold: BigDecimal
+}
+
+type Registration @entity {
+  id: ID!
+
+  "Block number"
+  block: BigInt
+
+  "Timestamp"
+  timestamp: BigInt
+
+  bountyId: BigInt
+  
+  "Collection"
+  collection: Collection
+  
+  userCollection: Collection
+
+  active: Boolean
+  
+  unregister: Boolean
+}
+
+type Announcement @entity {
+  id: ID!
+
+  "Block number"
+  block: BigInt!
+
+  "Timestamp"
+  timestamp: BigInt!
+  
+  updatedAt: BigInt
+  
+  "Collection"
+  collection: Collection!
+
+  title: String
+
+  body: String
+
+  active: Boolean
+}
+
+type PartnerRegistration @entity {
+  id: ID!
+
+  "Block number"
+  block: BigInt!
+
+  "Timestamp"
+  timestamp: BigInt!
+  
+  bountyId: BigInt
+
+  identityProofId: BigInt
+
+  "Collection"
+  collection: Collection
+  
+  partnerCollection: Collection
+
+  active: Boolean
+
+  unregister: Boolean
+
+  "List of Items"
+  mirrors: [Mirror!] @derivedFrom(field: "registration")
+
+}
+
+type AskOrder @entity {
+  id: ID!
+
+  "Block number"
+  block: BigInt!
+
+  "Timestamp"
+  timestamp: BigInt!
+
+  "Collection"
+  collection: Collection!
+
+  "NFT"
+  nft: NFT
+
+  paywall: Paywall
+
+  item: Item
+
+  "Order type"
+  orderType: OrderType!
+
+  "Ask Price (in BNB)"
+  askPrice: BigDecimal!
+
+  "Seller"
+  seller: User
+}
+
+type Note @entity {
+  id: ID!
+
+  start: BigInt!
+
+  end: BigInt!
+  
+  lender: BigInt!
+}
+
+type PaywallARP @entity {
+  id: ID!
+
+  active: Boolean!
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
+
+  paywallAddress: String
+  
+  collection: Collection
+
+  freeTrials: [Trial!] @derivedFrom(field: "paywallARP")
+  
+  protocols: [Protocol!] @derivedFrom(field: "paywallARP")
+}
+
+type Protocol @entity {
+  id: ID!
+
+  active: Boolean!
+  
+  autoCharge: Boolean!
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
+
+  nfticketId: BigInt
+
+  optionId: BigInt
+
+  referrerCollectionId: BigInt
+
+  periodReceivable: BigInt
+  
+  startReceivable: BigInt
+  
+  amountReceivable: BigDecimal
+
+  paywallARP: PaywallARP
+
+  paywall: Paywall 
+
+}
+
+type Trial @entity {
+  id: ID!
+
+  paywallARP: PaywallARP
+
+  optionId: BigInt
+  
+  period: BigInt
+
+}
+
+type Transaction @entity {
+  id: ID!
+
+  block: BigInt!
+
+  nfTicketId: BigInt
+  
+  "Timestamp"
+  timestamp: BigInt!
+
+  metadataUrl: String
+
+  "Collection"
+  collection: Collection!
+
+  "NFT"
+  nft: NFT
+
+  paywall: Paywall
+  
+  item: Item
+
+  "Ask Price (in BNB)"
+  askPrice: BigDecimal!
+
+  "Net price to seller (in BNB)"
+  netPrice: BigDecimal!
+
+  "Buyer"
+  buyer: User!
+
+  "Seller"
+  seller: User!
+
+  tokenType: TokenType
+}
+
+type CollectionDayData @entity {
+  id: ID!
+
+  "Start date (timestamp)"
+  date: Int!
+
+  "Collection"
+  collection: Collection!
+
+  "Daily volume (in BNB)"
+  dailyVolumeBNB: BigDecimal!
+
+  "Daily unique trades"
+  dailyTrades: BigInt!
+}
+
+type MarketPlaceDayData @entity {
+  id: ID!
+
+  "Start date (timestamp)"
+  date: Int!
+
+  "Daily volume (in BNB)"
+  dailyVolumeBNB: BigDecimal!
+
+  "Daily unique trades"
+  dailyTrades: BigInt!
+}

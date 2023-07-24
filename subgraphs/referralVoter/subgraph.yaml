@@ -1,0 +1,31 @@
+specVersion: 0.0.2
+description: PaySwap AcceleratorVoter
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: ReferralVoter
+    network: fantom-testnet
+    source:
+      address: '0xF72AEF17B06C69d1c2329e8966B7821875BCd21E'
+      abi: ReferralVoter
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - Collection
+        - Vote
+      abis:
+        - name: ReferralVoter
+          file: ./abis/ReferralVoter.json
+      eventHandlers:
+        - event: GaugeCreated(indexed uint256,address,address,address,address)
+          handler: handleGaugeCreated
+        - event: Voted(indexed uint256,uint256,uint256,address,address)
+          handler: handleVoted
+        - event: DeactivateGauge(indexed uint256)
+          handler: handleDeactivateGauge

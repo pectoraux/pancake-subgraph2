@@ -1,0 +1,75 @@
+{
+    collections(first: 5) {
+      id
+      name
+      badgeId
+      tradingFee
+      recurringBounty
+      minBounty
+      active
+      totalTrades
+      totalVolumeBNB
+      numberTokensListed
+      numberPaywallsListed
+      numberPartnerTokensListed
+      numberPartnerPaywallsListed
+      options {
+        id
+      }
+      items {
+        id
+      }
+      partnerItems {
+        id
+      }
+      paywalls {
+        id
+      }
+      partnerPaywalls {
+        id
+      }
+      registrations {
+        id
+      }
+      tokenMinter
+      referrerFee
+      whitelistChecker
+      AB
+      owner
+      large
+      small
+      avatar
+      description
+      contacts {
+        id
+        channel
+        value
+      }
+      workspaces {
+        id
+        traitType
+        value
+      }
+      countries {
+        id
+        traitType
+        value
+      }
+      cities {
+        id
+        traitType
+        value
+      }
+      products {
+        id
+        traitType
+        value
+      }
+    }
+    nfts(first: 5) {
+      id
+      tokenId
+      currentSeller
+      lastBidder
+    }
+  }

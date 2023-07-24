@@ -1,0 +1,38 @@
+specVersion: 0.0.2
+description: PaySwap sponsors
+repository: https://github.com/pancakeswap
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: sponsors
+    network: fantom-testnet
+    source:
+      address: '0xDF1Fd12D700110CF763A540e059349ce4a453C5A'
+      abi: sponsors
+      startBlock: 14662559
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/index.ts
+      entities:
+        - Sponsor
+      abis:
+        - name: sponsors
+          file: ./abis/sponsorHelper.json
+      eventHandlers:
+        - event: UpdateProtocol(indexed uint256,address,address,string,string)
+          handler: handleUpdateProtocol
+        - event: Voted(indexed address,uint256,uint256,uint256,bool)
+          handler: handleVoted
+        - event: DeleteProtocol(indexed uint256,address)
+          handler: handleDeleteProtocol
+        - event: DeleteSponsor(indexed address)
+          handler: handleDeleteSponsor
+        - event: CreateSponsorship(indexed address,address,uint256)
+          handler: handleCreateSponsorship
+        - event: UpdateContents(address,string,bool)
+          handler: handleUpdateContents
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string)
+          handler: handleUpdateMiscellaneous

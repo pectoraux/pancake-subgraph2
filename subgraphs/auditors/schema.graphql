@@ -1,0 +1,87 @@
+
+"""
+PaySwap Auditors
+"""
+
+type Protocol @entity {
+  "ID"
+  id: ID!
+  
+  active: Boolean
+  
+  autoCharge: Boolean
+
+  owner: String
+  
+  auditor: Auditor
+  
+  media: String
+  
+  description: String
+  
+  metadataUrl: String
+
+  esgRating: BigInt
+
+  ratings: [BigInt!]
+  
+  tokens: [Token!] @derivedFrom(field: "protocol")
+  
+}
+
+type Auditor @entity {
+  "ID"
+  id: ID!
+
+  likes: BigInt
+
+  dislikes: BigInt
+  
+  profileId: BigInt
+
+  active: Boolean
+
+  owner: String
+
+  applicationLink: String
+
+  protocols: [Protocol!] @derivedFrom(field: "auditor")
+  
+  notes: [Note!] @derivedFrom(field: "auditor")
+  
+  votes: [Vote!] @derivedFrom(field: "auditor")
+}
+
+type Token @entity {
+  id: ID!
+
+  createdAt: BigInt
+
+  metadataUrl: String
+
+  protocol: Protocol
+}
+
+type Note @entity {
+  id: ID!
+
+  createdAt: BigInt
+
+  metadataUrl: String
+
+  auditor: Auditor
+}
+
+type Vote @entity {
+  id: ID!
+
+  createdAt: BigInt!
+  
+  updatedAt: BigInt!
+  
+  profileId: BigInt!
+
+  liked: Boolean!
+  
+  auditor: Auditor
+}

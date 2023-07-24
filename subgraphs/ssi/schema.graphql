@@ -1,0 +1,67 @@
+
+"""
+PaySwap SSI
+"""
+
+type Profile @entity {
+  "User address"
+  id: ID!
+  
+  owner: String
+  
+  publicKey: String
+  
+  encyptedPrivateKey: String
+  
+  userData: [UserData!] @derivedFrom(field: "ownerProfileId")
+
+  dataAudited: [UserData!] @derivedFrom(field: "auditorProfileId")
+
+  identityTokens: [IdentityToken!] @derivedFrom(field: "profile")
+  
+  auditedIdentityTokens: [IdentityToken!] @derivedFrom(field: "auditor")
+  
+  receivedIdentityTokens: [IdentityToken!] @derivedFrom(field: "receiver")
+  
+}
+
+type IdentityToken @entity {
+  "ID"
+  id: ID!
+
+  owner: String
+
+  metadataUrl: String
+
+  profile: Profile
+
+  auditor: Profile
+  
+  receiver: Profile
+}
+
+type UserData @entity {
+  "ID"
+  id: ID!
+  
+  owner: String
+  
+  auditor: String
+  
+  question: String
+  
+  answer: String
+  
+  dataType: String
+  
+  searchable: Boolean
+
+  startTime: BigInt
+  
+  endTime: BigInt
+
+  ownerProfileId: Profile!
+  
+  auditorProfileId: Profile!
+
+}

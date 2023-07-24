@@ -1,0 +1,84 @@
+
+"""
+PaySwap BILLs
+"""
+
+type Protocol @entity {
+  "ID"
+  id: ID!
+  
+  active: Boolean
+  
+  autoCharge: Boolean
+
+  owner: String
+  
+  token: String
+  
+  bill: BILL
+  
+  media: String
+  
+  description: String
+  
+  metadataUrl: String
+
+  optionId: BigInt
+
+  notes: [Note!] @derivedFrom(field: "protocol")
+  
+}
+
+type BILL @entity {
+  "ID"
+  id: ID!
+
+  likes: BigInt
+
+  dislikes: BigInt
+  
+  profileId: BigInt
+
+  active: Boolean
+
+  owner: String
+
+  applicationLink: String
+
+  tags: String
+
+  protocols: [Protocol!] @derivedFrom(field: "bill")
+  
+  votes: [Vote!] @derivedFrom(field: "bill")
+ 
+  notes: [Note!] @derivedFrom(field: "bill")
+
+}
+
+type Note @entity {
+  id: ID!
+
+  metadataUrl: String
+
+  createdAt: BigInt
+
+  updatedAt: BigInt
+  
+  protocol: Protocol
+
+  bill: BILL
+}
+
+type Vote @entity {
+  id: ID!
+
+  createdAt: BigInt!
+  
+  updatedAt: BigInt!
+  
+  profileId: BigInt!
+
+  liked: Boolean!
+  
+  bill: BILL
+}

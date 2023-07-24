@@ -1,0 +1,151 @@
+
+"""
+PaySwap Ramps
+"""
+enum TxType {
+  Mint
+  Burn
+  Claim
+}
+
+type Ramp @entity {
+  "ID"
+  id: ID!
+  
+  owner: String
+
+  collectionId: String
+  
+  description: String
+
+  rampAddress: String
+
+  applicationLink: String
+
+  avatar: String
+
+  publishableKeys: [String!]
+
+  secretKeys: [String!]
+
+  clientIds: [String!]
+  
+  channels: [String!]
+
+  profileId: BigInt
+
+  likes: BigInt
+  
+  dislikes: BigInt
+
+  sessions: [Session!] @derivedFrom(field: "ramp")
+
+  tokens: [Token!] @derivedFrom(field: "ramp")
+
+  votes: [Vote!] @derivedFrom(field: "ramp")
+
+  transactionHistory: [Transaction!] @derivedFrom(field: "ramp")
+
+}
+
+type Vote @entity {
+  id: ID!
+
+  createdAt: BigInt!
+  
+  updatedAt: BigInt!
+  
+  profileId: BigInt!
+
+  liked: Boolean!
+  
+  ramp: Ramp
+}
+
+type Transaction @entity {
+  id: ID!
+
+  block: BigInt!
+
+  "Timestamp"
+  timestamp: BigInt!
+
+  token: String
+
+  user: String
+
+  "ramp"
+  ramp: Ramp!
+
+  "Net price"
+  netPrice: BigDecimal
+
+  "tx type"
+  txType: TxType!
+
+}
+
+type Account @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  channel: String
+
+  owner: String
+
+  moreInfo: [String!]
+
+  "Timestamp"
+  timestamp: BigInt!
+}
+
+type Token @entity {
+  "ID"
+  id: ID!
+
+  ramp: Ramp
+
+  tokenAddress: String
+
+  addedToTokenSet: Boolean
+
+}
+
+type NFT @entity {
+  "ID"
+  id: ID!
+
+  metadataUrl: String
+
+  profileId: BigInt
+
+  createdAt: BigInt
+  
+  updatedAt: BigInt
+  
+  tokenAddress: String
+
+}
+
+type Session @entity {
+  "ID"
+  id: ID!
+
+  sessionId: String!
+
+  ramp: Ramp!
+
+  user: String!
+
+  tokenAddress: String!
+
+  identityTokenId: String
+
+  amount: BigDecimal!
+
+  active: Boolean!
+
+  mintSession: Boolean!
+}
