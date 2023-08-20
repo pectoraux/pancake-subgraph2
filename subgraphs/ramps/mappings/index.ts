@@ -221,12 +221,9 @@ export function handleLinkAccount(event: LinkAccount): void {
   if (account === null) {
     account = new Account(event.params.accountId);
     account.owner = event.params.owner.toHexString();
-    account.channel = event.params.channel;
-    account.moreInfo = event.params.moreInfo;
-    account.timestamp = event.block.timestamp;
     account.active = true;
-    account.save();
   }
+  account.channel = event.params.channel;
   account.owner = event.params.owner.toHexString();
   account.moreInfo = event.params.moreInfo;
   account.timestamp = event.block.timestamp;

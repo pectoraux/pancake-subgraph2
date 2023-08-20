@@ -75,13 +75,16 @@ import {
 
 // Constants
 let ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
-let ITEM_ORDERS = "0xda79e66aa64c7b7ec93ae9ade91560aab47c70ae";
-let ITEM_HELPER = "0xde123977f3e7d0f78e77345c5d5b67ec76a0e120";
-let NFT_ORDERS = "0x0be3ea43561241a45109dc5c3f5f76e73ba558ac";
-let NFT_HELPER = "0x65e680424c927799973663f5fa150248972be7ab";
-let PAYWALL_ORDERS = "0x5c172aab7733d9c731b8789292688f03e0db4e1c";
-let PAYWALL_HELPER = "0x009fb63770dad06c249f6b7cffd8501c434cc049";
-let NFTICKET_HELPER2 = "0xe3ed414d44f5ec44e20e5b285185122dae75cc99";
+let ITEM_ORDERS = "0x2c55aacb688d8d4f5bd9df45a40bf856871f6255";
+let ITEM_HELPER = "0xec9e1fc04f0a6f4a5ffce6cd77e0788487ce6366";
+let ITEM_HELPER2 = "0x4c5ff05f3b66132b14fadc60942b64c9f5c568c8";
+let NFT_ORDERS = "0xc5c9c4b254ce2cfab00f79557a26dea764027d94";
+let NFT_HELPER = "0x32de3407c4921b8a4da4c80131dcb55f64ab2ff8";
+let NFT_HELPER2 = "0x0a05c01fd0686f95d0977f66916fb4791d04e0bb";
+let PAYWALL_ORDERS = "0x1698119e5a012720e9e07e457bddad8128b6cfdf";
+let PAYWALL_HELPER = "0xc64161384cdcf691cf6448668afa4c96f513a904";
+let PAYWALL_HELPER2 = "0x20c4aeb567e2f9553a67084c8b85faa784fe1862";
+let NFTICKET_HELPER2 = "0xa1eca5ac14274ad02f04b62f8620b2767e350d47";
 
 // BigNumber-like references
 let ZERO_BI = BigInt.fromI32(0);
@@ -430,8 +433,8 @@ export function handleVoted(event: Voted): void {
 }
 
 export function handlePaywallVoted(event: PaywallVoted): void {
-  let isPaywall = event.params.sender.equals(Address.fromString(PAYWALL_HELPER))
-  let isNFT = event.params.sender.equals(Address.fromString(NFT_HELPER))
+  let isPaywall = event.params.sender.equals(Address.fromString(PAYWALL_HELPER2))
+  let isNFT = event.params.sender.equals(Address.fromString(NFT_HELPER2))
   if (isPaywall) {
     let token = new Paywall(event.params.collectionId.toString() + "-" + event.params.tokenId.toString());
     if (token !== null) {
@@ -525,6 +528,7 @@ export function handleUpdateTaskEvent(event: UpdateTaskEvent): void {
 }
 
 export function handleReview(event: CreateReview): void {  
+  log.warning("handleReview===============> - #{}", [event.params.isPaywall.toString()]);
   if (event.params.isPaywall.equals(ONE_BI)) {
     let token = Paywall.load(event.params.collectionId.toString() + "-" + event.params.tokenId.toString());
     let isNormal = event.params.votingPower !== null && event.params.votingPower.gt(ZERO_BI);
@@ -532,37 +536,48 @@ export function handleReview(event: CreateReview): void {
       let review = Review.load(event.params.collectionId.toString() + "-" + event.params.tokenId.toString() + "-" + event.params.userTokenId.toString() + '-' + event.params.isPaywall.toString());
       if (review === null) {
         review = new Review(event.params.collectionId.toString() + "-" + event.params.tokenId.toString() + "-" + event.params.userTokenId.toString() + '-' + event.params.isPaywall.toString());
-        review.item = token.id;
+        review.paywall = token.id;
         review.body = event.params.review;
         review.power = event.params.votingPower;
         review.normalReview = isNormal;
         review.good = event.params.good;
         if (event.params.good && !isNormal) {
-          token.superLikes = token.superLikes.plus(event.params.votingPower)
-        } else {
-          token.superDisLikes = token.superDisLikes.plus(event.params.votingPower)
+          log.warning("handleReview===============> - #{}", ["1"]);
+          token.superLikes = token.superLikes.plus(event.params.votingPower);
+        } else if (!isNormal) {
+          log.warning("handleReview===============> - #{}", ["2"]);
+          token.superDisLikes = token.superDisLikes.plus(event.params.votingPower);
         }
         review.reviewer = event.params.reviewer.toHexString();
         review.reviewTime = event.params.reviewTime;
         review.save();
       } else {
+        log.warning("handleReview===============> - #{}", ["3"]);
         if (event.params.good && review.good) {
+          log.warning("handleReview===============> - #{}", ["4"]);
           if (!review.normalReview && !isNormal) {
+            log.warning("handleReview===============> - #{}", ["5"]);
             token.superLikes = token.superLikes.minus(review.power)
             token.superLikes = token.superLikes.plus(event.params.votingPower)
           }
         } else if (event.params.good && !review.good) {
+          log.warning("handleReview===============> - #{}", ["6"]);
           if (!review.normalReview && !isNormal) {
+            log.warning("handleReview===============> - #{}", ["7"]);
             token.superDisLikes = token.superDisLikes.minus(review.power)
             token.superLikes = token.superLikes.plus(event.params.votingPower)
           }
         } else if (!event.params.good && review.good) {
+          log.warning("handleReview===============> - #{}", ["8"]);
           if (!review.normalReview && !isNormal) {
+            log.warning("handleReview===============> - #{}", ["9"]);
             token.superLikes = token.superLikes.minus(review.power)
             token.superDisLikes = token.superDisLikes.plus(event.params.votingPower)
           }
         } else {
+          log.warning("handleReview===============> - #{}", ["10"]);
           if (!review.normalReview && !isNormal) {
+            log.warning("handleReview===============> - #{}", ["11"]);
             token.superDisLikes = token.superDisLikes.minus(review.power)
             token.superDisLikes = token.superDisLikes.plus(event.params.votingPower)
           }
@@ -584,7 +599,7 @@ export function handleReview(event: CreateReview): void {
       let review = Review.load(event.params.collectionId.toString() + "-" + event.params.tokenId.toString() + "-" + event.params.userTokenId.toString() + '-' + event.params.isPaywall.toString());
       if (review === null) {
         review = new Review(event.params.collectionId.toString() + "-" + event.params.tokenId.toString() + "-" + event.params.userTokenId.toString() + '-' + event.params.isPaywall.toString());
-        review.paywall = token.id;
+        review.nft = token.id;
         review.body = event.params.review;
         review.power = event.params.votingPower;
         review.normalReview = isNormal;
@@ -631,12 +646,14 @@ export function handleReview(event: CreateReview): void {
     }
   } else if (event.params.isPaywall.equals(ZERO_BI)) {
     let token = Item.load(event.params.collectionId.toString() + "-" + event.params.tokenId.toString());
-    let isNormal = event.params.votingPower !== null && event.params.votingPower.gt(ZERO_BI);
+    log.warning("handleReview2===============> - #{} {}", [event.params.collectionId.toString(), event.params.tokenId.toString()]);
+    let isNormal = !(event.params.votingPower !== null && event.params.votingPower.gt(ZERO_BI));
     if (token !== null) {
       let review = Review.load(event.params.collectionId.toString() + "-" + event.params.tokenId.toString() + "-" + event.params.userTokenId.toString() + '-' + event.params.isPaywall.toString());
+      log.warning("handleReview2===============> - #{} {}", [event.params.collectionId.toString(), event.params.tokenId.toString()]);
       if (review === null) {
         review = new Review(event.params.collectionId.toString() + "-" + event.params.tokenId.toString() + "-" + event.params.userTokenId.toString() + '-' + event.params.isPaywall.toString());
-        review.nft = token.id;
+        review.item = token.id;
         review.body = event.params.review;
         review.power = event.params.votingPower;
         review.normalReview = isNormal;
@@ -883,7 +900,7 @@ export function handleAskCancel(event: AskCancel): void {
 
 export function handlePaywallAskCancel(event: PaywallAskCancel): void {
   let isPaywall = event.params.sender.equals(Address.fromString(PAYWALL_HELPER))
-  let isNFT = event.params.sender.equals(Address.fromString(NFT_HELPER))
+  let isNFT = event.params.sender.equals(Address.fromString(NFT_ORDERS))
   let collection = Collection.load(event.params.collection.toString());
   if (collection !== null) {
     let user = User.load(event.params.collection.toString());
@@ -968,7 +985,7 @@ export function handleAskUpdate(event: AskUpdate): void {
 
 export function handlePaywallAskUpdate(event: PaywallAskUpdate): void {
   let isPaywall = event.params._sender.equals(Address.fromString(PAYWALL_HELPER))
-  let isNFT = event.params._sender.equals(Address.fromString(NFT_HELPER))
+  let isNFT = event.params._sender.equals(Address.fromString(NFT_ORDERS))
   if (isPaywall) {
     let token = Paywall.load(event.params._collectionId.toString() + "-" + event.params._tokenId.toString());
     if (token !== null) {
@@ -1042,7 +1059,7 @@ export function handleAskUpdateCashback(event: AskUpdateCashback): void {
 
 export function handlePaywallAskUpdateDiscount(event: PaywallAskUpdateDiscount): void {
   let isPaywall = event.params._sender.equals(Address.fromString(PAYWALL_HELPER))
-  let isNFT = event.params._sender.equals(Address.fromString(NFT_HELPER))
+  let isNFT = event.params._sender.equals(Address.fromString(NFT_ORDERS))
   if (isPaywall) {
     let token = Paywall.load(event.params._collectionId.toString() + "-" + event.params._tokenId.toString());
     if (token !== null) {
@@ -1110,7 +1127,7 @@ export function handleAskUpdateDiscount(event: AskUpdateDiscount): void {
 
 export function handlePaywallAskUpdateCashback(event: PaywallAskUpdateCashback): void {
   let isPaywall = event.params._sender.equals(Address.fromString(PAYWALL_HELPER))
-  let isNFT = event.params._sender.equals(Address.fromString(NFT_HELPER))
+  let isNFT = event.params._sender.equals(Address.fromString(NFT_ORDERS))
   if (isPaywall) {
     let token = Paywall.load(event.params._collectionId.toString() + "-" + event.params._tokenId.toString());
     if (token !== null) {
@@ -1172,7 +1189,7 @@ export function handleAskUpdateIdentity(event: AskUpdateIdentity): void {
 
 export function handlePaywallAskUpdateIdentity(event: PaywallAskUpdateIdentity): void {
   let isPaywall = event.params._sender.equals(Address.fromString(PAYWALL_HELPER))
-  let isNFT = event.params._sender.equals(Address.fromString(NFT_HELPER))
+  let isNFT = event.params._sender.equals(Address.fromString(NFT_ORDERS))
   if (isPaywall) {
     let token = Paywall.load(event.params._collectionId.toString() + "-" + event.params._tokenId.toString());
     if (token !== null) {
@@ -1307,8 +1324,8 @@ export function handleCloseReferral(event: CloseReferral): void {
     let registration = PartnerRegistration.load(event.params._collectionId.toString() + "-" + event.params._referrerCollectionId.toString());
     if (registration !== null) {
       registration.active = !event.params._deactivate;
-      let isNFT = event.params._sender.equals(Address.fromString(NFT_HELPER))
-      let isItem = event.params._sender.equals(Address.fromString(ITEM_ORDERS))
+      let isNFT = event.params._sender.equals(Address.fromString(NFT_HELPER2))
+      let isItem = event.params._sender.equals(Address.fromString(ITEM_HELPER2))
       if (isNFT) {
         let item = NFT.load(event.params._referrerCollectionId.toString() + "-" + event.params._tokenId.toString());
         if (item !== null) {
@@ -1803,18 +1820,19 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
   if (event.params.idx.equals(ZERO_BI)) {
     log.warning("handleUpdateMiscellaneous5===============> - #{}", [event.params.collectionId.toString() + "-" + event.params.paramName]);
     log.warning("handleUpdateMiscellaneous6===============> - #{}", [event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-paywall"]);
-    let item = Paywall.load(event.params.collectionId.toString() + "-" + event.params.paramName);
+    let paywall = Paywall.load(event.params.collectionId.toString() + "-" + event.params.paramName);
     let sharedPaywall = Paywall.load(event.params.paramValue2.toString() + "-" + event.params.paramValue);
-    if (item !== null && sharedPaywall !== null) {
+    if (paywall !== null && sharedPaywall !== null) {
       log.warning("handleUpdateMiscellaneous7===============> - #{}", ["7"]);
       let paywallMirror = PaywallMirror.load(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-paywall");
       if (paywallMirror === null) {
-      log.warning("handleUpdateMiscellaneous8===============> - #{}", ["8"]);
+        log.warning("handleUpdateMiscellaneous8===============> - #{}", ["8"]);
         paywallMirror = new PaywallMirror(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-paywall");
-        paywallMirror.paywall = item.id;
+        paywallMirror.paywall = paywall.id;
         paywallMirror.sharedPaywall = sharedPaywall.id;
         paywallMirror.createdAt = event.block.timestamp;
-        item.save()
+        paywallMirror.active = event.params.paramValue3.gt(ZERO_BI);
+        paywall.save()
         paywallMirror.save();
       } else {
         log.warning("handleUpdateMiscellaneous9===============> - #{}", ["9"]);

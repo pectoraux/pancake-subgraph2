@@ -185,12 +185,6 @@ type Item @entity {
   
   period: BigInt
 
-  reviews: [String!]
-  
-  reviewers: [String!]
-  
-  reviewTimes: [BigInt!]
-
   prices: [BigInt!]
 
   description: String
@@ -210,7 +204,7 @@ type Item @entity {
 
   identityProof: IdentityProof
 
-  superReviews: [Review!] @derivedFrom(field: "item")
+  reviews: [Review!] @derivedFrom(field: "item")
   
   tasks: [Task!] @derivedFrom(field: "item")
 
@@ -322,12 +316,6 @@ type NFT @entity {
   
   period: BigInt
 
-  reviews: [String!]
-  
-  reviewers: [String!]
-  
-  reviewTimes: [BigInt!]
-
   prices: [BigInt!]
 
   description: String
@@ -347,7 +335,7 @@ type NFT @entity {
 
   identityProof: IdentityProof
 
-  superReviews: [Review!] @derivedFrom(field: "nft")
+  reviews: [Review!] @derivedFrom(field: "nft")
   
   tasks: [Task!] @derivedFrom(field: "nft")
 
@@ -431,12 +419,6 @@ type Paywall @entity {
   
   period: BigInt
 
-  reviews: [String!]
-  
-  reviewers: [String!]
-  
-  reviewTimes: [BigInt!]
-
   prices: [BigInt!]
 
   description: String
@@ -456,7 +438,7 @@ type Paywall @entity {
 
   identityProof: IdentityProof
 
-  superReviews: [Review!] @derivedFrom(field: "paywall")
+  reviews: [Review!] @derivedFrom(field: "paywall")
   
   tasks: [Task!] @derivedFrom(field: "paywall")
 

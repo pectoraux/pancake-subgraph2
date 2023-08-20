@@ -6,6 +6,7 @@ import {
   TicketsPurchase,
   LotteryNumberDrawn,
   TicketsClaim,
+  LotteryInjection,
 } from "../generated/lottery/lottery";
 
 export function handleLotteryOpen(event: LotteryOpen): void {
@@ -58,6 +59,21 @@ export function handleTicketsClaim(event: TicketsClaim): void {
       token.save();
     }
     user.save();
+  }
+}
+
+export function handleLotteryInjection(event: LotteryInjection): void {
+  let lottery = Lottery.load(event.params.lotteryId.toString());
+  if (lottery !== null) {
+    let token = Token.load("token_0");
+    if (token === null) {
+      token = new Token("token_0");
+      token.tokenAddress = event.params.token.toHex();
+      token.value = event.params.injectedAmount;
+      token.lottery = lottery.id;
+      token.active = true;
+      token.save();
+    }
   }
 }
 

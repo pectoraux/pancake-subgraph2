@@ -16,9 +16,9 @@ import { fetchTokenURI } from "./utils/erc721";
 let ZERO_BI = BigInt.fromI32(0);
 let ONE_BI = BigInt.fromI32(1);
 let THREE_BI = BigInt.fromI32(3);
-let GAME_HELPER = "0xa34575aE05aA528A26C5e1Ebb3c8F96fdE3A4657";
-let GAME_MINTER = "0x3643943a1bfd900758619b9bd81a43e4abcca933";
-let GAME_HELPER_LOWERCASE = "0xa34575ae05aa528a26c5e1ebb3c8f96fde3a4657";
+let GAME_HELPER = "0xF2aDCC4c959629B568D6fCFC7d582434bD2d34FA";
+let GAME_MINTER = "0xc32e6012b4bee4f47a1aa647d3f1512ac56efdb0";
+let GAME_HELPER_LOWERCASE = "0xf2adcc4c959629b568d6fcfc7d582434bd2d34fa";
 
 export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
   log.warning("handleUpdateMiscellaneous===============> - #{}", ["1"]);

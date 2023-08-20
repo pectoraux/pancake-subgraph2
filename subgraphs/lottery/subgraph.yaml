@@ -8,7 +8,7 @@ dataSources:
     name: lottery
     network: fantom-testnet
     source:
-      address: '0x0e00e32B2645DBa98B6Cf283B90e7816e1fAF68C'
+      address: '0x1557Be5c647Db440fB0C36Da69A3f4583358A512'
       abi: lottery
       startBlock: 14662559
     mapping:

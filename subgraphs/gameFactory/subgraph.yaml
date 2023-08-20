@@ -8,7 +8,7 @@ dataSources:
     name: GameFactory
     network: fantom-testnet
     source:
-      address: '0xE3ce3775A4316e8321130C6a60fE9bB02c34c93D'
+      address: '0x20886c6D212Fc074fC7F8B4ab9A466128A5a21F5'
       abi: gameFactory
       startBlock: 14662559
     mapping:

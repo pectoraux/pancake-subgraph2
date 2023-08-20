@@ -8,7 +8,7 @@ dataSources:
     name: betting
     network: fantom-testnet
     source:
-      address: '0xE973F5705566Dd65a3032c16E1DC3Cb52DC8d753'
+      address: '0xE7c267Fa69166Cc6431916Cd0612F74BEb52E19D'
       abi: betting
       startBlock: 14662559
     mapping:

@@ -16,7 +16,7 @@ import {
 import { fetchTokenURI } from "./utils/erc721";
 
 let ZERO_BI = BigInt.fromI32(0);
-let BETTING_MINTER = "0xa322f9253ff045db7df5ca058a7e544f7ad514df";
+let BETTING_MINTER = "0xb486008dcd9770d452bf82a22bb6ae1fcee85bde";
 
 export function handleUpdateProtocol(event: UpdateProtocol): void {
   let bettingEvent = BettingEvent.load(event.params.betting.toHexString() + '_' + event.params.currentBettingId.toString());
@@ -72,7 +72,9 @@ export function handleTicketsPurchase(event: TicketsPurchase): void {
       ticket.rewards = event.params.amount;
       ticket.bettingEvent = bettingEvent.id;
       let uri = fetchTokenURI(Address.fromString(BETTING_MINTER), event.params.ticketId);
-      ticket.metadataUrl = uri;
+      if (uri === null) {
+        ticket.metadataUrl = uri;
+      }
       ticket.save();
     }
     let period = Period.load(event.params.betting.toHexString() + '_' + event.params.bettingId.toString() + '_' + event.params.period.toString());
@@ -105,7 +107,9 @@ export function handleTicketsClaim(event: TicketsClaim): void {
       ticket.claimed = true;
       let uri = fetchTokenURI(Address.fromString(BETTING_MINTER), event.params.ticketNumber);
       log.warning("uri===============> - #{}", [uri]);
-      ticket.metadataUrl = uri;
+      if (uri === null) {
+        ticket.metadataUrl = uri;
+      }
       ticket.save();
     }
   }
