@@ -40,6 +40,12 @@ type Pitch @entity {
   
   description: String
 
+  countries: String
+  
+  cities: String
+  
+  products: String
+
   upVotes: BigInt
   
   downVotes: BigInt
@@ -49,4 +55,17 @@ type Pitch @entity {
 
   votes: [Vote!] @derivedFrom(field: "pitch")
 
+}
+
+type Tag @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  name: String
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
 }

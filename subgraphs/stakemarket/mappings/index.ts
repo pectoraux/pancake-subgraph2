@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 import { Address, BigInt, log  } from "@graphprotocol/graph-ts";
-import { Stake, Transaction, Token } from "../generated/schema";
+import { Stake, Transaction, Token, Tag } from "../generated/schema";
 import {
   AddToStake,
   CancelStake,
@@ -70,6 +70,16 @@ export function handleUpdateRequirements(event: UpdateRequirements): void {
     stake.countries = event.params.countries;
     stake.products = event.params.products;
     stake.save();
+    let tag = Tag.load('tags');
+    if (tag === null) {
+      tag = new Tag('tags');
+      tag.createdAt = event.block.timestamp;
+      tag.name = event.params.products;
+    } else {
+      tag.name = tag.name + ',' + event.params.products;
+    }
+    tag.updatedAt = event.block.timestamp;
+    tag.save();
   }
 }
 

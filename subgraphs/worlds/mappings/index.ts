@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 import { Address, BigInt, log } from "@graphprotocol/graph-ts";
-import { Protocol, World, Vote, WorldNFT, Note } from "../generated/schema";
+import { Protocol, World, Vote, WorldNFT, Note, Tag } from "../generated/schema";
 import {
   Voted,
   Mint,
@@ -15,6 +15,7 @@ import { fetchTokenURI, fetchNoteURI } from "./utils/erc721";
 
 let ZERO_BI = BigInt.fromI32(0);
 let THREE_BI = BigInt.fromI32(3);
+let FOUR_BI = BigInt.fromI32(4);
 let WORLD_HELPER2 = "0x350ab48ad25003d1887a17d269f947f7dd27a2c8";
 let WORLD_HELPER3 = "0x29cf710fa955e4f3a6e8e672d4885fd9a43f380f";
 
@@ -119,6 +120,26 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
         note.metadataUrl = uri;
       }
       note.save();
+    }
+  } else if (event.params.idx.equals(FOUR_BI)) {
+    let world = World.load(event.params.paramValue4.toHex());
+    if (world !== null) {
+      if (event.params.sender.equals(Address.fromString(world.owner))) {
+        world.countries = event.params.paramName;
+        world.cities = event.params.paramValue;
+        world.products = event.params.paramValue5;
+        world.save();
+        let tag = Tag.load('tags');
+        if (tag === null) {
+          tag = new Tag('tags');
+          tag.createdAt = event.block.timestamp;
+          tag.name = event.params.paramValue5;
+        } else {
+          tag.name = tag.name + ',' + event.params.paramValue5;
+        }
+        tag.updatedAt = event.block.timestamp;
+        tag.save();
+      }
     }
   }
 }

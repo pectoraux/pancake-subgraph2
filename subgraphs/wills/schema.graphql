@@ -46,6 +46,12 @@ type WILL @entity {
 
   owner: String
 
+  countries: String
+  
+  cities: String
+  
+  products: String
+
   protocols: [Protocol!] @derivedFrom(field: "will")
   
   tokens: [Token!] @derivedFrom(field: "will")
@@ -77,4 +83,17 @@ type Token @entity {
 
   will: WILL
 
+}
+
+type Tag @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  name: String
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
 }

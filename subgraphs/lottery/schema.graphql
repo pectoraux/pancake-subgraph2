@@ -41,6 +41,12 @@ type Lottery @entity {
 
   collectionId: BigInt
 
+  countries: String
+  
+  cities: String
+  
+  products: String
+
   tokens: [Token!] @derivedFrom(field: "lottery")
   
   users: [User!] @derivedFrom(field: "lottery")
@@ -78,4 +84,17 @@ type User @entity {
   lottery: Lottery
   
   tokens: [Token!] @derivedFrom(field: "user")
+}
+
+type Tag @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  name: String
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
 }

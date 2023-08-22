@@ -66,6 +66,12 @@ type World @entity {
 
   applicationLink: String
 
+  countries: String
+  
+  cities: String
+  
+  products: String
+
   protocols: [Protocol!] @derivedFrom(field: "world")
 
   votes: [Vote!] @derivedFrom(field: "world")
@@ -84,4 +90,17 @@ type Note @entity {
   metadataUrl: String
 
   world: World
+}
+
+type Tag @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  name: String
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
 }

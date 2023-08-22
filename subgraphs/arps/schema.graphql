@@ -47,6 +47,12 @@ type ARP @entity {
 
   tags: String
 
+  countries: String
+  
+  cities: String
+  
+  products: String
+
   protocols: [Protocol!] @derivedFrom(field: "arp")
   
   votes: [Vote!] @derivedFrom(field: "arp")
@@ -81,4 +87,17 @@ type Vote @entity {
   liked: Boolean!
   
   arp: ARP
+}
+
+type Tag @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  name: String
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
 }

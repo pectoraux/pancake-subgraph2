@@ -52,12 +52,6 @@ type Valuepool @entity {
   minTicketPrice: BigInt
   
   minToSwitch: BigInt
-
-  countries: [String!]
-
-  cities: [String!]
-  
-  products: [String!]
   
   "Block timestamp"
   timestamp: BigInt!
@@ -149,6 +143,12 @@ type Token @entity {
   
   updatedAt: BigInt
 
+  countries: String
+  
+  cities: String
+  
+  products: String
+
 }
 
 type Loan @entity {
@@ -190,6 +190,12 @@ type Sponsor @entity {
   
   amount: BigDecimal
 
+  countries: String
+  
+  cities: String
+  
+  products: String
+
   valuepool: Valuepool
 
 }
@@ -223,4 +229,17 @@ type Transaction @entity {
   "Order type"
   txType: TxType!
 
+}
+
+type Tag @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  name: String
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
 }

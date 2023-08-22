@@ -62,9 +62,28 @@ type Game @entity {
   referrerFee: BigInt
 
   teamShare: BigInt
+
+  countries: String
+  
+  cities: String
+  
+  products: String
   
   protocols: [Protocol!] @derivedFrom(field: "game")
   
   objectNames: [GameObject!] @derivedFrom(field: "game")
   
+}
+
+type Tag @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  name: String
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
 }

@@ -16,9 +16,13 @@ import { fetchTokenURI } from "./utils/erc721";
 let ZERO_BI = BigInt.fromI32(0);
 let ONE_BI = BigInt.fromI32(1);
 let THREE_BI = BigInt.fromI32(3);
-let GAME_HELPER = "0xF2aDCC4c959629B568D6fCFC7d582434bD2d34FA";
-let GAME_MINTER = "0xc32e6012b4bee4f47a1aa647d3f1512ac56efdb0";
-let GAME_HELPER_LOWERCASE = "0xf2adcc4c959629b568d6fcfc7d582434bd2d34fa";
+let GAME_HELPER = "0x6Ff847c7EbDf92bA9E6D1DBD9c172d912f61C4D4";
+let GAME_MINTER = "0x45160ea1079e7a07160c2ea122a760cee0ffcc71";
+let GAME_HELPER_LOWERCASE = "0x6ff847c7ebdf92ba9e6d1dbd9c172d912f61c4d4";
+
+export function handleMintObject(event: MintObject): void {
+  log.warning("handleMintObject===============> - #{}", ["1"]);
+}
 
 export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
   log.warning("handleUpdateMiscellaneous===============> - #{}", ["1"]);
@@ -56,7 +60,7 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
           protocol.game = game.id;
           protocol.owner = event.params.paramValue4.toHexString();
         }
-        let uri = fetchTokenURI(Address.fromString(GAME_HELPER_LOWERCASE), event.params.paramValue2);
+        let uri = fetchTokenURI(Address.fromString(GAME_HELPER), event.params.paramValue2);
         log.warning("uri2===============> - #{}", [uri]);
         if (uri !== null) {
           protocol.metadataUrl = uri;

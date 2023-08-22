@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 import { BigDecimal, BigInt, Address, log } from "@graphprotocol/graph-ts";
-import { Profile, Token, Registration, Blacklist, Account } from "../generated/schema";
+import { Profile, Token, Registration, Blacklist, Account, Tag } from "../generated/schema";
 import {
   CreateProfile,
   PayProfile,
@@ -227,7 +227,7 @@ export function handleUpdateCollectionId(event: UpdateCollectionId): void {
 }
 
 export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
-  // if (event.params.idx.equals(ONE_BI)) {
+  if (event.params.idx.equals(ONE_BI)) {
     let profile = Profile.load(event.params.collectionId.toString());
     if (profile != null) {
       let uri = fetchTokenURI(Address.fromString(PROFILE_HELPER), event.params.collectionId);
@@ -237,7 +237,26 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
       log.warning("uri2===============> -{} #{}", [event.params.collectionId.toString(), uri]);
       profile.save();
     }
-  // }
+  } else if (event.params.idx.equals(ONE_BI)) {
+    let account = Account.load(event.params.collectionId.toString() + '-' + event.params.sender.toHexString());
+    let profile = Profile.load(event.params.collectionId.toString());
+    if (profile !== null && account !== null) {
+      profile.countries = event.params.paramName;
+      profile.cities = event.params.paramValue;
+      profile.products = event.params.paramValue5;
+      profile.save();
+      let tag = Tag.load('tags');
+      if (tag === null) {
+        tag = new Tag('tags');
+        tag.createdAt = event.block.timestamp;
+        tag.name = event.params.paramValue5;
+      } else {
+        tag.name = tag.name + ',' + event.params.paramValue5;
+      }
+      tag.updatedAt = event.block.timestamp;
+      tag.save();
+    }
+  }
 }
 
 export function handleUpdateSSID(event: UpdateSSID): void {

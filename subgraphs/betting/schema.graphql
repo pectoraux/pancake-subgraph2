@@ -18,6 +18,12 @@ type Betting @entity {
   owner: String
 
   active: Boolean
+
+  countries: String
+  
+  cities: String
+  
+  products: String
   
   bettingEvents: [BettingEvent!] @derivedFrom(field: "betting")
   
@@ -99,4 +105,17 @@ type Period @entity {
 
   bettingEvent: BettingEvent
 
+}
+
+type Tag @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  name: String
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
 }

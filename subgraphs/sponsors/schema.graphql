@@ -51,6 +51,12 @@ type Sponsor @entity {
   
   applicationLink: String
 
+  countries: String
+  
+  cities: String
+  
+  products: String
+  
   protocols: [Protocol!] @derivedFrom(field: "sponsor")
   
   contents: [ContentType!] @derivedFrom(field: "sponsor")
@@ -82,4 +88,18 @@ type ContentType @entity {
   name: String
 
   active: Boolean
+}
+
+
+type Tag @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  name: String
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
 }

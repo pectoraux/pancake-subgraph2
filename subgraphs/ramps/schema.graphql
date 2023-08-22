@@ -38,6 +38,12 @@ type Ramp @entity {
   
   dislikes: BigInt
 
+  countries: String
+  
+  cities: String
+  
+  products: String
+
   sessions: [Session!] @derivedFrom(field: "ramp")
 
   tokens: [Token!] @derivedFrom(field: "ramp")
@@ -83,6 +89,19 @@ type Transaction @entity {
   "tx type"
   txType: TxType!
 
+}
+
+type Tag @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  name: String
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
 }
 
 type Account @entity {

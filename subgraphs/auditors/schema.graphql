@@ -43,6 +43,12 @@ type Auditor @entity {
 
   owner: String
 
+  countries: String
+  
+  cities: String
+  
+  products: String
+
   applicationLink: String
 
   protocols: [Protocol!] @derivedFrom(field: "auditor")
@@ -84,4 +90,17 @@ type Vote @entity {
   liked: Boolean!
   
   auditor: Auditor
+}
+
+type Tag @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  name: String
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
 }

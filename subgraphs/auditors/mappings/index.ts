@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 import { Address, BigInt, log } from "@graphprotocol/graph-ts";
-import { Protocol, Auditor, Vote, Note, Token } from "../generated/schema";
+import { Protocol, Auditor, Vote, Note, Token, Tag } from "../generated/schema";
 import {
   Voted,
   UpdateAutoCharge,
@@ -110,8 +110,26 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
       auditor.applicationLink = event.params.paramName;
       auditor.save();
     }
-  // } else if (event.params.idx.equals(TWO_BI)) {
-    
+  } else if (event.params.idx.equals(ONE_BI)) {
+      let auditor = Auditor.load(event.params.paramValue4.toHex());
+        if (auditor !== null) {
+          if (event.params.sender.equals(Address.fromString(auditor.owner))) {
+            auditor.countries = event.params.paramName;
+            auditor.cities = event.params.paramValue;
+            auditor.products = event.params.paramValue5;
+            auditor.save();
+            let tag = Tag.load('tags');
+            if (tag === null) {
+              tag = new Tag('tags');
+              tag.createdAt = event.block.timestamp;
+              tag.name = event.params.paramValue5;
+            } else {
+              tag.name = tag.name + ',' + event.params.paramValue5;
+            }
+            tag.updatedAt = event.block.timestamp;
+            tag.save();
+          }
+        }
   } else if (event.params.idx.equals(THREE_BI)) {
     log.warning("uri00===============> - #{} - #{}", [event.params.auditorId.toString(), event.params.paramValue2.toString()]);
     log.warning("uri000===============> - #{} - #{}", [event.params.idx.toString(),  event.params.paramValue4.toHex()]);

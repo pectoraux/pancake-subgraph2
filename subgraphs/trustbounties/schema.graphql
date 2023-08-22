@@ -21,6 +21,12 @@ type Bounty @entity {
 
   bountySource: String
   
+  countries: String
+  
+  cities: String
+  
+  products: String
+  
   parentBounty: Bounty
 
   "Block timestamp"
@@ -84,4 +90,17 @@ type Claim @entity {
 
   amount: BigDecimal
 
+}
+
+type Tag @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  name: String
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
 }

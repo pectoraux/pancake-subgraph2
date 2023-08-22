@@ -30,8 +30,6 @@ dataSources:
           handler: handleInitialize
         - event: UpdateParameters(address,bool,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
           handler: handleUpdateParameters
-        - event: UpdateVava(address,string,string,address,string[],string[],string[])
-          handler: handleUpdateVava
         - event: NotifyLoan(address,address,address,uint256)
           handler: handleNotifyLoan
         - event: NotifyPayment(address,address,uint256,uint256)
@@ -60,3 +58,5 @@ dataSources:
           handler: handleCheckRank
         - event: SetParams(address,string,string,uint8,uint256,uint256,uint256)
           handler: handleSetParams
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string)
+          handler: handleUpdateMiscellaneous

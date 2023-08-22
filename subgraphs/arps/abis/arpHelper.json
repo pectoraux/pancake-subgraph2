@@ -365,9 +365,9 @@
       },
       {
         "indexed": false,
-        "internalType": "string[]",
+        "internalType": "string",
         "name": "paramValue5",
-        "type": "string[]"
+        "type": "string"
       }
     ],
     "name": "UpdateMiscellaneous",
@@ -740,9 +740,9 @@
         "type": "address"
       },
       {
-        "internalType": "string[]",
+        "internalType": "string",
         "name": "paramValue5",
-        "type": "string[]"
+        "type": "string"
       }
     ],
     "name": "emitUpdateMiscellaneous",

@@ -33,6 +33,12 @@ type Collection @entity {
   gauge: String
   
   bribe: String
+
+  countries: String
+  
+  cities: String
+  
+  products: String
   
   upVotes: BigInt
   
@@ -41,4 +47,17 @@ type Collection @entity {
 
   votes: [Vote!] @derivedFrom(field: "collection")
 
+}
+
+type Tag @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  name: String
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
 }

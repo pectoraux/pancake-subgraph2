@@ -38,7 +38,7 @@ dataSources:
           handler: handleTicketsClaim
         - event: TicketsPurchase(address,address,uint256,uint256,uint256,uint256,uint256)
           handler: handleTicketsPurchase
-        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string[])
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string)
           handler: handleUpdateMiscellaneous
         - event: UpdateProtocol(address,uint256,uint256,address,string,uint256,uint256,uint256,uint256,uint256,uint256[],string,string)
           handler: handleUpdateProtocol

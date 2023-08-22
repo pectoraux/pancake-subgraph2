@@ -36,7 +36,7 @@ dataSources:
           handler: handleCreateARP
         - event: DeleteARP(address)
           handler: handleDeleteARP
-        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string[])
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string)
           handler: handleUpdateMiscellaneous
         - event: PayInvoicePayable(address,uint256,uint256)
           handler: handlePayInvoicePayable

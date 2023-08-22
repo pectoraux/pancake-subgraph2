@@ -40,3 +40,5 @@ dataSources:
           handler: handleAddApproval
         - event: RemoveApproval(indexed uint256,uint256,uint256,bool)
           handler: handleRemoveApproval
+        - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string)
+          handler: handleUpdateMiscellaneous

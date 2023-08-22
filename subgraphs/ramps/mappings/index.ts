@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 import { Address, BigInt, log } from "@graphprotocol/graph-ts";
-import { Ramp, Session, Vote, Token, Transaction, Account, NFT } from "../generated/schema";
+import { Ramp, Session, Vote, Token, Transaction, Account, NFT, Tag } from "../generated/schema";
 import { toBigDecimal } from "./utils";
 import {
   CreateGauge,
@@ -213,6 +213,26 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
       note.metadataUrl = uri;
     }
     note.save();
+  } else if (event.params.idx.equals(ZERO_BI)) {
+    let ramp = Ramp.load(event.params.paramValue4.toHexString());
+    if (ramp !== null) {
+      if (event.params.sender.equals(Address.fromString(ramp.owner))) {
+        ramp.countries = event.params.paramName;
+        ramp.cities = event.params.paramValue;
+        ramp.products = event.params.paramValue5;
+        ramp.save();
+        let tag = Tag.load('tags');
+        if (tag === null) {
+          tag = new Tag('tags');
+          tag.createdAt = event.block.timestamp;
+          tag.name = event.params.paramValue5;
+        } else {
+          tag.name = tag.name + ',' + event.params.paramValue5;
+        }
+        tag.updatedAt = event.block.timestamp;
+        tag.save();
+      }
+    }
   }
 }
 

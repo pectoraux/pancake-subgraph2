@@ -68,3 +68,16 @@ type Transaction @entity {
   txType: TxType!
 
 }
+
+type Tag @entity {
+  "ID"
+  id: ID!
+
+  active: Boolean
+
+  name: String
+
+  createdAt: BigInt!
+
+  updatedAt: BigInt!
+}

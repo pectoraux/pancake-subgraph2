@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 import { Address, BigInt, log } from "@graphprotocol/graph-ts";
-import { Protocol, Sponsor, Vote, ContentType, Note } from "../generated/schema";
+import { Protocol, Sponsor, Vote, ContentType, Note, Tag } from "../generated/schema";
 import {
   Voted,
   CreateSponsorship,
@@ -96,6 +96,26 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
         note.metadataUrl = uri;
       }
       note.save();
+    }
+  } else if (event.params.idx.equals(ZERO_BI)) {
+    let sponsor = Sponsor.load(event.params.paramValue4.toHexString());
+    if (sponsor !== null) {
+      if (event.params.sender.equals(Address.fromString(sponsor.owner))) {
+        sponsor.countries = event.params.paramName;
+        sponsor.cities = event.params.paramValue;
+        sponsor.products = event.params.paramValue5;
+        sponsor.save();
+        let tag = Tag.load('tags');
+        if (tag === null) {
+          tag = new Tag('tags');
+          tag.createdAt = event.block.timestamp;
+          tag.name = event.params.paramValue5;
+        } else {
+          tag.name = tag.name + ',' + event.params.paramValue5;
+        }
+        tag.updatedAt = event.block.timestamp;
+        tag.save();
+      }
     }
   }
 }

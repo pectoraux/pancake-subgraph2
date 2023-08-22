@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 import { Address, BigInt, log } from "@graphprotocol/graph-ts";
-import { Protocol, BILL, Vote, Note } from "../generated/schema";
+import { Protocol, BILL, Vote, Note, Tag } from "../generated/schema";
 import {
   Voted,
   UpdateAutoCharge,
@@ -14,6 +14,7 @@ import {
 import { fetchTokenURI, fetchNoteURI } from "./utils/erc721";
 
 let ZERO_BI = BigInt.fromI32(0);
+let ONE_BI = BigInt.fromI32(1);
 let BILL_MINTER = "0x39d546ce9737f5b377b703c4fe5dc621d162540b";
 let BILL_NOTE = "0x995a88e7120fc55a23e82adbdc50a14efa67a2dc";
 
@@ -127,5 +128,25 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
       bill.applicationLink = event.params.paramName;
       bill.save();
     }
-  }
+  } else if (event.params.idx.equals(ONE_BI)) {
+    let bill = BILL.load(event.params.paramValue4.toHex());
+      if (bill !== null) {
+        if (event.params.sender.equals(Address.fromString(bill.owner))) {
+          bill.countries = event.params.paramName;
+          bill.cities = event.params.paramValue;
+          bill.products = event.params.paramValue5;
+          bill.save();
+          let tag = Tag.load('tags');
+          if (tag === null) {
+            tag = new Tag('tags');
+            tag.createdAt = event.block.timestamp;
+            tag.name = event.params.paramValue5;
+          } else {
+            tag.name = tag.name + ',' + event.params.paramValue5;
+          }
+          tag.updatedAt = event.block.timestamp;
+          tag.save();
+        }
+      }
+    }
 }

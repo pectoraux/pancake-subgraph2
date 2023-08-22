@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
-import { BigDecimal } from "@graphprotocol/graph-ts";
-import { Bounty, Balance, Claim, Approval } from "../generated/schema";
+import { Address, BigDecimal, BigInt } from "@graphprotocol/graph-ts";
+import { Bounty, Balance, Claim, Approval, Tag } from "../generated/schema";
 import {
   CreateBounty,
   UpdateBounty,
@@ -11,10 +11,12 @@ import {
   UpdateClaim,
   AddApproval,
   RemoveApproval,
+  UpdateMiscellaneous,
 } from "../generated/TrustBounties/TrustBounties";
 import { toBigDecimal } from "./utils";
 
 let ZERO_BD = BigDecimal.fromString("0");
+let ZERO_BI = BigInt.fromI32(0);
 
 export function handleCreateBounty(event: CreateBounty): void {
   let bounty = Bounty.load(event.params.bountyId.toString());
@@ -131,5 +133,29 @@ export function handleRemoveApproval(event: RemoveApproval): void {
     }
     approval.active = !event.params.deactivate;
     approval.save();
+  }
+}
+
+export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
+  if (event.params.idx.equals(ZERO_BI)) {
+    let bounty = Bounty.load(event.params.collectionId.toString());
+    if (bounty !== null) {
+      if (event.params.sender.equals(Address.fromString(bounty.owner))) {
+        bounty.countries = event.params.paramName;
+        bounty.cities = event.params.paramValue;
+        bounty.products = event.params.paramValue5;
+        bounty.save();
+        let tag = Tag.load('tags');
+        if (tag === null) {
+          tag = new Tag('tags');
+          tag.createdAt = event.block.timestamp;
+          tag.name = event.params.paramValue5;
+        } else {
+          tag.name = tag.name + ',' + event.params.paramValue5;
+        }
+        tag.updatedAt = event.block.timestamp;
+        tag.save();
+      }
+    }
   }
 }

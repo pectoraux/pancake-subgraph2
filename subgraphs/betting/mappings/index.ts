@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 import { Address, BigInt, log } from "@graphprotocol/graph-ts";
-import { BettingEvent, Betting, Ticket, Period } from "../generated/schema";
+import { BettingEvent, Betting, Ticket, Period, Tag } from "../generated/schema";
 import {
   BettingResultsIn,
   CreateBetting,
@@ -16,6 +16,7 @@ import {
 import { fetchTokenURI } from "./utils/erc721";
 
 let ZERO_BI = BigInt.fromI32(0);
+let ONE_BI = BigInt.fromI32(1);
 let BETTING_MINTER = "0xb486008dcd9770d452bf82a22bb6ae1fcee85bde";
 
 export function handleUpdateProtocol(event: UpdateProtocol): void {
@@ -72,7 +73,7 @@ export function handleTicketsPurchase(event: TicketsPurchase): void {
       ticket.rewards = event.params.amount;
       ticket.bettingEvent = bettingEvent.id;
       let uri = fetchTokenURI(Address.fromString(BETTING_MINTER), event.params.ticketId);
-      if (uri === null) {
+      if (uri !== null) {
         ticket.metadataUrl = uri;
       }
       ticket.save();
@@ -107,7 +108,7 @@ export function handleTicketsClaim(event: TicketsClaim): void {
       ticket.claimed = true;
       let uri = fetchTokenURI(Address.fromString(BETTING_MINTER), event.params.ticketNumber);
       log.warning("uri===============> - #{}", [uri]);
-      if (uri === null) {
+      if (uri !== null) {
         ticket.metadataUrl = uri;
       }
       ticket.save();
@@ -161,5 +162,25 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
     let betting = Betting.load(event.params.paramValue4.toHex());
     if (betting !== null && event.params.sender.equals(Address.fromString(betting.owner)) ) {
     }
-  }
+  } else if (event.params.idx.equals(ONE_BI)) {
+    let betting = Betting.load(event.params.paramValue4.toHex());
+      if (betting !== null) {
+        if (event.params.sender.equals(Address.fromString(betting.owner))) {
+          betting.countries = event.params.paramName;
+          betting.cities = event.params.paramValue;
+          betting.products = event.params.paramValue5;
+          betting.save();
+          let tag = Tag.load('tags');
+          if (tag === null) {
+            tag = new Tag('tags');
+            tag.createdAt = event.block.timestamp;
+            tag.name = event.params.paramValue5;
+          } else {
+            tag.name = tag.name + ',' + event.params.paramValue5;
+          }
+          tag.updatedAt = event.block.timestamp;
+          tag.save();
+        }
+      }
+    }
 }

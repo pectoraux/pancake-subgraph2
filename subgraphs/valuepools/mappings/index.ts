@@ -1,9 +1,8 @@
 /* eslint-disable prefer-const */
 import { Address, BigInt, BigDecimal, log } from "@graphprotocol/graph-ts";
-import { Valuepool, Transaction, Sponsor, Loan, Token, Purchase } from "../generated/schema";
+import { Valuepool, Transaction, Sponsor, Loan, Token, Purchase, Tag } from "../generated/schema";
 import {
   CreateVava,
-  UpdateVava,
   NotifyLoan,
   NotifyReimbursement,
   NotifyPayment,
@@ -20,6 +19,7 @@ import {
   RemoveSponsor,
   CheckRank,
   SetParams,
+  UpdateMiscellaneous,
 } from "../generated/VavaHelper/VavaHelper";
 import { toBigDecimal } from "./utils";
 import { fetchTokenURI } from "./utils/erc721";
@@ -90,27 +90,6 @@ export function handleSupply(event: Supply): void {
   if (valuepool !== null) {
     valuepool.veBalance = toBigDecimal(event.params.supply, 0);
     valuepool.save();
-  }
-}
-
-export function handleUpdateVava(event: UpdateVava): void {
-  let valuepool = Valuepool.load(event.params.vava.toHexString());
-  if (valuepool !== null) {
-    valuepool.ve = event.params.workspace.toHexString();
-    valuepool.name = event.params.name;
-    valuepool.description = event.params.description;
-    valuepool.cities = event.params.cities;
-    valuepool.countries = event.params.countries;
-    valuepool.products = event.params.products;
-    valuepool.save();
-
-    // Transaction
-    let transaction = new Transaction(event.transaction.hash.toHex());
-    transaction.block = event.block.number;
-    transaction.timestamp = event.block.timestamp;
-    transaction.valuepool = valuepool.id;
-    transaction.txType = "New";
-    transaction.save(); 
   }
 }
 
@@ -366,6 +345,30 @@ export function handleCheckRank(event: CheckRank): void {
       purchase.updatedAt = event.block.timestamp;
       purchase.active = true;
       purchase.save();
+    }
+  }
+}
+
+export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
+  if (event.params.idx.equals(ZERO_BI)) {
+  let token = Token.load(event.params.paramValue4.toHexString() + '-' + event.params.collectionId.toString());
+    if (token !== null) {
+      if (event.params.sender.equals(Address.fromString(token.owner))) {
+        token.countries = event.params.paramName;
+        token.cities = event.params.paramValue;
+        token.products = event.params.paramValue5;
+        token.save();
+        let tag = Tag.load('tags');
+        if (tag === null) {
+          tag = new Tag('tags');
+          tag.createdAt = event.block.timestamp;
+          tag.name = event.params.paramValue5;
+        } else {
+          tag.name = tag.name + ',' + event.params.paramValue5;
+        }
+        tag.updatedAt = event.block.timestamp;
+        tag.save();
+      }
     }
   }
 }

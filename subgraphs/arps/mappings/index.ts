@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 import { Address, BigInt, log } from "@graphprotocol/graph-ts";
-import { Protocol, ARP, Vote, Note } from "../generated/schema";
+import { Protocol, ARP, Vote, Note, Tag } from "../generated/schema";
 import {
   Voted,
   UpdateAutoCharge,
@@ -14,6 +14,7 @@ import {
 import { fetchTokenURI, fetchNoteURI } from "./utils/erc721";
 
 let ZERO_BI = BigInt.fromI32(0);
+let ONE_BI = BigInt.fromI32(0); 
 let ARP_HELPER = "0x854059066ad7bdf6d18e069bdc6b2de477ba8949";
 let ARP_NOTE = "0xc429abcb98f3565af5e051fdc5ff081a43b6b803";
 
@@ -126,6 +127,26 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
     if (arp !== null && event.params.sender.equals(Address.fromString(arp.owner)) ) {
       arp.applicationLink = event.params.paramName;
       arp.save();
+    }
+  } else if (event.params.idx.equals(ONE_BI)) {
+    let arp = ARP.load(event.params.paramValue4.toHex());
+    if (arp !== null) {
+      if (event.params.sender.equals(Address.fromString(arp.owner))) {
+        arp.countries = event.params.paramName;
+        arp.cities = event.params.paramValue;
+        arp.products = event.params.paramValue5;
+        arp.save();
+        let tag = Tag.load('tags');
+        if (tag === null) {
+          tag = new Tag('tags');
+          tag.createdAt = event.block.timestamp;
+          tag.name = event.params.paramValue5;
+        } else {
+          tag.name = tag.name + ',' + event.params.paramValue5;
+        }
+        tag.updatedAt = event.block.timestamp;
+        tag.save();
+      }
     }
   }
 }
