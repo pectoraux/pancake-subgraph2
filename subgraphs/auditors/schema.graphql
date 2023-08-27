@@ -49,6 +49,10 @@ type Auditor @entity {
   
   products: String
 
+  contactChannels: String
+  
+  contacts: String
+
   applicationLink: String
 
   protocols: [Protocol!] @derivedFrom(field: "auditor")

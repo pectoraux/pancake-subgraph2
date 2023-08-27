@@ -107,7 +107,9 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
   if (event.params.idx.equals(ZERO_BI)) {
     let auditor = Auditor.load(event.params.paramValue4.toHex());
     if (auditor !== null && event.params.sender.equals(Address.fromString(auditor.owner)) ) {
-      auditor.applicationLink = event.params.paramName;
+      auditor.contactChannels = event.params.paramName;
+      auditor.contacts = event.params.paramValue;
+      auditor.applicationLink = event.params.paramValue5;
       auditor.save();
     }
   } else if (event.params.idx.equals(ONE_BI)) {

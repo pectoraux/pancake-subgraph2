@@ -66,6 +66,10 @@ type World @entity {
 
   applicationLink: String
 
+  contactChannels: String
+
+  contacts: String
+  
   countries: String
   
   cities: String

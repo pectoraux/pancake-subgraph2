@@ -48,6 +48,10 @@ type Game @entity {
   token: String
   
   gameContract: String
+  
+  gameName: String
+  
+  gameLink: String
 
   active: Boolean
   

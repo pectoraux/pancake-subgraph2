@@ -103,6 +103,9 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
     let world = World.load(event.params.paramValue4.toHex());
     if (world !== null && event.params.sender.equals(Address.fromString(world.owner)) ) {
       world.applicationLink = event.params.paramName;
+      world.contactChannels = event.params.paramName;
+      world.contacts = event.params.paramValue;
+      world.applicationLink = event.params.paramValue5;
       world.save();
     }
   } else if (event.params.idx.equals(THREE_BI)) {

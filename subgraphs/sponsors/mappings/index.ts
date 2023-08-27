@@ -117,6 +117,14 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
         tag.save();
       }
     }
+  } else if (event.params.idx.equals(ZERO_BI)) {
+    let sponsor = Sponsor.load(event.params.paramValue4.toHex());
+    if (sponsor !== null && event.params.sender.equals(Address.fromString(sponsor.owner)) ) {
+      sponsor.contactChannels = event.params.paramName;
+      sponsor.contacts = event.params.paramValue;
+      sponsor.applicationLink = event.params.paramValue5;
+      sponsor.save();
+    }
   }
 }
 

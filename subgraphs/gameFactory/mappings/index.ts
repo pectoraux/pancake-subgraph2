@@ -26,47 +26,51 @@ export function handleMintObject(event: MintObject): void {
 
 export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
   log.warning("handleUpdateMiscellaneous===============> - #{}", ["1"]);
-  if (event.params.sender.equals(Address.fromString(GAME_HELPER)) ||
-      event.params.sender.equals(Address.fromString(GAME_MINTER))
-  ) {
-  log.warning("handleUpdateMiscellaneous===============> - #{}", ["2"]);
   let game = Game.load(event.params.collectionId.toString());
-    if (game !== null) {
-      if (event.params.idx.equals(ONE_BI)) { // add
-        let object = GameObject.load(event.params.collectionId.toString() + '-' + event.params.paramName);
-        if (object === null) {
-          object = new GameObject(event.params.collectionId.toString() + '-' + event.params.paramName);
-          object.name = event.params.paramName;
-          object.active = true;
-          object.game = game.id;
-          object.createdAt = event.block.timestamp;
-          object.updatedAt = event.block.timestamp;
-          object.save();
+  if (game !== null) {
+    if (event.params.sender.equals(Address.fromString(GAME_HELPER)) ||
+        event.params.sender.equals(Address.fromString(GAME_MINTER))
+    ) {
+    log.warning("handleUpdateMiscellaneous===============> - #{}", ["2"]);
+        if (event.params.idx.equals(ONE_BI)) { // add
+          let object = GameObject.load(event.params.collectionId.toString() + '-' + event.params.paramName);
+          if (object === null) {
+            object = new GameObject(event.params.collectionId.toString() + '-' + event.params.paramName);
+            object.name = event.params.paramName;
+            object.active = true;
+            object.game = game.id;
+            object.createdAt = event.block.timestamp;
+            object.updatedAt = event.block.timestamp;
+            object.save();
+          }
+        } else if (event.params.idx.equals(ZERO_BI)) { // remove
+          let object = GameObject.load(event.params.collectionId.toString() + '-' + event.params.paramName);
+          if (object !== null) {
+            object.active = true;
+            object.game = '';
+            object.updatedAt = event.block.timestamp;
+            object.save();
+          }
+        } else if (event.params.idx.equals(THREE_BI)) { // mint
+          log.warning("handleUpdateMiscellaneous===============> - #{}", ["3"]);
+          let protocol = Protocol.load(event.params.paramValue2.toString());
+          if (protocol === null) {
+            protocol = new Protocol(event.params.paramValue2.toString());
+            protocol.active = true;
+            protocol.game = game.id;
+            protocol.owner = event.params.paramValue4.toHexString();
+          }
+          let uri = fetchTokenURI(Address.fromString(GAME_HELPER), event.params.paramValue2);
+          log.warning("uri2===============> - #{}", [uri]);
+          if (uri !== null) {
+            protocol.metadataUrl = uri;
+          }
+          protocol.save();
         }
-      } else if (event.params.idx.equals(ZERO_BI)) { // remove
-        let object = GameObject.load(event.params.collectionId.toString() + '-' + event.params.paramName);
-        if (object !== null) {
-          object.active = true;
-          object.game = '';
-          object.updatedAt = event.block.timestamp;
-          object.save();
-        }
-      } else if (event.params.idx.equals(THREE_BI)) { // mint
-        log.warning("handleUpdateMiscellaneous===============> - #{}", ["3"]);
-        let protocol = Protocol.load(event.params.paramValue2.toString());
-        if (protocol === null) {
-          protocol = new Protocol(event.params.paramValue2.toString());
-          protocol.active = true;
-          protocol.game = game.id;
-          protocol.owner = event.params.paramValue4.toHexString();
-        }
-        let uri = fetchTokenURI(Address.fromString(GAME_HELPER), event.params.paramValue2);
-        log.warning("uri2===============> - #{}", [uri]);
-        if (uri !== null) {
-          protocol.metadataUrl = uri;
-        }
-        protocol.save();
-      }
+    } else  if (event.params.sender.equals(Address.fromString(game.owner))) {
+      game.gameName = event.params.paramValue;
+      game.gameLink = event.params.paramName;
+      game.save();
     }
   }
 }
@@ -75,6 +79,7 @@ export function handleAddProtocol(event: AddProtocol): void {
   let game = Game.load(event.params.collectionId.toString());
   if (game === null) {
     game = new Game(event.params.collectionId.toString());
+    game.owner = event.params.user.toHex();
     game.token = event.params.token.toHexString();
     game.gameContract = event.params.gameContract.toHexString();
     game.pricePerMinutes = event.params.pricePerMinutes;

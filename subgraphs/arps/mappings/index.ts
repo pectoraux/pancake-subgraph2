@@ -125,7 +125,9 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
   if (event.params.idx.equals(ZERO_BI)) {
     let arp = ARP.load(event.params.paramValue4.toHex());
     if (arp !== null && event.params.sender.equals(Address.fromString(arp.owner)) ) {
-      arp.applicationLink = event.params.paramName;
+      arp.contactChannels = event.params.paramName;
+      arp.contacts = event.params.paramValue;
+      arp.applicationLink = event.params.paramValue5;
       arp.save();
     }
   } else if (event.params.idx.equals(ONE_BI)) {

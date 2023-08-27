@@ -125,7 +125,9 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
   if (event.params.idx.equals(ZERO_BI)) {
     let bill = BILL.load(event.params.paramValue4.toHex());
     if (bill !== null && event.params.sender.equals(Address.fromString(bill.owner)) ) {
-      bill.applicationLink = event.params.paramName;
+      bill.contactChannels = event.params.paramName;
+      bill.contacts = event.params.paramValue;
+      bill.applicationLink = event.params.paramValue5;
       bill.save();
     }
   } else if (event.params.idx.equals(ONE_BI)) {

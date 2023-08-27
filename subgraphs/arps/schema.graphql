@@ -45,6 +45,10 @@ type ARP @entity {
 
   applicationLink: String
 
+  contactChannels: String
+  
+  contacts: String
+
   tags: String
 
   countries: String
