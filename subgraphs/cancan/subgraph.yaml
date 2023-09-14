@@ -8,7 +8,7 @@ dataSources:
     name: MarketPlace
     network: fantom-testnet
     source:
-      address: "0xc8990a7A65360785Cabc5f5543adB901c8E0e58e"
+      address: "0xAD38AFac104D620C079a9FFf7bc0E9B59eB00e6d"
       abi: MarketPlaceEvents
       startBlock: 15707023
     mapping:

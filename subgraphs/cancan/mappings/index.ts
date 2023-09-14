@@ -75,16 +75,16 @@ import {
 
 // Constants
 let ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
-let ITEM_ORDERS = "0x2c55aacb688d8d4f5bd9df45a40bf856871f6255";
-let ITEM_HELPER = "0xec9e1fc04f0a6f4a5ffce6cd77e0788487ce6366";
-let ITEM_HELPER2 = "0x4c5ff05f3b66132b14fadc60942b64c9f5c568c8";
-let NFT_ORDERS = "0xc5c9c4b254ce2cfab00f79557a26dea764027d94";
-let NFT_HELPER = "0x32de3407c4921b8a4da4c80131dcb55f64ab2ff8";
-let NFT_HELPER2 = "0x0a05c01fd0686f95d0977f66916fb4791d04e0bb";
-let PAYWALL_ORDERS = "0x1698119e5a012720e9e07e457bddad8128b6cfdf";
-let PAYWALL_HELPER = "0xc64161384cdcf691cf6448668afa4c96f513a904";
-let PAYWALL_HELPER2 = "0x20c4aeb567e2f9553a67084c8b85faa784fe1862";
-let NFTICKET_HELPER2 = "0xa1eca5ac14274ad02f04b62f8620b2767e350d47";
+let ITEM_ORDERS = "0xdc72352ea34141bf8f72aefca07b30acec155dcf";
+let ITEM_HELPER = "0x0b252359e6f81694c11b5ba4782a9151e3e82579";
+let ITEM_HELPER2 = "0x78c10070ac5e9aad679ccdf2d3be9a2f77ee5f11";
+let NFT_ORDERS = "0x9cfe0aeb5f89e5f3a58c36498c42acdd278acbfc";
+let NFT_HELPER = "0x352ae66dca43ad2c23d57393d6d5b5adf6b2446c";
+let NFT_HELPER2 = "0xca00299befd8a4ff57ac83aefdb3f1701e7d5c2b";
+let PAYWALL_ORDERS = "0x8e253b889a5c03d35bfc2a9e433dde4144236fba";
+let PAYWALL_HELPER = "0x5e54677a9c2803481016e041a8cfeb3fd03770c6";
+let PAYWALL_HELPER2 = "0x86973bebe9233792426bbb39d7e1356eb1211594";
+let NFTICKET_HELPER2 = "0x517a113a03b7842c1b731b482e89fb4920363ad5";
 
 // BigNumber-like references
 let ZERO_BI = BigInt.fromI32(0);
@@ -753,6 +753,11 @@ export function handleAskInfo(event: AskInfo): void {
       token.save();
      log.warning("handleAskInfo===============> - #{}", ['6']);
     }
+  }
+  let collection = Collection.load(event.params.collectionId.toString());
+  if (collection !== null) {
+    collection += ' ' + collection.products;
+    collection.save()
   }
 }
 
