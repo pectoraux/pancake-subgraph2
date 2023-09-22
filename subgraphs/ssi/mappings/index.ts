@@ -16,10 +16,6 @@ export function handleCreateAccount(event: CreateAccount): void {
   let profile = Profile.load(event.params.profileId.toString());
   if (profile === null) {
     profile = new Profile(event.params.profileId.toString());
-    profile.owner = event.params.owner.toHexString();
-    profile.publicKey = event.params.publicKey;
-    profile.encyptedPrivateKey = event.params.encyptedPrivateKey;
-    profile.save();
   }
   profile.owner = event.params.owner.toHexString();
   profile.publicKey = event.params.publicKey;
