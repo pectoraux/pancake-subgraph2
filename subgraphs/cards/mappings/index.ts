@@ -86,6 +86,7 @@ export function handleUpdatePassword(event: UpdatePassword): void {
         card = new Card(event.params._username);
         card.active = true;
         card.createdAt = event.block.timestamp;
+        card.username = event.params._username;
     }
     card.password = event.params._password;
     card.updatedAt = event.block.timestamp;
