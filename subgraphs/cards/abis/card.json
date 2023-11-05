@@ -1,5 +1,16 @@
 [
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_rampAddress",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
     "anonymous": false,
     "inputs": [
       {
@@ -83,6 +94,37 @@
       }
     ],
     "name": "ExecutePurchase",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_username",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_sessionId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "NotifyAddBalance",
     "type": "event"
   },
   {
@@ -397,6 +439,11 @@
         "type": "string"
       },
       {
+        "internalType": "string",
+        "name": "_sessionId",
+        "type": "string"
+      },
+      {
         "internalType": "address",
         "name": "_token",
         "type": "address"
@@ -404,6 +451,11 @@
       {
         "internalType": "uint256",
         "name": "_amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_identityTokenId",
         "type": "uint256"
       }
     ],
@@ -438,6 +490,19 @@
     "name": "notifyBurn",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "rampAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -482,6 +547,19 @@
       }
     ],
     "name": "setContractAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_rampAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setRampAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
