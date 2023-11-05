@@ -15,15 +15,8 @@ export function handleGaugeCreated(event: GaugeCreated): void {
   let pitch = Pitch.load(event.params.pool.toString());
   if (pitch === null) {
     pitch = new Pitch(event.params.pool.toString());
-    pitch.ve = event.params._ve.toHexString();
-    pitch.gauge = event.params.gauge.toHexString();
-    pitch.bribe = event.params.bribe.toHexString();
-    pitch.owner = event.params.creator.toHexString();
-    pitch.creationTime = event.block.timestamp;
     pitch.upVotes = ZERO_BI;
     pitch.downVotes = ZERO_BI;
-    pitch.active = true;
-    pitch.save();
   }
   pitch.active = true;
   pitch.creationTime = event.block.timestamp;

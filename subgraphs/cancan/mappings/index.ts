@@ -756,7 +756,7 @@ export function handleAskInfo(event: AskInfo): void {
   }
   let collection = Collection.load(event.params.collectionId.toString());
   if (collection !== null) {
-    collection += ' ' + collection.products;
+    collection.products += ' ' + event.params.products;
     collection.save()
   }
 }
@@ -1838,11 +1838,13 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
         paywallMirror.createdAt = event.block.timestamp;
         paywallMirror.active = event.params.paramValue3.gt(ZERO_BI);
         paywall.save()
+        paywallMirror.save()
+      } else {
+        log.warning("handleUpdateMiscellaneous9==========> - #{}", ["9"]);
+        paywallMirror.updatedAt = event.block.timestamp;
+        paywallMirror.endTime = event.params.paramValue3;
+        paywallMirror.save();
       }
-      log.warning("handleUpdateMiscellaneous9===============> - #{}", ["9"]);
-      paywallMirror.updatedAt = event.block.timestamp;
-      paywallMirror.endTime = event.params.paramValue3;
-      paywallMirror.save();
     }
   } else if (event.params.idx.equals(ONE_BI)) {
     let paywall = Paywall.load(event.params.collectionId.toString() + "-" + event.params.paramName);
