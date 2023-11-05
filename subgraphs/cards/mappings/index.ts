@@ -14,25 +14,22 @@ let ZERO_BI = BigInt.fromString("0");
 
 export function handleAddBalance(event: AddBalance): void {
   let card = Card.load(event.params._username);
-  if (card === null) {
-    card = new Card(event.params._username);
-    card.active = true;
-    card.createdAt = event.block.timestamp;
+  if (card !== null) {
+    card.updatedAt = event.block.timestamp;
+    card.username = event.params._username;
+    let tokenBalance = TokenBalance.load(event.params._username + '_' + event.params.token.toHexString());
+    if (tokenBalance === null) {
+        tokenBalance = new TokenBalance(event.params._username + '_' + event.params.token.toHexString());
+        tokenBalance.createdAt = event.block.timestamp;
+        tokenBalance.balance = ZERO_BI;
+        tokenBalance.card = event.params._username;
+        tokenBalance.tokenAddress = event.params.token.toHexString();
+        }
+    tokenBalance.updatedAt = event.block.timestamp;
+    tokenBalance.balance = tokenBalance.balance.plus(event.params.amount);
+    tokenBalance.save();
+    card.save();
   }
-  card.updatedAt = event.block.timestamp;
-  card.username = event.params._username;
-  let tokenBalance = TokenBalance.load(event.params._username + '_' + event.params.token.toHexString());
-  if (tokenBalance === null) {
-    tokenBalance = new TokenBalance(event.params._username + '_' + event.params.token.toHexString());
-    tokenBalance.createdAt = event.block.timestamp;
-    tokenBalance.balance = ZERO_BI;
-    tokenBalance.card = event.params._username;
-    tokenBalance.tokenAddress = event.params.token.toHexString();
-    }
-  tokenBalance.updatedAt = event.block.timestamp;
-  tokenBalance.balance = tokenBalance.balance.plus(event.params.amount);
-  tokenBalance.save();
-  card.save();
 }
 
 export function handleRemoveBalance(event: RemoveBalance): void {
@@ -85,9 +82,12 @@ export function handleExecutePurchase(event: ExecutePurchase): void {
 
 export function handleUpdatePassword(event: UpdatePassword): void {
     let card = Card.load(event.params._username);
-    if (card !== null) {
-        card.password = event.params._password;
-        card.updatedAt = event.block.timestamp;
-        card.save();
+    if (card === null) {
+        card = new Card(event.params._username);
+        card.active = true;
+        card.createdAt = event.block.timestamp;
     }
+    card.password = event.params._password;
+    card.updatedAt = event.block.timestamp;
+    card.save();
 }
