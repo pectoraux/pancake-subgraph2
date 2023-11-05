@@ -13,20 +13,20 @@ import { toBigDecimal } from "./utils";
 let ZERO_BI = BigInt.fromString("0");
 
 export function handleAddBalance(event: AddBalance): void {
-  let card = Card.load(event.params.owner.toHexString());
+  let card = Card.load(event.params._username);
   if (card === null) {
-    card = new Card(event.params.owner.toHexString());
+    card = new Card(event.params._username);
     card.active = true;
     card.createdAt = event.block.timestamp;
   }
   card.updatedAt = event.block.timestamp;
-  card.owner = event.params.owner.toHexString();
-  let tokenBalance = TokenBalance.load(event.params.owner.toHexString() + '_' + event.params.token.toHexString());
+  card.username = event.params._username;
+  let tokenBalance = TokenBalance.load(event.params._username + '_' + event.params.token.toHexString());
   if (tokenBalance === null) {
-    tokenBalance = new TokenBalance(event.params.owner.toHexString() + '_' + event.params.token.toHexString());
+    tokenBalance = new TokenBalance(event.params._username + '_' + event.params.token.toHexString());
     tokenBalance.createdAt = event.block.timestamp;
     tokenBalance.balance = ZERO_BI;
-    tokenBalance.card = event.params.owner.toHexString();
+    tokenBalance.card = event.params._username;
     tokenBalance.tokenAddress = event.params.token.toHexString();
     }
   tokenBalance.updatedAt = event.block.timestamp;
@@ -36,9 +36,9 @@ export function handleAddBalance(event: AddBalance): void {
 }
 
 export function handleRemoveBalance(event: RemoveBalance): void {
-    let card = Card.load(event.params.owner.toHexString());
+    let card = Card.load(event.params._username);
     if (card !== null) {
-        let tokenBalance = TokenBalance.load(event.params.owner.toHexString() + '_' + event.params.token.toHexString());
+        let tokenBalance = TokenBalance.load(event.params._username + '_' + event.params.token.toHexString());
         if (tokenBalance !== null) {
             if (tokenBalance.balance.equals(event.params.amount)) {
                 tokenBalance.id = '';
@@ -56,8 +56,8 @@ export function handleRemoveBalance(event: RemoveBalance): void {
 }
 
 export function handleTransferBalance(event: TransferBalance): void {
-    let fromTokenBalance = TokenBalance.load(event.params.from.toHexString() + '_' + event.params.token.toHexString());
-    let toTokenBalance = TokenBalance.load(event.params.to.toHexString() + '_' + event.params.token.toHexString());
+    let fromTokenBalance = TokenBalance.load(event.params.from + '_' + event.params.token.toHexString());
+    let toTokenBalance = TokenBalance.load(event.params.to + '_' + event.params.token.toHexString());
     if (fromTokenBalance !== null && toTokenBalance !== null) {
         if (fromTokenBalance.balance.equals(event.params.amount)) {
             fromTokenBalance.id = '';
@@ -72,7 +72,7 @@ export function handleTransferBalance(event: TransferBalance): void {
 }
 
 export function handleExecutePurchase(event: ExecutePurchase): void {
-    let tokenBalance = TokenBalance.load(event.params.owner.toHexString() + '_' + event.params.token.toHexString());
+    let tokenBalance = TokenBalance.load(event.params._username + '_' + event.params.token.toHexString());
     if (tokenBalance !== null) {
         if (tokenBalance.balance.equals(event.params.price)) {
             tokenBalance.id = '';
@@ -84,9 +84,9 @@ export function handleExecutePurchase(event: ExecutePurchase): void {
 }
 
 export function handleUpdatePassword(event: UpdatePassword): void {
-    let card = Card.load(event.params.owner.toHexString());
+    let card = Card.load(event.params._username);
     if (card !== null) {
-        card.password = event.params.password;
+        card.password = event.params._password;
         card.updatedAt = event.block.timestamp;
         card.save();
     }

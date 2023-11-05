@@ -328,24 +328,24 @@ export function handleCheckRank(event: CheckRank): void {
   if (valuepool !== null) {
     let purchase = Purchase.load(event.params.vava.toHexString() + '-' + event.params.tokenId.toString());
     if (purchase === null) {
-      let purchase = new Purchase(event.params.vava.toHexString() + '-' + event.params.tokenId.toString());
-      purchase.collection = event.params.collection.toHexString();
-      purchase.from = event.params.from.toHexString();
-      purchase.referrer = event.params.referrer.toHexString();
-      purchase.productId = event.params.productId;
-      purchase.options = event.params.options;
-      purchase.userTokenId = event.params.userTokenId;
-      purchase.identityTokenId = event.params.identityTokenId;
-      purchase.tokenId = event.params.tokenId;
-      purchase.price = toBigDecimal(event.params.price,0);
-      purchase.rank = event.params.rank;
-      purchase.epoch = event.params.epoch;
-      purchase.valuepool = event.params.vava.toHexString();
-      purchase.timestamp = event.block.timestamp;
-      purchase.updatedAt = event.block.timestamp;
-      purchase.active = true;
-      purchase.save();
+      purchase = new Purchase(event.params.vava.toHexString() + '-' + event.params.tokenId.toString());
     }
+    purchase.collection = event.params.collection.toHexString();
+    purchase.from = event.params.from.toHexString();
+    purchase.referrer = event.params.referrer.toHexString();
+    purchase.productId = event.params.productId;
+    purchase.options = event.params.options;
+    purchase.userTokenId = event.params.userTokenId;
+    purchase.identityTokenId = event.params.identityTokenId;
+    purchase.tokenId = event.params.tokenId;
+    purchase.price = toBigDecimal(event.params.price,0);
+    purchase.rank = event.params.rank;
+    purchase.epoch = event.params.epoch;
+    purchase.valuepool = event.params.vava.toHexString();
+    purchase.timestamp = event.block.timestamp;
+    purchase.updatedAt = event.block.timestamp;
+    purchase.active = true;
+    purchase.save();
   }
 }
 

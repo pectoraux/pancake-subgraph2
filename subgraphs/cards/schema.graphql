@@ -13,7 +13,7 @@ type Card @entity {
 
   active: Boolean
 
-  owner: String
+  username: String
   
   password: String
 

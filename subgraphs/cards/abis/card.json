@@ -4,9 +4,9 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "address",
-        "name": "owner",
-        "type": "address"
+        "internalType": "string",
+        "name": "_username",
+        "type": "string"
       },
       {
         "indexed": false,
@@ -36,14 +36,14 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "owner",
+        "name": "token",
         "type": "address"
       },
       {
         "indexed": false,
-        "internalType": "address",
-        "name": "token",
-        "type": "address"
+        "internalType": "string",
+        "name": "_username",
+        "type": "string"
       },
       {
         "indexed": false,
@@ -61,12 +61,6 @@
         "indexed": false,
         "internalType": "uint256",
         "name": "price",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "tokenId",
         "type": "uint256"
       },
       {
@@ -96,8 +90,45 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "string",
+        "name": "username",
+        "type": "string"
+      },
+      {
+        "indexed": false,
         "internalType": "address",
-        "name": "owner",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "clear",
+        "type": "bool"
+      }
+    ],
+    "name": "NotifyBurn",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_username",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "operator",
         "type": "address"
       },
       {
@@ -121,15 +152,15 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "from",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "indexed": false,
-        "internalType": "address",
+        "internalType": "string",
         "name": "to",
-        "type": "address"
+        "type": "string"
       },
       {
         "indexed": false,
@@ -152,14 +183,14 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "address",
-        "name": "owner",
-        "type": "address"
+        "internalType": "string",
+        "name": "_username",
+        "type": "string"
       },
       {
         "indexed": false,
         "internalType": "string",
-        "name": "password",
+        "name": "_password",
         "type": "string"
       }
     ],
@@ -167,13 +198,19 @@
     "type": "event"
   },
   {
-    "inputs": [],
-    "name": "_ve",
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "name": "accounts",
     "outputs": [
       {
-        "internalType": "address",
+        "internalType": "string",
         "name": "",
-        "type": "address"
+        "type": "string"
       }
     ],
     "stateMutability": "view",
@@ -182,9 +219,9 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_owner",
-        "type": "address"
+        "internalType": "string",
+        "name": "_username",
+        "type": "string"
       },
       {
         "internalType": "address",
@@ -203,11 +240,24 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "adminFee",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
-        "internalType": "address",
+        "internalType": "string",
         "name": "",
-        "type": "address"
+        "type": "string"
       },
       {
         "internalType": "address",
@@ -242,6 +292,24 @@
   {
     "inputs": [
       {
+        "internalType": "string",
+        "name": "_username",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_password",
+        "type": "string"
+      }
+    ],
+    "name": "createAccount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "_collection",
         "type": "address"
@@ -258,6 +326,11 @@
       },
       {
         "internalType": "string",
+        "name": "_username",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
         "name": "_productId",
         "type": "string"
       },
@@ -269,11 +342,6 @@
       {
         "internalType": "uint256",
         "name": "_price",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_tokenId",
         "type": "uint256"
       },
       {
@@ -300,9 +368,9 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_owner",
-        "type": "address"
+        "internalType": "string",
+        "name": "_username",
+        "type": "string"
       },
       {
         "internalType": "uint256",
@@ -324,27 +392,74 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "passwords",
-    "outputs": [
-      {
         "internalType": "string",
-        "name": "",
+        "name": "_username",
         "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "_token",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
       }
     ],
-    "stateMutability": "view",
+    "name": "notifyAddBalance",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
       {
+        "internalType": "string",
+        "name": "_username",
+        "type": "string"
+      },
+      {
         "internalType": "address",
         "name": "_token",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_clear",
+        "type": "bool"
+      }
+    ],
+    "name": "notifyBurn",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_username",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_password",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "_token",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_recipient",
         "type": "address"
       },
       {
@@ -374,12 +489,17 @@
   {
     "inputs": [
       {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
         "internalType": "address",
         "name": "",
         "type": "address"
       }
     ],
-    "name": "tokenIds",
+    "name": "toBurn",
     "outputs": [
       {
         "internalType": "uint256",
@@ -393,14 +513,19 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "from",
-        "type": "uint256"
+        "internalType": "string",
+        "name": "_username",
+        "type": "string"
       },
       {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
+        "internalType": "string",
+        "name": "_password",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_recipientUsername",
+        "type": "string"
       },
       {
         "internalType": "address",
@@ -422,22 +547,33 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_prevOwner",
+        "name": "",
         "type": "address"
-      },
+      }
+    ],
+    "name": "treasury",
+    "outputs": [
       {
         "internalType": "uint256",
-        "name": "_tokenId",
+        "name": "",
         "type": "uint256"
       }
     ],
-    "name": "updateOwner",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
+      {
+        "internalType": "string",
+        "name": "_username",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_oldPassword",
+        "type": "string"
+      },
       {
         "internalType": "string",
         "name": "_password",
@@ -452,25 +588,17 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_token",
+        "type": "address"
+      },
+      {
         "internalType": "uint256",
-        "name": "_tokenId",
+        "name": "_amount",
         "type": "uint256"
       }
     ],
-    "name": "updateTokenId",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "__ve",
-        "type": "address"
-      }
-    ],
-    "name": "updateVe",
+    "name": "withdrawTreasury",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
