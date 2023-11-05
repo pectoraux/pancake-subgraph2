@@ -7,6 +7,7 @@ import {
   RemoveBalance,
   TransferBalance,
   UpdatePassword,
+  NotifyAddBalance,
 } from "../generated/cards/cards";
 import { toBigDecimal } from "./utils";
 
@@ -30,6 +31,26 @@ export function handleAddBalance(event: AddBalance): void {
     tokenBalance.save();
     card.save();
   }
+}
+
+export function handleNotifyAddBalance(event: NotifyAddBalance): void {
+    let card = Card.load(event.params._username);
+    if (card !== null) {
+        card.updatedAt = event.block.timestamp;
+        card.username = event.params._username;
+        let tokenBalance = TokenBalance.load(event.params._username + '_' + event.params.token.toHexString());
+        if (tokenBalance === null) {
+            tokenBalance = new TokenBalance(event.params._username + '_' + event.params.token.toHexString());
+            tokenBalance.createdAt = event.block.timestamp;
+            tokenBalance.balance = ZERO_BI;
+            tokenBalance.card = event.params._username;
+            tokenBalance.tokenAddress = event.params.token.toHexString();
+        }
+        tokenBalance.updatedAt = event.block.timestamp;
+        tokenBalance.balance = tokenBalance.balance.plus(event.params.amount);
+        tokenBalance.save();
+        card.save();
+    }
 }
 
 export function handleRemoveBalance(event: RemoveBalance): void {

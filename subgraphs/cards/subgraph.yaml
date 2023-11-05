@@ -24,6 +24,8 @@ dataSources:
       eventHandlers:
         - event: AddBalance(string,address,uint256)
           handler: handleAddBalance
+        - event: NotifyAddBalance(string,string,address,uint256)
+          handler: handleAddBalance
         - event: ExecutePurchase(address,address,string,string,uint256,uint256,uint256,uint256,uint256[])
           handler: handleExecutePurchase
         - event: RemoveBalance(string,address,address,uint256)
