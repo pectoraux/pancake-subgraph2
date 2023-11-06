@@ -8,7 +8,7 @@ dataSources:
     name: cards
     network: fantom-testnet
     source:
-      address: '0xD0078eF9956917698A3A5B7d1314AEc7E16e2683'
+      address: '0x97b9795Dc1375EAA8B657cdc3c008B14b5A6F2C0'
       abi: cards
       startBlock: 14662559
     mapping:
