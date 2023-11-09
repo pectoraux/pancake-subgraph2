@@ -23,7 +23,7 @@ import {
   PartnerRegistration,
   Vote,
   Option,
-  Note,
+  ExtraNote,
 } from "../generated/schema";
 import {
   AskInfo,
@@ -1815,7 +1815,7 @@ export function handleRevenueClaim(event: RevenueClaim): void {
 
 export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {  
   log.warning("handleUpdateMiscellaneous7===============> - #{}", [event.params.paramValue2.toString() + "-" + event.params.paramValue]);
-  if (event.params.sender.equals(NFTICKET_HELPER)) {
+  if (event.params.sender.equals(Address.fromString(NFTICKET_HELPER))) {
     if (event.params.idx.equals(ZERO_BI)) {
       log.warning("handleUpdateMiscellaneous5===============> - #{}", [event.params.collectionId.toString() + "-" + event.params.paramName]);
       log.warning("handleUpdateMiscellaneous6===============> - #{}", [event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-paywall"]);
@@ -1946,9 +1946,9 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
       }
     }
   }
-  if (event.params.sender.equals(ADMIN_ADDRESS)) {
+  if (event.params.sender.equals(Address.fromString(ADMIN_ADDRESS))) {
     if (event.params.idx.equals(TEN_BI)) {
-      let note = new Note(event.transaction.hash.toHex());
+      let note = new ExtraNote(event.transaction.hash.toHex());
       note.address = event.params.paramName;
       note.message = event.params.paramValue;
       note.user = event.params.paramValue4.toHex()

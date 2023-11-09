@@ -354,7 +354,7 @@ type NFT @entity {
   askHistory: [AskOrder!]! @derivedFrom(field: "nft")
 }
 
-type Note @entity {
+type ExtraNote @entity {
   id: ID!
 
   createdAt: BigInt!
