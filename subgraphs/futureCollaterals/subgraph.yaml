@@ -24,3 +24,5 @@ dataSources:
       eventHandlers:
         - event: Mint(address,address,uint256,uint256,uint256,uint256,uint256)
           handler: handleMint
+        - event: UpdateEstimationTable(uint256,uint256[52])
+          handler: handleUpdateEstimationTable

@@ -146,6 +146,8 @@ type Item @entity {
 
   "Updated at"
   updatedAt: BigInt!
+  
+  createdAt: BigInt!
 
   maxSupply: BigInt!
 
@@ -275,6 +277,8 @@ type NFT @entity {
   "isTradable"
   isTradable: Boolean
 
+  createdAt: BigInt!
+
   "Updated at"
   updatedAt: BigInt!
 
@@ -350,6 +354,19 @@ type NFT @entity {
   askHistory: [AskOrder!]! @derivedFrom(field: "nft")
 }
 
+type Note @entity {
+  id: ID!
+
+  createdAt: BigInt!
+
+  address: String
+
+  message: String
+
+  user: User
+  
+}
+
 type Paywall @entity {
   "CollectionAddress + tokenId"
   id: ID!
@@ -377,6 +394,8 @@ type Paywall @entity {
   isTradable: Boolean
 
   canPublish: Boolean
+
+  createdAt: BigInt!
 
   "Updated at"
   updatedAt: BigInt!

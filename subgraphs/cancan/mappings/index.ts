@@ -23,6 +23,7 @@ import {
   PartnerRegistration,
   Vote,
   Option,
+  Note,
 } from "../generated/schema";
 import {
   AskInfo,
@@ -84,7 +85,9 @@ let NFT_HELPER2 = "0xca00299befd8a4ff57ac83aefdb3f1701e7d5c2b";
 let PAYWALL_ORDERS = "0x8e253b889a5c03d35bfc2a9e433dde4144236fba";
 let PAYWALL_HELPER = "0x5e54677a9c2803481016e041a8cfeb3fd03770c6";
 let PAYWALL_HELPER2 = "0x86973bebe9233792426bbb39d7e1356eb1211594";
+let NFTICKET_HELPER = "0x4888cec598b9115bfc965d714e68e791c2cc1d80";
 let NFTICKET_HELPER2 = "0x517a113a03b7842c1b731b482e89fb4920363ad5";
+let ADMIN_ADDRESS = "0x0bdabc785a5e1c71078d6242fb52e70181c1f316";
 
 // BigNumber-like references
 let ZERO_BI = BigInt.fromI32(0);
@@ -97,6 +100,7 @@ let SIX_BI = BigInt.fromI32(6);
 let SEVEN_BI = BigInt.fromI32(7);
 let EIGHT_BI = BigInt.fromI32(8);
 let NINE_BI = BigInt.fromI32(9);
+let TEN_BI = BigInt.fromI32(10);
 let ZERO_BD = BigDecimal.fromString("0");
 
 /**
@@ -219,6 +223,7 @@ export function handleAskNew(event: AskNew): void {
       token.disLikes = ZERO_BI;
       token.active = true;
       token.isTradable = true;
+      token.createdAt = event.block.timestamp;
     }
     token.collection = event.params._collectionId.toString();
     token.tokenId = event.params._tokenId.toString();
@@ -1810,43 +1815,76 @@ export function handleRevenueClaim(event: RevenueClaim): void {
 
 export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {  
   log.warning("handleUpdateMiscellaneous7===============> - #{}", [event.params.paramValue2.toString() + "-" + event.params.paramValue]);
-  if (event.params.idx.equals(ZERO_BI)) {
-    log.warning("handleUpdateMiscellaneous5===============> - #{}", [event.params.collectionId.toString() + "-" + event.params.paramName]);
-    log.warning("handleUpdateMiscellaneous6===============> - #{}", [event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-paywall"]);
-    let paywall = Paywall.load(event.params.collectionId.toString() + "-" + event.params.paramName);
-    let sharedPaywall = Paywall.load(event.params.paramValue2.toString() + "-" + event.params.paramValue);
-    if (paywall !== null && sharedPaywall !== null) {
-      log.warning("handleUpdateMiscellaneous7===============> - #{}", ["7"]);
-      let paywallMirror = PaywallMirror.load(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-paywall");
-      if (paywallMirror === null) {
-        log.warning("handleUpdateMiscellaneous8===============> - #{}", ["8"]);
-        paywallMirror = new PaywallMirror(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-paywall");
-        paywallMirror.paywall = paywall.id;
-        paywallMirror.sharedPaywall = sharedPaywall.id;
-        paywallMirror.createdAt = event.block.timestamp;
-        paywallMirror.active = event.params.paramValue3.gt(ZERO_BI);
-        paywall.save()
-        paywallMirror.save()
-      } else {
-        log.warning("handleUpdateMiscellaneous9==========> - #{}", ["9"]);
-        paywallMirror.updatedAt = event.block.timestamp;
-        paywallMirror.endTime = event.params.paramValue3;
-        paywallMirror.save();
-      }
-    }
-  } else if (event.params.idx.equals(ONE_BI)) {
-    let paywall = Paywall.load(event.params.collectionId.toString() + "-" + event.params.paramName);
-    if (paywall !== null) {
-      paywall.canPublish = event.params.paramValue2.equals(ONE_BI) ? true : false;
-      paywall.save();
-    }
-  } else if (event.params.idx.equals(THREE_BI) || event.params.idx.equals(SIX_BI)) {
+  if (event.params.sender.equals(NFTICKET_HELPER)) {
+    if (event.params.idx.equals(ZERO_BI)) {
+      log.warning("handleUpdateMiscellaneous5===============> - #{}", [event.params.collectionId.toString() + "-" + event.params.paramName]);
+      log.warning("handleUpdateMiscellaneous6===============> - #{}", [event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-paywall"]);
       let paywall = Paywall.load(event.params.collectionId.toString() + "-" + event.params.paramName);
-      let item = NFT.load(event.params.collectionId.toString() + "-" + event.params.paramValue);
+      let sharedPaywall = Paywall.load(event.params.paramValue2.toString() + "-" + event.params.paramValue);
+      if (paywall !== null && sharedPaywall !== null) {
+        log.warning("handleUpdateMiscellaneous7===============> - #{}", ["7"]);
+        let paywallMirror = PaywallMirror.load(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-paywall");
+        if (paywallMirror === null) {
+          log.warning("handleUpdateMiscellaneous8===============> - #{}", ["8"]);
+          paywallMirror = new PaywallMirror(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-paywall");
+          paywallMirror.paywall = paywall.id;
+          paywallMirror.sharedPaywall = sharedPaywall.id;
+          paywallMirror.createdAt = event.block.timestamp;
+          paywallMirror.active = event.params.paramValue3.gt(ZERO_BI);
+          paywall.save()
+          paywallMirror.save()
+        } else {
+          log.warning("handleUpdateMiscellaneous9==========> - #{}", ["9"]);
+          paywallMirror.updatedAt = event.block.timestamp;
+          paywallMirror.endTime = event.params.paramValue3;
+          paywallMirror.save();
+        }
+      }
+    } else if (event.params.idx.equals(ONE_BI)) {
+      let paywall = Paywall.load(event.params.collectionId.toString() + "-" + event.params.paramName);
+      if (paywall !== null) {
+        paywall.canPublish = event.params.paramValue2.equals(ONE_BI) ? true : false;
+        paywall.save();
+      }
+    } else if (event.params.idx.equals(THREE_BI) || event.params.idx.equals(SIX_BI)) {
+        let paywall = Paywall.load(event.params.collectionId.toString() + "-" + event.params.paramName);
+        let item = NFT.load(event.params.collectionId.toString() + "-" + event.params.paramValue);
+        if (item !== null) {
+          let paywallMirror = PaywallMirror.load(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-nft");
+          if (paywallMirror === null && event.params.idx.equals(THREE_BI)) {
+            paywallMirror = new PaywallMirror(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-nft");
+            paywallMirror.paywall = paywall.id;
+            paywallMirror.createdAt = event.block.timestamp;
+            if (item.behindPaywall.equals(ZERO_BI)) {
+              item.images = event.params.paramValue5;
+            }
+            item.behindPaywall = item.behindPaywall.plus(ONE_BI) 
+            item.save()
+            paywallMirror.save();
+          }
+          if (paywallMirror !== null) {
+            paywallMirror.updatedAt = event.block.timestamp;
+            paywallMirror.nft = event.params.idx.equals(THREE_BI) ? item.id : '';
+            paywallMirror.active = event.params.idx.equals(THREE_BI);
+            paywallMirror.partner = true;
+            if (event.params.idx.equals(SIX_BI)) {
+              if (item.behindPaywall.equals(ONE_BI)) {
+                item.images = event.params.paramValue5;
+              }
+              item.behindPaywall = item.behindPaywall.minus(ONE_BI)
+              item.save()
+            }
+            paywallMirror.save();
+          }
+        }
+    } else if (event.params.idx.equals(TWO_BI) || event.params.idx.equals(FIVE_BI)) {
+      let paywall = Paywall.load(event.params.collectionId.toString() + "-" + event.params.paramName);
+      let item = Item.load(event.params.collectionId.toString() + "-" + event.params.paramValue);
       if (item !== null) {
-        let paywallMirror = PaywallMirror.load(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-nft");
-        if (paywallMirror === null && event.params.idx.equals(THREE_BI)) {
-          paywallMirror = new PaywallMirror(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-nft");
+        item.images = event.params.paramValue5;
+        let paywallMirror = PaywallMirror.load(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-item");
+        if (paywallMirror === null && event.params.idx.equals(TWO_BI)) {
+          paywallMirror = new PaywallMirror(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-item");
           paywallMirror.paywall = paywall.id;
           paywallMirror.createdAt = event.block.timestamp;
           if (item.behindPaywall.equals(ZERO_BI)) {
@@ -1858,10 +1896,9 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
         }
         if (paywallMirror !== null) {
           paywallMirror.updatedAt = event.block.timestamp;
-          paywallMirror.nft = event.params.idx.equals(THREE_BI) ? item.id : '';
-          paywallMirror.active = event.params.idx.equals(THREE_BI);
-          paywallMirror.partner = true;
-          if (event.params.idx.equals(SIX_BI)) {
+          paywallMirror.item = event.params.idx.equals(TWO_BI) ? item.id : '';
+          paywallMirror.active = event.params.idx.equals(TWO_BI);
+          if (event.params.idx.equals(FIVE_BI)) {
             if (item.behindPaywall.equals(ONE_BI)) {
               item.images = event.params.paramValue5;
             }
@@ -1871,72 +1908,51 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
           paywallMirror.save();
         }
       }
-  } else if (event.params.idx.equals(TWO_BI) || event.params.idx.equals(FIVE_BI)) {
-    let paywall = Paywall.load(event.params.collectionId.toString() + "-" + event.params.paramName);
-    let item = Item.load(event.params.collectionId.toString() + "-" + event.params.paramValue);
-    if (item !== null) {
-      item.images = event.params.paramValue5;
-      let paywallMirror = PaywallMirror.load(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-item");
-      if (paywallMirror === null && event.params.idx.equals(TWO_BI)) {
-        paywallMirror = new PaywallMirror(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-item");
-        paywallMirror.paywall = paywall.id;
-        paywallMirror.createdAt = event.block.timestamp;
-        if (item.behindPaywall.equals(ZERO_BI)) {
-          item.images = event.params.paramValue5;
+    } else if (event.params.idx.equals(FOUR_BI) || event.params.idx.equals(SEVEN_BI)) {
+      let paywall = Paywall.load(event.params.collectionId.toString() + "-" + event.params.paramName);
+      let ppaywall = Paywall.load(event.params.collectionId.toString() + "-" + event.params.paramValue);
+      if (ppaywall !== null) {
+        let paywallMirror = PaywallMirror.load(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-paywall");
+        if (paywallMirror === null && event.params.idx.equals(TWO_BI)) {
+          paywallMirror = new PaywallMirror(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-paywall");
+          paywallMirror.paywall = paywall.id;
+          paywallMirror.createdAt = event.block.timestamp;
+          paywallMirror.save();
         }
-        item.behindPaywall = item.behindPaywall.plus(ONE_BI) 
-        item.save()
-        paywallMirror.save();
+        if (paywallMirror !== null) {
+          paywallMirror.updatedAt = event.block.timestamp;
+          paywallMirror.partnerPaywall = event.params.idx.equals(FOUR_BI) ? ppaywall.id : '';
+          paywallMirror.active = event.params.idx.equals(FOUR_BI);
+          paywallMirror.save();
+        }
       }
-      if (paywallMirror !== null) {
-        paywallMirror.updatedAt = event.block.timestamp;
-        paywallMirror.item = event.params.idx.equals(TWO_BI) ? item.id : '';
-        paywallMirror.active = event.params.idx.equals(TWO_BI);
-        if (event.params.idx.equals(FIVE_BI)) {
-          if (item.behindPaywall.equals(ONE_BI)) {
-            item.images = event.params.paramValue5;
+    } else if (event.params.idx.equals(EIGHT_BI) || event.params.idx.equals(NINE_BI)) {
+      let collection = Collection.load(event.params.collectionId.toString());
+      let paywall = Paywall.load(event.params.paramValue2.toString() + "-" + event.params.paramName.toString());
+      if (collection !== null && paywall !== null) {
+        let mirror = Mirror.load(event.params.paramValue2.toString() + "-" + event.params.paramName.toString());
+        if (mirror !== null) {
+          mirror.item = '';
+          mirror.nft = '';
+          mirror.paywall = '';
+          if (event.params.idx.equals(NINE_BI)) {
+            mirror.registration = '';
+            mirror.active = false;
           }
-          item.behindPaywall = item.behindPaywall.minus(ONE_BI)
-          item.save()
+          mirror.save();
         }
-        paywallMirror.save();
+        collection.numberPartnerPaywallsListed = collection.numberPartnerPaywallsListed.minus(ONE_BI);
+        collection.save();
       }
     }
-  } else if (event.params.idx.equals(FOUR_BI) || event.params.idx.equals(SEVEN_BI)) {
-    let paywall = Paywall.load(event.params.collectionId.toString() + "-" + event.params.paramName);
-    let ppaywall = Paywall.load(event.params.collectionId.toString() + "-" + event.params.paramValue);
-    if (ppaywall !== null) {
-      let paywallMirror = PaywallMirror.load(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-paywall");
-      if (paywallMirror === null && event.params.idx.equals(TWO_BI)) {
-        paywallMirror = new PaywallMirror(event.params.collectionId.toString() + "-" + event.params.paramName + "-" + event.params.paramValue + "-paywall");
-        paywallMirror.paywall = paywall.id;
-        paywallMirror.createdAt = event.block.timestamp;
-        paywallMirror.save();
-      }
-      if (paywallMirror !== null) {
-        paywallMirror.updatedAt = event.block.timestamp;
-        paywallMirror.partnerPaywall = event.params.idx.equals(FOUR_BI) ? ppaywall.id : '';
-        paywallMirror.active = event.params.idx.equals(FOUR_BI);
-        paywallMirror.save();
-      }
-    }
-  } else if (event.params.idx.equals(EIGHT_BI) || event.params.idx.equals(NINE_BI)) {
-    let collection = Collection.load(event.params.collectionId.toString());
-    let paywall = Paywall.load(event.params.paramValue2.toString() + "-" + event.params.paramName.toString());
-    if (collection !== null && paywall !== null) {
-      let mirror = Mirror.load(event.params.paramValue2.toString() + "-" + event.params.paramName.toString());
-      if (mirror !== null) {
-        mirror.item = '';
-        mirror.nft = '';
-        mirror.paywall = '';
-        if (event.params.idx.equals(NINE_BI)) {
-          mirror.registration = '';
-          mirror.active = false;
-        }
-        mirror.save();
-      }
-      collection.numberPartnerPaywallsListed = collection.numberPartnerPaywallsListed.minus(ONE_BI);
-      collection.save();
+  }
+  if (event.params.sender.equals(ADMIN_ADDRESS)) {
+    if (event.params.idx.equals(TEN_BI)) {
+      let note = new Note(event.transaction.hash.toHex());
+      note.address = event.params.paramName;
+      note.message = event.params.paramValue;
+      note.user = event.params.paramValue4.toHex()
+      note.save()
     }
   }
 }

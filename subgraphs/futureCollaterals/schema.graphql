@@ -28,3 +28,13 @@ type Collateral @entity {
   metadataUrl: String
 
 }
+
+type Channel @entity {
+  "ID"
+  id: ID!
+
+  createdAt: BigInt!
+  
+  table: [BigInt!]
+
+}

@@ -1,8 +1,9 @@
 /* eslint-disable prefer-const */
 import { Address, BigInt, BigDecimal } from "@graphprotocol/graph-ts";
-import { Collateral } from "../generated/schema";
+import { Collateral, Channel } from "../generated/schema";
 import {
   Mint,
+  UpdateEstimationTable,
 } from "../generated/collaterals/collaterals";
 import { toBigDecimal } from "./utils";
 import { fetchTokenURI } from "./utils/erc721";
@@ -29,4 +30,14 @@ export function handleMint(event: Mint): void {
   collateral.metadataUrl = uri;
 
   collateral.save();
+}
+
+export function handleUpdateEstimationTable(event: UpdateEstimationTable): void {
+  let channel = Channel.load(event.params.channel.toString());
+  if (channel !== null) {
+    channel = new Channel(event.params.channel.toString());
+    channel.createdAt = event.block.timestamp;
+    channel.table = event.params.table;
+    channel.save();
+  }
 }
