@@ -67,19 +67,6 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "_tokenId",
-        "type": "uint256"
-      }
-    ],
-    "name": "attach",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "address",
         "name": "_owner",
         "type": "address"
@@ -186,35 +173,6 @@
         "internalType": "uint256",
         "name": "_identityTokenId",
         "type": "uint256"
-      }
-    ],
-    "name": "create_lock",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_value",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_lock_duration",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_identityTokenId",
-        "type": "uint256"
       },
       {
         "internalType": "address",
@@ -283,19 +241,6 @@
       }
     ],
     "name": "deposit_for",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_tokenId",
-        "type": "uint256"
-      }
-    ],
-    "name": "detach",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -811,25 +756,6 @@
         "internalType": "string",
         "name": "",
         "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_block",
-        "type": "uint256"
-      }
-    ],
-    "name": "totalSupplyAt",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
