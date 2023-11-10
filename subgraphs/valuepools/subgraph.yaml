@@ -8,7 +8,7 @@ dataSources:
     name: VavaHelper
     network: fantom-testnet
     source:
-      address: '0x350499C782d15Df1839E74A3E8999FbC86A49c33'
+      address: '0x3eED2790A223739edB7AabeA2b18B30Ee476E4f5'
       abi: VavaHelper
       startBlock: 14662559
     mapping:
