@@ -207,6 +207,7 @@ export function handleAskNew(event: AskNew): void {
     let token = Item.load(event.params._collectionId.toString() + "-" + event.params._tokenId.toString());
     if (token === null) {
       token = new Item(event.params._collectionId.toString() + "-" + event.params._tokenId.toString());
+      token.createdAt = event.block.timestamp;
       token.behindPaywall = ZERO_BI;
       token.bountyId = ZERO_BI;
       token.badgeId = ZERO_BI;
@@ -305,40 +306,30 @@ export function handlePaywallAskNew(event: PaywallAskNew): void {
       // let token;
       if (isPaywall) {
         let token = Paywall.load(concatId);
-        if (token === null) {
-          token = new Paywall(concatId);
-          token.tokenId = event.params._tokenId.toString();
-          token.collection = event.params._collectionId.toString();
-          token.updatedAt = event.block.timestamp;
-          token.currentAskPrice = toBigDecimal(event.params._askPrice, 18);
-          token.transferrable = event.params._transferrable;
-          token.maxSupply = event.params._maxSupply
-          token.currentSeller = collection.owner;
-          token.latestTradedPriceInBNB = ZERO_BD;
-          token.tradeVolumeBNB = ZERO_BD;
-          token.totalTrades = ZERO_BI;
-          token.isTradable = true;
-          token.canPublish = false;
-          token.active = true;
-          token.likes = ZERO_BI;
-          token.disLikes = ZERO_BI;
-          token.bountyId = ZERO_BI;
-          token.badgeId = ZERO_BI;
-          token.dropinTimer = ZERO_BI;
-          token.bidDuration = ZERO_BI;
-          token.minBidIncrementPercentage = ZERO_BI;
-          token.rsrcTokenId = ZERO_BI;
-          token.superLikes = ZERO_BI;
-          token.superDisLikes = ZERO_BI;
-          token.start = ZERO_BI;
-          token.period = ZERO_BI;
-          if (event.params._ve.notEqual(Address.fromString(ZERO_ADDRESS))) {
-            token.ve = event.params._ve.toHexString();
-          }
-          token.tFIAT = event.params._tFIAT.toHexString();
-          token.usetFIAT = event.params._tFIAT.notEqual(Address.fromString(ZERO_ADDRESS));
-          token.save();
-        }  else {
+          if (token === null) {
+            token = new Paywall(concatId);
+            token.tokenId = event.params._tokenId.toString();
+            token.collection = event.params._collectionId.toString();
+            token.createdAt = event.block.timestamp;
+            token.latestTradedPriceInBNB = ZERO_BD;
+            token.tradeVolumeBNB = ZERO_BD;
+            token.totalTrades = ZERO_BI;
+            token.isTradable = true;
+            token.canPublish = false;
+            token.active = true;
+            token.likes = ZERO_BI;
+            token.disLikes = ZERO_BI;
+            token.bountyId = ZERO_BI;
+            token.badgeId = ZERO_BI;
+            token.dropinTimer = ZERO_BI;
+            token.bidDuration = ZERO_BI;
+            token.minBidIncrementPercentage = ZERO_BI;
+            token.rsrcTokenId = ZERO_BI;
+            token.superLikes = ZERO_BI;
+            token.superDisLikes = ZERO_BI;
+            token.start = ZERO_BI;
+            token.period = ZERO_BI;
+          } 
           token.currentSeller = collection.owner;
           token.updatedAt = event.block.timestamp;
           token.maxSupply = event.params._maxSupply
@@ -357,6 +348,7 @@ export function handlePaywallAskNew(event: PaywallAskNew): void {
           token = new NFT(concatId);
           token.tokenId = event.params._tokenId.toString();
           token.collection = event.params._collectionId.toString();
+          token.createdAt = event.block.timestamp;
           token.latestTradedPriceInBNB = ZERO_BD;
           token.tradeVolumeBNB = ZERO_BD;
           token.totalTrades = ZERO_BI;
