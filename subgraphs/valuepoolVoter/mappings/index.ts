@@ -34,9 +34,9 @@ export function handleAddVa(event: AddVa): void {
 }
 
 export function handleGaugeCreated(event: GaugeCreated): void {
-  let proposal = Proposal.load(event.params.ve.toHexString() + "-" + event.params.pool.toHexString());
+  let proposal = Proposal.load(event.params.ve.toHexString() + "-" + event.params.pool.toHexString() + "-" + event.params.title);
   if (proposal === null) {
-    proposal = new Proposal(event.params.ve.toHexString() + "-" + event.params.pool.toHexString());
+    proposal = new Proposal(event.params.ve.toHexString() + "-" + event.params.pool.toHexString() + "-" + event.params.title);
     proposal.valuepool = event.params.ve.toHexString();
     proposal.amount = event.params.amount;
     proposal.endTime = event.params.endTime;
@@ -54,7 +54,7 @@ export function handleGaugeCreated(event: GaugeCreated): void {
 }
 
 export function handleUpdateTags(event: UpdateTags): void {
-  let proposal = Proposal.load(event.params.ve.toHexString() + "-" + event.params.pool.toHexString());
+  let proposal = Proposal.load(event.params.ve.toHexString() + "-" + event.params.pool.toHexString() + "-" + event.params.title);
   if (proposal !== null) {
     proposal.countries = event.params.countries;
     proposal.cities = event.params.cities;
@@ -64,7 +64,7 @@ export function handleUpdateTags(event: UpdateTags): void {
 }
 
 export function handleVoted(event: Voted): void {
-  let proposal = Proposal.load(event.params.ve.toHexString() + "-" + event.params.pool.toHexString());
+  let proposal = Proposal.load(event.params.ve.toHexString() + "-" + event.params.pool.toHexString() + "-" + event.params.title);
   if (proposal !== null) {
     let vote = Vote.load(event.params.ve.toHexString() + "-" + event.params.pool.toHexString() + '-' + event.params.profileId.toString());
     if (vote === null) {

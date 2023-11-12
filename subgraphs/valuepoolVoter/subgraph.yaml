@@ -24,11 +24,11 @@ dataSources:
       eventHandlers:
         - event: GaugeCreated(address,address,address,uint256,uint256,string,string)
           handler: handleGaugeCreated
-        - event: Voted(indexed address,indexed address,uint256,uint256,uint256,uint256,bool)
+        - event: Voted(indexed address,indexed address,uint256,uint256,uint256,uint256,bool,string)
           handler: handleVoted
-        - event: Abstained(indexed address,uint256,int256)
+        - event: Abstained(indexed address,uint256,int256,string)
           handler: handleAbstained
-        - event: UpdateTags(address,address,string,string,string)
+        - event: UpdateTags(address,address,string,string,string,string)
           handler: handleUpdateTags
         - event: AddVa(address,uint256,uint256,uint256,uint256,uint256,uint256,uint8)
           handler: handleAddVa
