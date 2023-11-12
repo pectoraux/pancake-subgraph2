@@ -11,9 +11,9 @@ import {
 let ZERO_BI = BigInt.fromI32(0);
 
 export function handleAddVa(event: AddVa): void {
-  let valuepool = Valuepool.load(event.params.vava.toHexString());
+  let valuepool = Valuepool.load(event.params.va.toHexString());
   if (valuepool === null) {
-    valuepool = new Valuepool(event.params.vava.toHexString());
+    valuepool = new Valuepool(event.params.va.toHexString());
     valuepool.created = event.block.timestamp;
   }
   valuepool.updated = event.block.timestamp;
@@ -43,6 +43,7 @@ export function handleGaugeCreated(event: GaugeCreated): void {
     proposal.title = event.params.title;
     proposal.description = event.params.content;
     proposal.owner = event.params.user.toHexString();
+    proposal.valuepool = event.params.ve.toHexString();
     proposal.created = event.block.timestamp;
     proposal.updated = event.block.timestamp;
     proposal.upVotes = ZERO_BI;

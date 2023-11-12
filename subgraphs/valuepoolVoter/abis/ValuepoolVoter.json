@@ -30,7 +30,7 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "vava",
+        "name": "va",
         "type": "address"
       },
       {
