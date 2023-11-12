@@ -277,17 +277,12 @@ export function handleNotifyPayment(event: NotifyPayment): void {
   if (valuepool !== null) {
       let sponsor = Sponsor.load(event.params.vava.toHexString() + '-' + event.params.card.toHexString());
     if (sponsor !== null) {
-      sponsor.timestamp = event.block.timestamp;
       sponsor.updatedAt = event.block.timestamp;
       sponsor.card = event.params.card.toHexString();
       sponsor.percentile = event.params.percentile;
-      sponsor.amount = toBigDecimal(event.params.amount,0);
+      sponsor.amount = sponsor.amount.plus(toBigDecimal(event.params.amount, 0));
       sponsor.save()
     }
-    sponsor.updatedAt = event.block.timestamp;
-    sponsor.percentile = event.params.percentile;
-    sponsor.amount = sponsor.amount.plus(toBigDecimal(event.params.amount,0));
-    sponsor.save()
     
     // Transaction
     let transaction = new Transaction(event.transaction.hash.toHex());

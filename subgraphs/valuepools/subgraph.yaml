@@ -1,4 +1,4 @@
-specVersion: 0.0.4
+specVersion: 0.0.2
 description: PaySwap VavaHelper
 repository: https://github.com/pancakeswap
 schema:
@@ -8,12 +8,12 @@ dataSources:
     name: VavaHelper
     network: fantom-testnet
     source:
-      address: '0x3eED2790A223739edB7AabeA2b18B30Ee476E4f5'
+      address: '0x787035b034BB23ad71d50742845672d01CE26b7e'
       abi: VavaHelper
       startBlock: 14662559
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.04
       language: wasm/assemblyscript
       file: ./mappings/index.ts
       entities:
