@@ -701,7 +701,7 @@ export function handleAskInfo(event: AskInfo): void {
       token.images = event.params.images;
       token.countries = event.params.countries;
       token.cities = event.params.cities;
-      token.products = event.params.products;
+      token.products += ', ' + event.params.products;
       token.save();
       log.warning("handleAskInfo===============> - #{}", ['3']);
     }
@@ -718,7 +718,7 @@ export function handleAskInfo(event: AskInfo): void {
       token.images = event.params.images;
       token.countries = event.params.countries;
       token.cities = event.params.cities;
-      token.products = event.params.products;
+      token.products += ', ' + event.params.products;
       token.save();
       log.warning("handleAskInfo===============> - #{}", ['4']);
     }
@@ -734,14 +734,14 @@ export function handleAskInfo(event: AskInfo): void {
       token.images = event.params.images;
       token.countries = event.params.countries;
       token.cities = event.params.cities;
-      token.products = event.params.products;
+      token.products += ', ' + event.params.products;
       token.save();
      log.warning("handleAskInfo===============> - #{}", ['6']);
     }
   }
   let collection = Collection.load(event.params.collectionId.toString());
   if (collection !== null) {
-    collection.products += ' ' + event.params.products;
+    collection.products += ', ' + event.params.products;
     collection.save()
   }
 }
@@ -759,7 +759,7 @@ export function handleUpdateCollection(event: UpdateCollection): void {
     collection.workspaces = event.params.workspaces;
     collection.countries = event.params.countries;
     collection.cities = event.params.cities;
-    collection.products = event.params.products;
+    collection.products += ', ' + event.params.products;
     collection.save();
   }
 }
