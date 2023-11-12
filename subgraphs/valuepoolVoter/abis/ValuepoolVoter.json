@@ -19,6 +19,12 @@
         "internalType": "int256",
         "name": "weight",
         "type": "int256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
       }
     ],
     "name": "Abstained",
@@ -146,6 +152,12 @@
       {
         "indexed": false,
         "internalType": "string",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
         "name": "countries",
         "type": "string"
       },
@@ -209,6 +221,12 @@
         "internalType": "bool",
         "name": "like",
         "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
       }
     ],
     "name": "Voted",
@@ -708,6 +726,11 @@
       },
       {
         "internalType": "string",
+        "name": "_title",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
         "name": "_countries",
         "type": "string"
       },
@@ -782,6 +805,11 @@
         "internalType": "bool",
         "name": "_like",
         "type": "bool"
+      },
+      {
+        "internalType": "string",
+        "name": "_title",
+        "type": "string"
       }
     ],
     "name": "vote",

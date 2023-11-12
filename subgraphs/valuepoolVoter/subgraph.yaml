@@ -8,7 +8,7 @@ dataSources:
     name: ValuepoolVoter
     network: fantom-testnet
     source:
-      address: '0x751bAa3A300Ab4e30FfB1f80D58d2B1916f88afE'
+      address: '0x2B2Bb6Adda65bB3a748B798320d54317780d27e8'
       abi: ValuepoolVoter
       startBlock: 14662559
     mapping:
