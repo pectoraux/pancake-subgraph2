@@ -30,3 +30,5 @@ dataSources:
           handler: handleAbstained
         - event: UpdateTags(address,address,string,string,string)
           handler: handleUpdateTags
+        - event: AddVa(address,uint256,uint256,uint256,uint256,uint256,uint256,uint8)
+          handler: handleAddVa
