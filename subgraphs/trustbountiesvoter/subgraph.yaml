@@ -8,7 +8,7 @@ dataSources:
     name: TrustBountyVoter
     network: fantom-testnet
     source:
-      address: "0xf94e32A706470af60a752C2167444D5218B1cF77"
+      address: "0xFc18E7Ce66D1AB4c15A415aeaE48bDDF4a4dF1A9"
       abi: TrustBountyVoter
       startBlock: 14662559
     mapping:

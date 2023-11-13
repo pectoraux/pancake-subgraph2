@@ -87,10 +87,10 @@ export function handleVoted(event: Voted): void {
       vote.voter = event.params.voter.toHexString();
       vote.save();
     }
-    if (event.params.weight.neg()) {
-      litigation.downVotes = litigation.downVotes.plus(event.params.weight.abs())
-    } else {
+    if (event.params.weight.gt(ZERO_BI)) {
       litigation.upVotes = litigation.upVotes.plus(event.params.weight.abs())
+    } else {
+      litigation.downVotes = litigation.downVotes.plus(event.params.weight.abs())
     }
     litigation.save();
   }
