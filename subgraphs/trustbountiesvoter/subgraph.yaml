@@ -8,7 +8,7 @@ dataSources:
     name: TrustBountyVoter
     network: fantom-testnet
     source:
-      address: "0xFc18E7Ce66D1AB4c15A415aeaE48bDDF4a4dF1A9"
+      address: "0xF8E7F4719A66561F613AC1145ae3Be0E0a792005"
       abi: TrustBountyVoter
       startBlock: 14662559
     mapping:
@@ -30,5 +30,7 @@ dataSources:
           handler: handleUpdateDefenderContent
         - event: Voted(indexed uint256,address,address,uint256,int256)
           handler: handleVoted
+        - event: Abstained(address,uint256,uint256,int256)
+          handler: handleAbstained
         - event: GaugeClosed(indexed uint256,bool)
           handler: handleGaugeClosed

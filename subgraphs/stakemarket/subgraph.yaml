@@ -8,7 +8,7 @@ dataSources:
     name: StakeMarket
     network: fantom-testnet
     source:
-      address: '0xe11515741E0048914Fccb80a2C700d41b757F60A'
+      address: '0x1fdE76C7384E85Cad09265B6a698Fa9E533f8968'
       abi: StakeMarket
       startBlock: 14662559
     mapping:

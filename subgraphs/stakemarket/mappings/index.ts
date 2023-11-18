@@ -14,7 +14,7 @@ import { toBigDecimal } from "./utils";
 import { fetchTokenURI } from "./utils/erc721";
 
 let ONE_BI = BigInt.fromI32(1);
-let STAKEMARKET_HELPER = "0x4afde7b1e5eb048fdd7da0253f1461fb59fb2d1c";
+let STAKEMARKET_HELPER = "0xe26bb05a637ed2e1ddea4718d577c609ead2bc4f";
 
 export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {  
   log.warning("handleUpdateMiscellaneous===============> - #{}", [event.params.paramValue2.toString() + "-" + event.params.paramValue]);

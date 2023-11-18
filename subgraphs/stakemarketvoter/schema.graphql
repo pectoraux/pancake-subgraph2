@@ -4,6 +4,7 @@ enum OrderType {
   Cancel
 }
 enum Choice {
+  Abstained
   Attacker
   Defender
 }
@@ -22,6 +23,9 @@ type Vote @entity {
 
   "Creation Time"
   created: BigInt
+
+  updated: BigInt
+
 }
 
 type Litigation @entity {
