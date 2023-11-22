@@ -8,7 +8,7 @@ dataSources:
     name: arps
     network: fantom-testnet
     source:
-      address: '0x854059066aD7BDF6d18E069bdC6b2DE477Ba8949'
+      address: '0x79F85d94A346002D55e14bbb115a607A455e6F8f'
       abi: arpHelper
       startBlock: 14662559
     mapping:
@@ -28,8 +28,6 @@ dataSources:
           handler: handleUpdateProtocol
         - event: Voted(indexed address,uint256,uint256,uint256,bool)
           handler: handleVoted
-        - event: AutoCharge(indexed uint256,address,address,uint256)
-          handler: handleAutoCharge
         - event: DeleteProtocol(indexed uint256,address)
           handler: handleDeleteProtocol
         - event: CreateARP(address,address,uint256)
@@ -38,10 +36,6 @@ dataSources:
           handler: handleDeleteARP
         - event: UpdateMiscellaneous(uint256,uint256,string,string,uint256,uint256,address,address,string)
           handler: handleUpdateMiscellaneous
-        - event: PayInvoicePayable(address,uint256,uint256)
-          handler: handlePayInvoicePayable
-        - event: Withdraw(indexed address,address,uint256)
-          handler: handleWithdraw
         - event: UpdateAutoCharge(indexed uint256,address,bool)
           handler: handleUpdateAutoCharge
         - event: TransferDueToNote(address,uint256,uint256,uint256,bool)

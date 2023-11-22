@@ -8,7 +8,7 @@ dataSources:
     name: TrustBounties
     network: fantom-testnet
     source:
-      address: '0x6c9676258026dc4Ce9B55bB8Ad0282e831262897'
+      address: '0xD4c16ADB9E07ADF9Aef50376888BFbD8690e06A5'
       abi: TrustBounties
       startBlock: 14662559
     mapping:
