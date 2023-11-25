@@ -8,7 +8,7 @@ dataSources:
     name: ValuepoolVoter
     network: fantom-testnet
     source:
-      address: '0x2B2Bb6Adda65bB3a748B798320d54317780d27e8'
+      address: '0xe3152A3E3fFA3F0578c3984aeFE454D3f7D6e04b'
       abi: ValuepoolVoter
       startBlock: 14662559
     mapping:
@@ -22,11 +22,11 @@ dataSources:
         - name: ValuepoolVoter
           file: ./abis/ValuepoolVoter.json
       eventHandlers:
-        - event: GaugeCreated(address,address,address,uint256,uint256,string,string)
+        - event: GaugeCreated(uint256,address,address,address,uint256,uint256,string,string)
           handler: handleGaugeCreated
-        - event: Voted(indexed address,indexed address,uint256,uint256,uint256,uint256,bool,string)
+        - event: Voted(indexed uint256,uint256,uint256,uint256,uint256,bool,string)
           handler: handleVoted
-        - event: Abstained(indexed address,uint256,int256,string)
+        - event: Abstained(indexed uint256,uint256,int256,string)
           handler: handleAbstained
         - event: UpdateTags(address,address,string,string,string,string)
           handler: handleUpdateTags

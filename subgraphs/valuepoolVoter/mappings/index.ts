@@ -5,7 +5,8 @@ import {
   GaugeCreated,
   UpdateTags,
   Voted,
-  AddVa
+  AddVa,
+  Abstained
 } from "../generated/ValuepoolVoter/ValuepoolVoter";
 
 let ZERO_BI = BigInt.fromI32(0);
@@ -34,16 +35,16 @@ export function handleAddVa(event: AddVa): void {
 }
 
 export function handleGaugeCreated(event: GaugeCreated): void {
-  let proposal = Proposal.load(event.params.ve.toHexString() + "-" + event.params.pool.toHexString() + "-" + event.params.title);
+  let proposal = Proposal.load(event.params.proposalId.toString());
   if (proposal === null) {
-    proposal = new Proposal(event.params.ve.toHexString() + "-" + event.params.pool.toHexString() + "-" + event.params.title);
+    proposal = new Proposal(event.params.proposalId.toString());
     proposal.valuepool = event.params.ve.toHexString();
     proposal.amount = event.params.amount;
     proposal.endTime = event.params.endTime;
     proposal.title = event.params.title;
     proposal.description = event.params.content;
     proposal.owner = event.params.user.toHexString();
-    proposal.valuepool = event.params.ve.toHexString();
+    proposal.pool = event.params.pool.toHexString();
     proposal.created = event.block.timestamp;
     proposal.updated = event.block.timestamp;
     proposal.upVotes = ZERO_BI;
@@ -64,26 +65,41 @@ export function handleUpdateTags(event: UpdateTags): void {
 }
 
 export function handleVoted(event: Voted): void {
-  let proposal = Proposal.load(event.params.ve.toHexString() + "-" + event.params.pool.toHexString() + "-" + event.params.title);
+  let proposal = Proposal.load(event.params.proposalId.toString());
   if (proposal !== null) {
-    let vote = Vote.load(event.params.ve.toHexString() + "-" + event.params.pool.toHexString() + '-' + event.params.profileId.toString());
+    let vote = Vote.load(event.params.proposalId.toString() + "-" + event.params.tokenId.toString());
     if (vote === null) {
-      vote = new Vote(event.params.ve.toHexString() + "-" + event.params.pool.toHexString() + '-' + event.params.profileId.toString());
+      vote = new Vote(event.params.proposalId.toString() + "-" + event.params.tokenId.toString());
       vote.created = event.block.timestamp;
+      vote.tokenId = event.params.tokenId;
     }
     vote.profileId = event.params.profileId;
-    vote.tokenId = event.params.tokenId;
     vote.identityTokenId = event.params._identityTokenId;
-    vote.ve = event.params.ve.toHexString();
     vote.like = event.params.like;
     vote.proposal = proposal.id;
     vote.updated = event.block.timestamp;
     vote.votingPower = event.params.weight;
     vote.save();
     if (event.params.like) {
-      proposal.upVotes = proposal.upVotes.plus(event.params.weight)
+      proposal.upVotes = proposal.upVotes.plus(event.params.weight.abs())
     } else {
-      proposal.downVotes = proposal.downVotes.plus(event.params.weight)
+      proposal.downVotes = proposal.downVotes.plus(event.params.weight.abs())
+    }
+    proposal.save();
+  }
+}
+
+export function handleAbstained(event: Abstained): void {
+  let proposal = Proposal.load(event.params.proposalId.toString());
+  let vote = Vote.load(event.params.proposalId.toString() + "-" + event.params.tokenId.toString());
+  if (proposal !== null && vote !== null) {
+    vote.votingPower = ZERO_BI;
+    vote.updated = event.block.timestamp;
+    vote.save();
+    if (vote.like) {
+      proposal.upVotes = proposal.upVotes.minus(event.params.weight.abs());
+    } else {
+      proposal.downVotes = proposal.downVotes.minus(event.params.weight.abs());
     }
     proposal.save();
   }

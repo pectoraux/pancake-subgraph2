@@ -1,9 +1,9 @@
 {
   "name": "valuepools",
-  "description": "PancakeSwap Subgraph",
+  "description": "PaySwap Subgraph",
   "version": "1.0.0",
   "repository": "git@github.com:pancakeswap/pancake-subgraph.git",
-  "author": "PancakeSwap",
+  "author": "PaySwap",
   "license": "GPL-3.0-or-later",
   "scripts": {
     "codegen": "graph codegen subgraph.yaml",

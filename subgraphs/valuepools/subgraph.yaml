@@ -8,12 +8,12 @@ dataSources:
     name: VavaHelper
     network: fantom-testnet
     source:
-      address: '0x787035b034BB23ad71d50742845672d01CE26b7e'
+      address: '0x5925eE9f895Ce02686ae0cB674421de1D035AD09'
       abi: VavaHelper
       startBlock: 14662559
     mapping:
       kind: ethereum/events
-      apiVersion: 0.04
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       file: ./mappings/index.ts
       entities:

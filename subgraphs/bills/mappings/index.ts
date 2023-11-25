@@ -15,8 +15,8 @@ import { fetchTokenURI, fetchNoteURI } from "./utils/erc721";
 
 let ZERO_BI = BigInt.fromI32(0);
 let ONE_BI = BigInt.fromI32(1);
-let BILL_MINTER = "0x39d546ce9737f5b377b703c4fe5dc621d162540b";
-let BILL_NOTE = "0x995a88e7120fc55a23e82adbdc50a14efa67a2dc";
+let BILL_MINTER = "0x90256b159fc802c497b6c2bf7799de75ead936f2";
+let BILL_NOTE = "0x729124dbec963b743dffc8aaa29236d95f1c7a55";
 
 export function handleUpdateProtocol(event: UpdateProtocol): void {
   let protocol = Protocol.load(event.params.protocolId.toString() + '_' + event.params.bill.toHex());
