@@ -15,8 +15,8 @@ import { fetchTokenURI, fetchNoteURI } from "./utils/erc721";
 
 let ZERO_BI = BigInt.fromI32(0);
 let ONE_BI = BigInt.fromI32(0); 
-let ARP_HELPER = "0x79f85d94a346002d55e14bbb115a607a455e6f8f";
-let ARP_NOTE = "0x79eb1063000aa15ef5b73f182793835749188acb";
+let ARP_HELPER = "0x18988deb80151cd52ab68f203c074b1bcaad32e9";
+let ARP_NOTE = "0xefd289a07972fa58ff0f9b4d37a0a9efd2566550";
 
 export function handleUpdateProtocol(event: UpdateProtocol): void {
   let protocol = Protocol.load(event.params.protocolId.toString() + '_' + event.params.arp.toHex());
@@ -86,6 +86,7 @@ export function handleDeleteARP(event: DeleteARP): void {
   let arp = ARP.load(event.params.arp.toHex());
   if (arp !== null) {
     arp.active = false;
+    arp.updatedAt = event.block.timestamp;
     arp.save();
   }
 }
@@ -103,6 +104,7 @@ export function handleVoted(event: Voted): void {
       vote.updatedAt = event.block.timestamp;
       vote.liked = event.params.like;
       vote.save();
+      arp.updatedAt = event.block.timestamp;
       arp.likes = event.params.likes;
       arp.dislikes = event.params.dislikes;
       arp.save();
@@ -117,6 +119,7 @@ export function handleCreateARP(event: CreateARP): void {
     arp.owner = event.params._user.toHexString();
     arp.likes = ZERO_BI;
     arp.dislikes = ZERO_BI;
+    arp.updatedAt = event.block.timestamp;
     arp.save();
   }
 }
@@ -128,6 +131,7 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
       arp.contactChannels = event.params.paramName;
       arp.contacts = event.params.paramValue;
       arp.applicationLink = event.params.paramValue5;
+      arp.updatedAt = event.block.timestamp;
       arp.save();
     }
   } else if (event.params.idx.equals(ONE_BI)) {
@@ -137,6 +141,7 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
         arp.countries = event.params.paramName;
         arp.cities = event.params.paramValue;
         arp.products = event.params.paramValue5;
+        arp.updatedAt = event.block.timestamp;
         arp.save();
         let tag = Tag.load('tags');
         if (tag === null) {

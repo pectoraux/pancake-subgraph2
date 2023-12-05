@@ -52,10 +52,10 @@
         "type": "uint256"
       },
       {
-        "indexed": true,
-        "internalType": "uint256",
+        "indexed": false,
+        "internalType": "string",
         "name": "tokenId",
-        "type": "uint256"
+        "type": "string"
       }
     ],
     "name": "AskCancel",
@@ -710,6 +710,12 @@
         "internalType": "uint256",
         "name": "collectionId",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "tokenId",
+        "type": "string"
       }
     ],
     "name": "CreatePaywallARP",
@@ -843,10 +849,10 @@
         "type": "uint256"
       },
       {
-        "indexed": true,
-        "internalType": "uint256",
+        "indexed": false,
+        "internalType": "string",
         "name": "tokenId",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "indexed": false,
@@ -2031,9 +2037,9 @@
         "type": "uint256"
       },
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "tokenId",
-        "type": "uint256"
+        "type": "string"
       }
     ],
     "name": "emitAskCancel",
@@ -2610,6 +2616,11 @@
         "internalType": "uint256",
         "name": "_collectionId",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_tokenId",
+        "type": "string"
       }
     ],
     "name": "emitCreatePaywallARP",

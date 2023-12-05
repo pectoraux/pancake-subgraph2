@@ -8,7 +8,7 @@ dataSources:
     name: MarketPlace
     network: fantom-testnet
     source:
-      address: "0xAD38AFac104D620C079a9FFf7bc0E9B59eB00e6d"
+      address: "0xAbB4C6d06F0Da85dE589555AdDeea76c28Bfb2B8"
       abi: MarketPlaceEvents
       startBlock: 15707023
     mapping:
@@ -27,6 +27,8 @@ dataSources:
           file: ./abis/MarketPlaceEvents.json
         - name: NFTicketHelper2
           file: ./abis/NFTicketHelper2.json
+        - name: Minter
+          file: ./abis/Minter.json
       eventHandlers:
         - event: CollectionNew(indexed uint256,address,address,uint256,uint256,uint256,uint256,uint256,uint256,bool,bool)
           handler: handleCollectionNew
@@ -34,7 +36,7 @@ dataSources:
           handler: handleCollectionUpdate
         - event: CollectionClose(indexed uint256)
           handler: handleCollectionClose
-        - event: AskCancel(indexed uint256,indexed uint256)
+        - event: AskCancel(indexed uint256,string)
           handler: handleAskCancel
         - event: AskNew(indexed uint256,string,uint256,uint256,int256,bool,uint256,uint256,uint256,address,address)
           handler: handleAskNew
@@ -50,7 +52,7 @@ dataSources:
           handler: handleCloseReferral
         - event: AddReferral(indexed uint256,uint256,string,uint256,uint256,address)
           handler: handleAddReferral
-        - event: PaywallAskCancel(indexed uint256,indexed uint256,address)
+        - event: PaywallAskCancel(indexed uint256,string,address)
           handler: handlePaywallAskCancel
         - event: PaywallAskUpdate(string,address,address,indexed uint256,uint256,uint256,int256,bool,uint256,uint256,uint256)
           handler: handlePaywallAskUpdate
@@ -92,7 +94,7 @@ dataSources:
           handler: handleUpdateTaskEvent
         - event: UpdatePaywall(uint256,string,string,bool,bool,string)
           handler: handleUpdatePaywall
-        - event: CreatePaywallARP(address,uint256)
+        - event: CreatePaywallARP(address,uint256,string)
           handler: handleCreatePaywallARP
         - event: DeletePaywallARP(uint256)
           handler: handleDeletePaywallARP

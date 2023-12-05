@@ -8,7 +8,7 @@ dataSources:
     name: arps
     network: fantom-testnet
     source:
-      address: '0x79F85d94A346002D55e14bbb115a607A455e6F8f'
+      address: '0x18988deb80151Cd52aB68f203c074B1BCAaD32e9'
       abi: arpHelper
       startBlock: 14662559
     mapping:

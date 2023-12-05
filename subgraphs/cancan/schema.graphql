@@ -364,7 +364,31 @@ type ExtraNote @entity {
   message: String
 
   user: User
-  
+
+  collection: Collection!
+
+  item: String
+
+  paywall: String
+
+}
+
+type Collectible @entity {
+  id: ID!
+
+  createdAt: BigInt!
+
+  nfticketId: BigInt
+
+  tokenId: BigInt
+
+  collection: Collection!
+
+  metadataUrl: String
+
+  userAddress: String
+
+  minterAddress: String
 }
 
 type Paywall @entity {
