@@ -169,9 +169,9 @@
       },
       {
         "indexed": false,
-        "internalType": "int256",
+        "internalType": "uint256",
         "name": "_minBidIncrementPercentage",
-        "type": "int256"
+        "type": "uint256"
       },
       {
         "indexed": false,
@@ -248,9 +248,9 @@
       },
       {
         "indexed": false,
-        "internalType": "int256",
+        "internalType": "uint256",
         "name": "_minBidIncrementPercentage",
-        "type": "int256"
+        "type": "uint256"
       },
       {
         "indexed": false,
@@ -893,9 +893,9 @@
       },
       {
         "indexed": false,
-        "internalType": "int256",
+        "internalType": "uint256",
         "name": "_minBidIncrementPercentage",
-        "type": "int256"
+        "type": "uint256"
       },
       {
         "indexed": false,
@@ -984,9 +984,9 @@
       },
       {
         "indexed": false,
-        "internalType": "int256",
+        "internalType": "uint256",
         "name": "_minBidIncrementPercentage",
-        "type": "int256"
+        "type": "uint256"
       },
       {
         "indexed": false,
@@ -2138,9 +2138,9 @@
         "type": "uint256"
       },
       {
-        "internalType": "int256",
+        "internalType": "uint256",
         "name": "_minBidIncrementPercentage",
-        "type": "int256"
+        "type": "uint256"
       },
       {
         "internalType": "bool",
@@ -2206,9 +2206,9 @@
         "type": "uint256"
       },
       {
-        "internalType": "int256",
+        "internalType": "uint256",
         "name": "_minBidIncrementPercentage",
-        "type": "int256"
+        "type": "uint256"
       },
       {
         "internalType": "bool",

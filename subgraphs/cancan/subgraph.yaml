@@ -38,9 +38,9 @@ dataSources:
           handler: handleCollectionClose
         - event: AskCancel(indexed uint256,string)
           handler: handleAskCancel
-        - event: AskNew(indexed uint256,string,uint256,uint256,int256,bool,uint256,uint256,uint256,address,address)
+        - event: AskNew(indexed uint256,string,uint256,uint256,uint256,bool,uint256,uint256,uint256,address,address)
           handler: handleAskNew
-        - event: AskUpdate(string,address,indexed uint256,uint256,uint256,int256,bool,uint256,uint256,uint256)
+        - event: AskUpdate(string,address,indexed uint256,uint256,uint256,uint256,bool,uint256,uint256,uint256)
           handler: handleAskUpdate
         - event: AskUpdateCashback(uint256,string,uint8,uint256,bool,bool,uint256[6],uint256[6])
           handler: handleAskUpdateCashback
@@ -54,7 +54,7 @@ dataSources:
           handler: handleAddReferral
         - event: PaywallAskCancel(indexed uint256,string,address)
           handler: handlePaywallAskCancel
-        - event: PaywallAskUpdate(string,address,address,indexed uint256,uint256,uint256,int256,bool,uint256,uint256,uint256)
+        - event: PaywallAskUpdate(string,address,address,indexed uint256,uint256,uint256,uint256,bool,uint256,uint256,uint256)
           handler: handlePaywallAskUpdate
         - event: PaywallAskUpdateCashback(uint256,string,uint8,uint256,bool,bool,address,uint256[6],uint256[6])
           handler: handlePaywallAskUpdateCashback
@@ -76,7 +76,7 @@ dataSources:
           handler: handleUpdateCollection
         - event: AskInfo(indexed uint256,string,string,uint256[],uint256,uint256,uint256,bool,string,string,string,string)
           handler: handleAskInfo
-        - event: PaywallAskNew(indexed uint256,string,uint256,uint256,int256,bool,uint256,uint256,uint256,address,address,address)
+        - event: PaywallAskNew(indexed uint256,string,uint256,uint256,uint256,bool,uint256,uint256,uint256,address,address,address)
           handler: handlePaywallAskNew
         - event: CreateReview(indexed uint256,string,uint256,uint256,uint256,bool,uint256,string,address)
           handler: handleReview
