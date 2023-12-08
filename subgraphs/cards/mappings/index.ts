@@ -25,7 +25,7 @@ export function handleAddBalance(event: AddBalance): void {
         tokenBalance.balance = ZERO_BI;
         tokenBalance.card = event.params._username;
         tokenBalance.tokenAddress = event.params.token.toHexString();
-        }
+    }
     tokenBalance.updatedAt = event.block.timestamp;
     tokenBalance.balance = tokenBalance.balance.plus(event.params.amount);
     tokenBalance.save();

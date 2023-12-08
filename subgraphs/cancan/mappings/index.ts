@@ -77,15 +77,15 @@ import { fetchTokenURI, fetchTokenURI2 } from "./utils/erc721";
 
 // Constants
 let ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
-let ITEM_ORDERS = "0x3e5c89f79d676aa6ffdeba8267a0dddbe0f6d7b7";
-let ITEM_HELPER = "0x7b8a8cedacbbefd53c926c8abd44d66982a23553";
-let ITEM_HELPER2 = "0x4c6ddd9f5466638e606a1f11d91dd992d990b512";
-let NFT_ORDERS = "0x32061a982cf81188d024e4274b6d3c80c9a7ab74";
-let NFT_HELPER = "0x5d74a59ab6ab318ef11970760a48aa639ca384a7";
-let NFT_HELPER2 = "0x73ae335ee3aa6e3665ff76ac44c4fb00766f5503";
-let PAYWALL_ORDERS = "0xcff670d1e9b5f1ca8af2d08c3f92f6ecc212c9a7";
-let PAYWALL_HELPER2 = "0x40fa20615acd90bc643c5ac28606c9b8dbf276b7";
-let NFTICKET_HELPER2 = "0x797bb94055e83d9c9b1303bf8b88d42ca0de4922";
+let ITEM_ORDERS = "0x3dfb090975c08535462b7bb49cd2c5c3e7eeb49e";
+let ITEM_HELPER = "0x99dbf90228302e17b0ccfaa541dce676775a8eba";
+let ITEM_HELPER2 = "0xeda992166cd47e84af047d6d355acd841307c91f";
+let NFT_ORDERS = "0x8f0de71645c5fc6de40a0b5066d0e53becc3bcf5";
+let NFT_HELPER = "0x9bba15a01a3bc11a6ad200b3de333fb26930737f";
+let NFT_HELPER2 = "0xd5c57208cd6b89c540010727d7ac1647255ed0e3";
+let PAYWALL_ORDERS = "0x8127516ff3c8fe6fdb9ce22145c6bfdb83ab54c6";
+let PAYWALL_HELPER2 = "0x6444feded64cb196253e31527647fb5075b3f722";
+let NFTICKET_HELPER2 = "0xee4a5abf0fc0978b2dcf7c2bc8d57fdc43dadb55";
 let ADMIN_ADDRESS = "0x0bdabc785a5e1c71078d6242fb52e70181c1f316";
 
 // BigNumber-like references
@@ -101,6 +101,7 @@ let EIGHT_BI = BigInt.fromI32(8);
 let NINE_BI = BigInt.fromI32(9);
 let TEN_BI = BigInt.fromI32(10);
 let ELEVEN_BI = BigInt.fromI32(11);
+let FOURTEEN_BI = BigInt.fromI32(14);
 let ZERO_BD = BigDecimal.fromString("0");
 let ONE_BD = BigDecimal.fromString("1");
 
@@ -1979,5 +1980,29 @@ export function handleUpdateMiscellaneous(event: UpdateMiscellaneous): void {
                 eCollectible.save() // save only if tokenURI returns a non null value
             }
         }
+    }
+    if (event.params.idx.equals(FOURTEEN_BI)) {
+    if (event.params.sender.equals(Address.fromString(ITEM_ORDERS))) {
+        let token = Item.load(event.params.collectionId.toString() + "-" + event.params.paramName.toString());
+        if (token !== null) {
+            token.currentAskPrice = toBigDecimal(event.params.paramValue2, 18);
+            token.lastBidder = event.params.paramValue4.toHexString();
+            token.save();
+        }
+    } else if (event.params.sender.equals(Address.fromString(NFT_ORDERS))) {
+        let token = NFT.load(event.params.collectionId.toString() + "-" + event.params.paramName.toString());
+        if (token !== null) {
+            token.currentAskPrice = toBigDecimal(event.params.paramValue2, 18);
+            token.lastBidder = event.params.paramValue4.toHexString();
+            token.save();
+        }
+    } else if (event.params.sender.equals(Address.fromString(PAYWALL_ORDERS))) {
+        let token = Paywall.load(event.params.collectionId.toString() + "-" + event.params.paramName.toString());
+        if (token !== null) {
+            token.currentAskPrice = toBigDecimal(event.params.paramValue2, 18);
+            token.lastBidder = event.params.paramValue4.toHexString();
+            token.save();
+        }
+    }
     }
 }
